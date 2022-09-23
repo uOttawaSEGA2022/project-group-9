@@ -1,2 +1,0 @@
-These are 2 lines of text that I am testing with. This folder is made by Yash Jain.
-This is now the second line. I hope I can save this as a .txt file. Let’s see if it works now!
