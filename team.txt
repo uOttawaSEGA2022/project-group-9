@@ -3,3 +3,5 @@ Line 2 trying to create conflict
 33rd line of conflict creation
 Trying to create conflict using this 4rth line
 Hello, this is the fifth line of conflicting files
+This is the first line of text I am experimenting with. My name is Yash Jain.
+I am going to make this filled called team and it's extension is .txt. Let's now create a conflict.
