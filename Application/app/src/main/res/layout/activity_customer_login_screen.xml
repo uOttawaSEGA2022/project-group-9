@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome To Our Restaurant"
+        android:text="@string/welcome_to_our_restaurant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -21,7 +21,7 @@
         android:id="@+id/custLoginScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LOGIN SCREEN"
+        android:text="@string/login_screen_customer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.168"
@@ -30,12 +30,13 @@
         app:layout_constraintVertical_bias="0.168" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/customerEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="@string/username_customer"
+        android:autofillHints="@string/username_customer"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.263"
@@ -44,10 +45,12 @@
         app:layout_constraintVertical_bias="0.228" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/customerPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/password_customer"
+        android:autofillHints="@string/password_customer"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +63,7 @@
         android:id="@+id/logCustOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LOG OUT"
+        android:text="@string/log_out_customer"
         tools:layout_editor_absoluteX="159dp"
         tools:layout_editor_absoluteY="491dp"
         app:layout_constraintBottom_toBottomOf="parent"

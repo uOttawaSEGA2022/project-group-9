@@ -1,19 +1,26 @@
 package com.example.application;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-public class customerLoginScreen extends AppCompatActivity {
+public class customerLoginScreen extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_login_screen);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         Button custLogOff = (Button) findViewById(R.id.logCustOut);
 
@@ -29,5 +36,13 @@ public class customerLoginScreen extends AppCompatActivity {
     public void custLogOut() {
         Intent custLogger = new Intent(this, MainActivity.class);
         startActivity(custLogger);
+    }
+
+    public String[] getCustomerCredentials() {
+        EditText editTextCustomerEmail = findViewById(R.id.customerEmail);
+        EditText editTextCustomerPassword = findViewById(R.id.customerPassword);
+        String customerEmail = editTextCustomerEmail.getText().toString();
+        String customerPassword = editTextCustomerPassword.getText().toString();
+        return new String[]{customerEmail, customerPassword};
     }
 }

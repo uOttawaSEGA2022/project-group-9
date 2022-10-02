@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome Back Chef!"
+        android:text="@string/welcome_back_chef"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -21,7 +21,7 @@
         android:id="@+id/chefLoginScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LOGIN SCREEN"
+        android:text="@string/login_screen_chef"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.139"
@@ -40,18 +40,19 @@
         app:layout_constraintVertical_bias="0.105" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/chefEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="@string/username_chef"
+        android:autofillHints="@string/username_chef"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.218"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.192" />
+        app:layout_constraintVertical_bias="0.192"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="409dp"
@@ -63,11 +64,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.362" />
 
+
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/chefPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/password_chef"
+        android:autofillHints="@string/password_chef"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,12 +84,13 @@
         android:id="@+id/logChefOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LOG OUT"
+        android:text="@string/log_out_chef"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.754" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

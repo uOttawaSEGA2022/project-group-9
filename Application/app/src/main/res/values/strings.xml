@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Application</string>
+    <string name="hey_are_you_a_customer_or_a_chef">Hey are you a customer or a chef?!</string>
+    <string name="welcome_to_our_restaurant">Welcome To Our Restaurant</string>
+
+
+    <string name="customer">CUSTOMER</string>
+    <string name="login_screen_customer">LOGIN SCREEN</string>
+    <string name="log_out_customer">LOG OUT</string>
+    <string name="username_customer">Username</string>
+    <string name="password_customer">Password</string>
+
+
+    <string name="welcome_back_chef">Welcome Back Chef!</string>
+    <string name="chef">CHEF</string>
+    <string name="login_screen_chef">LOGIN SCREEN</string>
+    <string name="log_out_chef">LOG OUT</string>
+    <string name="username_chef">Username</string>
+    <string name="password_chef">Password</string>
 </resources>
