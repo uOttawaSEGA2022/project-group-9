@@ -1,5 +1,6 @@
 package com.example.application;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,6 +15,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setTitle("Mealer");
+            actionBar.setSubtitle("Log in");
+            actionBar.setLogo(R.drawable.logo);
+            actionBar.setDisplayUseLogoEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+
+        }
+
+
 
         Button customer = (Button) findViewById(R.id.customerButton);
         Button chef = (Button) findViewById(R.id.chefButton);
@@ -34,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     public void customerLogin() {
         Intent custIntent = new Intent(this, customerLoginScreen.class);
