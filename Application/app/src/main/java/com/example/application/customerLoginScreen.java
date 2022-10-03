@@ -1,13 +1,13 @@
 package com.example.application;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class customerLoginScreen extends MainActivity {
@@ -22,27 +22,27 @@ public class customerLoginScreen extends MainActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        Button custLogOff = (Button) findViewById(R.id.logCustOut);
+        Button customerSignInButton = (Button) findViewById(R.id.customerSignIn);
 
-        custLogOff.setOnClickListener(new View.OnClickListener() {
+        customerSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "We hope to see you again!", Toast.LENGTH_SHORT).show();
-                custLogOut();
+                TextView customerEmailPasswordErrorMessages = findViewById(R.id.customerEmailPasswordErrorMessages);
+                EditText editTextCustomerEmail = findViewById(R.id.customerEmail);
+                EditText editTextCustomerPassword = findViewById(R.id.customerPassword);
+                authenticator authenticatorObject = new authenticator(customerEmailPasswordErrorMessages, editTextCustomerEmail, editTextCustomerPassword);
+                String[] credentials = authenticatorObject.getCredentials();
+                boolean signInStatus = authenticatorObject.signIn(credentials);
+                if (signInStatus){
+                    Toast.makeText(getApplicationContext(), "Sign In Successful", Toast.LENGTH_SHORT).show();
+                    goToMainActivity();
+                }
             }
         });
     }
 
-    public void custLogOut() {
-        Intent custLogger = new Intent(this, MainActivity.class);
-        startActivity(custLogger);
-    }
-
-    public String[] getCustomerCredentials() {
-        EditText editTextCustomerEmail = findViewById(R.id.customerEmail);
-        EditText editTextCustomerPassword = findViewById(R.id.customerPassword);
-        String customerEmail = editTextCustomerEmail.getText().toString();
-        String customerPassword = editTextCustomerPassword.getText().toString();
-        return new String[]{customerEmail, customerPassword};
+    public void goToMainActivity() {
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
     }
 }

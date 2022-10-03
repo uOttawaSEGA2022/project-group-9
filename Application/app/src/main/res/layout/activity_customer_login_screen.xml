@@ -60,10 +60,10 @@
         app:layout_constraintVertical_bias="0.314" />
 
     <Button
-        android:id="@+id/logCustOut"
+        android:id="@+id/customerSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_out_customer"
+        android:text="@string/customer_sign_in"
         tools:layout_editor_absoluteX="159dp"
         tools:layout_editor_absoluteY="491dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,5 +71,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <TextView
+        android:id="@+id/customerEmailPasswordErrorMessages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoText="false"
+        android:maxLines="2"
+        android:textColor="#FF0000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="@+id/customerPassword"
+        app:layout_constraintTop_toBottomOf="@+id/customerPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

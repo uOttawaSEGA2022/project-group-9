@@ -1,16 +1,14 @@
 package com.example.application;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.reflect.Array;
 
 public class chefLoginScreen extends MainActivity {
 
@@ -24,28 +22,28 @@ public class chefLoginScreen extends MainActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        Button chefLogOff = (Button) findViewById(R.id.logChefOut);
+        Button chefSignInButton = (Button) findViewById(R.id.chefSignIn);
 
-        chefLogOff.setOnClickListener(new View.OnClickListener() {
+        chefSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Goodbye Chef", Toast.LENGTH_SHORT).show();
-                chefLogOut();
+                TextView chefEmailPasswordErrorMessages = findViewById(R.id.chefEmailPasswordErrorMessages);
+                EditText editTextChefEmail = findViewById(R.id.chefEmail);
+                EditText editTextChefPassword = findViewById(R.id.chefPassword);
+                authenticator authenticatorObject = new authenticator(chefEmailPasswordErrorMessages, editTextChefEmail, editTextChefPassword);
+                String[] credentials = authenticatorObject.getCredentials();
+                boolean signInStatus = authenticatorObject.signIn(credentials);
+                if (signInStatus){
+                    Toast.makeText(getApplicationContext(), "Sign In Successful", Toast.LENGTH_SHORT).show();
+                    goToMainActivity();
+                }
             }
         });
     }
 
-    public void chefLogOut() {
-        Intent chefLogger = new Intent(this, MainActivity.class);
-        startActivity(chefLogger);
-    }
-
-    public String[] getChefCredentials() {
-        EditText editTextChefEmail = findViewById(R.id.chefEmail);
-        EditText editTextChefPassword = findViewById(R.id.chefPassword);
-        String chefEmail = editTextChefEmail.getText().toString();
-        String chefPassword = editTextChefPassword.getText().toString();
-        return new String[]{chefEmail, chefPassword};
+    public void goToMainActivity() {
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
     }
 
 }
