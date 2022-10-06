@@ -27,6 +27,9 @@ public class chefLoginScreen extends MainActivity {
         chefSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int testreceivedinteger = getMainActivityInteger();
+                String stringInteger = String.valueOf(testreceivedinteger);
+                Toast.makeText(getApplicationContext(), stringInteger, Toast.LENGTH_SHORT).show();
                 TextView chefEmailPasswordErrorMessages = findViewById(R.id.chefEmailPasswordErrorMessages);
                 EditText editTextChefEmail = findViewById(R.id.chefEmail);
                 EditText editTextChefPassword = findViewById(R.id.chefPassword);
@@ -42,8 +45,13 @@ public class chefLoginScreen extends MainActivity {
     }
 
     public void goToMainActivity() {
-        Intent mainActivity = new Intent(this, MainActivity.class);
-        startActivity(mainActivity);
+//        Intent mainActivity = new Intent(this, MainActivity.class);
+//        startActivity(mainActivity);
+    }
+
+    public int getMainActivityInteger(){
+        MainActivity testActivity = new MainActivity();
+        return testActivity.testfunction();
     }
 
 }

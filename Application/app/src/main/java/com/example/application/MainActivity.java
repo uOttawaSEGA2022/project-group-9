@@ -73,4 +73,9 @@ public class MainActivity extends AppCompatActivity {
         Intent chefIntent = new Intent(this, chefLoginScreen.class);
         startActivity(chefIntent);
     }
+
+
+    public int testfunction(){
+        return 5;
+    }
 }
