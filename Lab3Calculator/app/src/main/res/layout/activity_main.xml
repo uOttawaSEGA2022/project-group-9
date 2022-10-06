@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/displayExpression"
         app:layout_constraintVertical_bias="0.80">
 
         <TableRow
@@ -260,14 +260,13 @@
         </TableRow>
     </TableLayout>
 
-    <EditText
+    <TextView
         android:id="@+id/displayExpression"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:autofillHints="false"
         android:inputType="none"
-        android:text="@string/display"
         android:textAlignment="textEnd"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
