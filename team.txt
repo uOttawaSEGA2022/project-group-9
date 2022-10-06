@@ -1,0 +1,5 @@
+his is the first line of text I am experimenting with. My name is Yash Jain.
+Testing line conflicts, empty line 1, filled line 2
+Testing more conflicts V2
+
+Line conflicts did work, conflict appeared, I added this message manually
