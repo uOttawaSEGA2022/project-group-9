@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn00 = findViewById(R.id.btn00);
+        //Button btn00 = findViewById(R.id.btn00);
         Button btn01 = findViewById(R.id.btn01);
         Button btn02 = findViewById(R.id.btn02);
         Button btn03 = findViewById(R.id.btn03);
@@ -143,7 +143,4 @@ public class MainActivity extends AppCompatActivity {
         TextView displayExpression = findViewById(R.id.displayExpression);
         String currentExpression = String.valueOf(displayExpression.getText());
     }
-
-
-
-    }
+}

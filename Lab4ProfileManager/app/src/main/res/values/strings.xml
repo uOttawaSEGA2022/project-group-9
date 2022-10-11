@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">lab4profilemanager</string>
+    <string name="mainActivityTitle">Soccer Team Manager</string>
+    <string name="imageViewContentDescription">Team Logo</string>
+    <string name="teamNameEditTextHint">Please enter a team name</string>
+    <string name="teamNameTextViewTitle">Team Name</string>
+    <string name="teamAddressEditTextHint">Please enter a ZIP code</string>
+    <string name="teamAddressTextViewTitle">Team Address</string>
+    <string name="btnOpenMaps">Open in Google Maps</string>
+</resources>
