@@ -7,4 +7,13 @@
     <string name="teamAddressEditTextHint">Please enter a ZIP code</string>
     <string name="teamAddressTextViewTitle">Team Address</string>
     <string name="btnOpenMaps">Open in Google Maps</string>
+    <string name="setTeamLogoTextView">Select a new avatar</string>
+    <string name="btnLoadFromPhone">Load From Phone</string>
+    <string name="actionBarTitle">Team Manager</string>
+    <string name="teamlogo01">teamLogo01</string>
+    <string name="teamlogo02">teamLogo02</string>
+    <string name="teamlogo03">teamLogo03</string>
+    <string name="teamlogo04">teamLogo04</string>
+    <string name="teamlogo05">teamLogo05</string>
+    <string name="teamlogo00">teamLogo00</string>
 </resources>

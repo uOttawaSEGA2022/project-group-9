@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/action_bar_design">
+
+    <ImageView
+        android:id="@+id/actionBarBackArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/action_bar_back_arrow" />
+
+    <TextView
+        android:id="@+id/actionBarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/actionBarBackArrow"
+        android:text="@string/actionBarTitle"
+        android:textColor="@color/white"
+        android:textSize="17sp"/>
+
+</RelativeLayout>
