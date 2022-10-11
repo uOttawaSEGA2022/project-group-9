@@ -28,7 +28,8 @@
                 android:text="@string/one"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn01click"/>
 
             <Button
                 android:id="@+id/btn02"
@@ -41,7 +42,8 @@
                 android:text="@string/two"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn02click"/>
 
             <Button
                 android:id="@+id/btn03"
@@ -54,7 +56,8 @@
                 android:text="@string/three"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn03click"/>
 
             <Button
                 android:id="@+id/btnAdd"
@@ -67,7 +70,8 @@
                 android:text="@string/add"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn_add_click"/>
         </TableRow>
 
         <TableRow
@@ -85,7 +89,8 @@
                 android:text="@string/four"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn04click"/>
 
             <Button
                 android:id="@+id/btn05"
@@ -98,7 +103,8 @@
                 android:text="@string/five"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn05click"/>
 
             <Button
                 android:id="@+id/btn06"
@@ -111,7 +117,8 @@
                 android:text="@string/six"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn06click"/>
 
             <Button
                 android:id="@+id/btnMinus"
@@ -124,7 +131,8 @@
                 android:text="@string/minus"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn_minus_click"/>
         </TableRow>
 
         <TableRow
@@ -142,7 +150,8 @@
                 android:text="@string/seven"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn07click"/>
 
             <Button
                 android:id="@+id/btn08"
@@ -155,7 +164,8 @@
                 android:text="@string/eight"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn08click"/>
 
             <Button
                 android:id="@+id/btn09"
@@ -168,7 +178,8 @@
                 android:text="@string/nine"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn09click"/>
 
             <Button
                 android:id="@+id/btnDivide"
@@ -181,7 +192,8 @@
                 android:text="@string/divide"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn_divide_click"/>
         </TableRow>
 
         <TableRow
@@ -199,7 +211,8 @@
                 android:text="@string/clear"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#D0054E" />
+                app:backgroundTint="#D0054E"
+                android:onClick="btn_clear_click"/>
 
             <Button
                 android:id="@+id/btn00"
@@ -212,7 +225,8 @@
                 android:text="@string/zero"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn00click"/>
 
             <Button
                 android:id="@+id/btnDot"
@@ -225,7 +239,8 @@
                 android:text="@string/dot"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn_dot_click"/>
 
             <Button
                 android:id="@+id/btnMultiply"
@@ -238,7 +253,8 @@
                 android:text="@string/multiply"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:backgroundTint="#280659" />
+                app:backgroundTint="#280659"
+                android:onClick="btn_multiply_click"/>
         </TableRow>
 
         <TableRow
@@ -256,7 +272,8 @@
                 android:text="@string/equal"
                 android:textColor="@color/white"
                 android:textSize="30sp"
-                app:backgroundTint="#D0054E" />
+                app:backgroundTint="#D0054E"
+                android:onClick="btn_equal_click"/>
         </TableRow>
     </TableLayout>
 

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -139,8 +140,68 @@ public class MainActivity extends AppCompatActivity {
         displayExpression.setText(String.format("%s.", currentExpression));
     }
 
+    //Added for the Logic
+    public void invalid_expression() {
+        TextView displayExpression = findViewById(R.id.displayExpression);
+        displayExpression.setText("Invalid Expression");
+
+    }
+
     public void btn_equal_click(View view){
         TextView displayExpression = findViewById(R.id.displayExpression);
         String currentExpression = String.valueOf(displayExpression.getText());
+
+        String[] splitExpression = currentExpression.split(" ");
+        String[][] operators_priority = {{"*","/"},{"+","-"}};
+        Integer result = null;
+
+        for (int i = 0;i < 2; i++) {
+            int count = 0;
+            while (count< splitExpression.length) {
+                for (int j = 0; j < 2; j++) {
+                    if (splitExpression[count] == operators_priority[i][j]) {
+                        try {
+                        String[] operands = {splitExpression[count -1],splitExpression[count + 1]};
+                        if (operators_priority[i][j] == "*") {
+                            result = Integer.valueOf(operands[0]) * Integer.valueOf(operands[1]);
+                        }
+
+                        if (operators_priority[i][j] == "/") {
+                            result = Integer.valueOf(operands[0]) / Integer.valueOf(operands[1]);
+                        }
+
+                        if (operators_priority[i][j] == "+") {
+                            result = Integer.valueOf(operands[0]) + Integer.valueOf(operands[1]);
+
+                        }
+
+                        if (operators_priority[i][j] == "-") {
+                            result = Integer.valueOf(operands[0]) - Integer.valueOf(operands[1]);
+                        }
+
+                        //Bro you got to make a new array without the element u want to remove
+                        splitExpression.remove(count-1);
+
+                        count -= 1;
+                        splitExpression[count] = String.valueOf(result);
+                        splitExpression.remove(count+1);
+                        count -= 1;
+                        }
+
+                        catch (Exception e){
+                            invalid_expression();
+                        return;
+                        }
+                    }
+                }
+
+
+            }
+
+
+        }
+
+
+
     }
 }
