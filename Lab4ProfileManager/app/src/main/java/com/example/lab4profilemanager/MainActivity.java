@@ -67,28 +67,28 @@ public class MainActivity extends AppCompatActivity {
         switch (data.getIntExtra("imageID", R.id.teamNameID)) {
 
             case R.id.imageView2:
-                drawableName = "ic_logo_00";
+                drawableName = "ic_logo_01";
                 break;
             case R.id.imageView3:
-                drawableName = "ic_logo_01";
-                Log.i("UniqueID","1");
+                drawableName = "ic_logo_02";
+                //Log.i("UniqueID","1");
                 break;
             case R.id.imageView4:
-                drawableName = "ic_logo_02";
-                Log.i("UniqueID","2");
+                drawableName = "ic_logo_03";
+                //Log.i("UniqueID","2");
                 break;
             case R.id.imageView5:
-                drawableName = "ic_logo_03";
-                Log.i("UniqueID","3");
+                drawableName = "ic_logo_04";
+                //Log.i("UniqueID","3");
                 break;
             case R.id.imageView6:
-                drawableName = "ic_logo_04";
-                break;
-            case R.id.imageView7:
                 drawableName = "ic_logo_05";
                 break;
-            default:
+            case R.id.imageView7:
                 drawableName = "ic_logo_00";
+                break;
+            default:
+                drawableName = "ic_logo_01";
                 break;
         }
         int resID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
