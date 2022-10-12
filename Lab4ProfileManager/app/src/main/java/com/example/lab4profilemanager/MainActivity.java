@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,12 +71,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.imageView3:
                 drawableName = "ic_logo_01";
+                Log.i("UniqueID","1");
                 break;
             case R.id.imageView4:
                 drawableName = "ic_logo_02";
+                Log.i("UniqueID","2");
                 break;
             case R.id.imageView5:
                 drawableName = "ic_logo_03";
+                Log.i("UniqueID","3");
                 break;
             case R.id.imageView6:
                 drawableName = "ic_logo_04";
