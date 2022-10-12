@@ -21,11 +21,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Back Arrow
         ImageView actionBarBackArrow = findViewById(R.id.actionBarBackArrow);
         actionBarBackArrow.setVisibility(View.INVISIBLE);
 
         Button openMaps = (Button) findViewById(R.id.btnOpenMapsID);
 
+        //OnClick listener for Google Maps Button
         openMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,11 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //To change to logo chnage screen
     public void teamLogoOnClick(View view){
         Intent logoChangeActivity = new Intent(getApplicationContext(), LogoChangeActivity.class);
         startActivity(logoChangeActivity);
     }
 
+    //To Open Google Maps
     public void OnOpenInGoogleMaps (View view) {
         //Will open location on google maps
         EditText teamAddress = (EditText) findViewById(R.id.teamAddressID);
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    //To pick a logo
+    //Doesn't work maybe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_CANCELED) return;
@@ -93,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("UniqueID","Default");
                 break;
         }
+        //sets up resources
         int resID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
         avatarImage.setImageResource(resID);
     }

@@ -87,7 +87,7 @@
                 android:scaleX="0.9"
                 android:scaleY="0.9"
                 app:srcCompat="@drawable/ic_logo_05"
-                android:onClick="SetTeamIcon"
+                android:onClick="SetTeamIcon2"
                 android:contentDescription="@string/teamlogo05"/>
 
             <ImageView
