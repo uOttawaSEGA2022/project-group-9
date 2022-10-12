@@ -161,9 +161,9 @@ public class MainActivity extends AppCompatActivity {
 
         String[] splitExpression = currentExpression.split(" ");
         String[][] operatorsPriority = {{"*","/"},{"+","-"}};
-        Integer result = null;
+        String result = null;
 
-        /*
+
 
         List<String> expression = new ArrayList<String>(Arrays.asList(splitExpression));
 
@@ -187,17 +187,17 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     catch(Error e){
-                        return "Invalid Expression";
+                        //return "Invalid Expression";
                     }
                 }
                 count ++;
             }
         }
-        */
 
 
 
 
+        /*
         for (int i = 0;i < 2; i++) {
             int count = 0;
             while (count< splitExpression.length) {
@@ -251,6 +251,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        */
+
+        if (result == null) {
+            result = "null";
+        }
+
+        Log.i("UniqueTag", result);
         displayExpression.setText(result.toString());
 
 
@@ -277,5 +284,41 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return returnStatement;
+    }
+
+    public static String evaluateOperation(String[] stringOperands, String operator){
+        try{
+            double result = 0;
+            double operand1 = Double.parseDouble(stringOperands[0]);
+            double operand2 = Double.parseDouble(stringOperands[1]);
+            if (operator.equals("+")){
+                result = operand1 + operand2;
+            }
+
+            else if (operator.equals("-")){
+                result = operand1 - operand2;
+            }
+
+            else if (operator.equals("*")){
+                result = operand1 * operand2;
+            }
+
+            else if (operator.equals("/")){
+                result = operand1 / operand2;
+            }
+            return String.valueOf(result);
+        }
+        catch(Exception e){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public static boolean containsElement(String element, String[] listStrings){
+        for (String elementInList: listStrings){
+            if (elementInList.equals(element)){
+                return true;
+            }
+        }
+        return false;
     }
 }
