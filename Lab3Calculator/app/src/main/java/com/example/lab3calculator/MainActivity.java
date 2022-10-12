@@ -253,9 +253,10 @@ public class MainActivity extends AppCompatActivity {
 
         */
 
-        if (result == null) {
-            result = "null";
-        }
+
+        //if (result == null) {
+        //    result = "null";
+        //}
 
         Log.i("UniqueTag", result);
         displayExpression.setText(result.toString());
