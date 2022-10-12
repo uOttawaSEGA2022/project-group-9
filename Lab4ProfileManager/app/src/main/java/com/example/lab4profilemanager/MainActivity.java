@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
         //Getting the Avatar Image we show to our users
         ImageView avatarImage = (ImageView) findViewById(R.id.teamLogo);
         //Figuring out the correct image
-        String drawableName = "ic_logo_00";
+        String drawableName;
         switch (data.getIntExtra("imageID", R.id.teamNameID)) {
 
             case R.id.imageView2:
-                //drawableName = "ic_logo_00";
+                drawableName = "ic_logo_00";
                 break;
             case R.id.imageView3:
                 drawableName = "ic_logo_01";
