@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class CustomerLoginSignupScreen extends MainActivity {
+public class customerLoginSignupScreen extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
