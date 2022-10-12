@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -150,48 +154,75 @@ public class MainActivity extends AppCompatActivity {
 
     public void btn_equal_click(View view){
 
-        Log.i("Calc","Pass 1");
 
         TextView displayExpression = findViewById(R.id.displayExpression);
         String currentExpression = String.valueOf(displayExpression.getText());
 
-        Log.i("Calc","Pass 2");
-
 
         String[] splitExpression = currentExpression.split(" ");
-        String[][] operators_priority = {{"*","/"},{"+","-"}};
+        String[][] operatorsPriority = {{"*","/"},{"+","-"}};
         Integer result = null;
 
-        Log.i("Calc","Pass 3");
+        /*
+
+        List<String> expression = new ArrayList<String>(Arrays.asList(splitExpression));
+
+        for (int i = 0; i < 2; i++){
+            int count = 0;
+            while (count < expression.size()){
+                if (containsElement(expression.get(count), operatorsPriority[i])){
+                    try{
+                        String[] operands = {expression.get(count - 1), expression.get(count + 1)};
+                        result = evaluateOperation(operands, expression.get(count));
+                        expression.remove(count - 1);
+                        count --;
+                        expression.set(count, result);
+                        expression.remove(count + 1);
+                        count --;
+
+                        System.out.println(expression.toString());
 
 
-        Log.i("Calc", String.valueOf(splitExpression.length));
+
+
+                    }
+                    catch(Error e){
+                        return "Invalid Expression";
+                    }
+                }
+                count ++;
+            }
+        }
+        */
+
+
+
 
         for (int i = 0;i < 2; i++) {
             int count = 0;
             while (count< splitExpression.length) {
                 for (int j = 0; j < 2; j++) {
-                    if (splitExpression[count] == operators_priority[i][j]) {
+                    if (splitExpression[count] == operatorsPriority[i][j]) {
 
                         System.out.print(splitExpression.length);
 
 
                         try {
                         String[] operands = {splitExpression[count -1],splitExpression[count + 1]};
-                        if (operators_priority[i][j] == "*") {
+                        if (operatorsPriority[i][j] == "*") {
                             result = Integer.valueOf(operands[0]) * Integer.valueOf(operands[1]);
                         }
 
-                        if (operators_priority[i][j] == "/") {
+                        if (operatorsPriority[i][j] == "/") {
                             result = Integer.valueOf(operands[0]) / Integer.valueOf(operands[1]);
                         }
 
-                        if (operators_priority[i][j] == "+") {
+                        if (operatorsPriority[i][j] == "+") {
                             result = Integer.valueOf(operands[0]) + Integer.valueOf(operands[1]);
 
                         }
 
-                        if (operators_priority[i][j] == "-") {
+                        if (operatorsPriority[i][j] == "-") {
                             result = Integer.valueOf(operands[0]) - Integer.valueOf(operands[1]);
                         }
 
@@ -220,7 +251,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        System.out.println(splitExpression);
+        displayExpression.setText(result.toString());
+
+
 
 
 
