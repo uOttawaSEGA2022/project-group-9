@@ -154,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void btn_equal_click(View view){
 
+        Log.i("UniqueTag", "Hello");
 
         TextView displayExpression = findViewById(R.id.displayExpression);
         String currentExpression = String.valueOf(displayExpression.getText());
