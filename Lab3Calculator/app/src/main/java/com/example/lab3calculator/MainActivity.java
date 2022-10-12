@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                         expression.remove(count + 1);
                         count --;
 
-                        System.out.println(expression.toString());
+                        //System.out.println(expression.toString());
 
 
 
