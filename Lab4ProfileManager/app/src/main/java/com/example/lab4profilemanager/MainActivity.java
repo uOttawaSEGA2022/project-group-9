@@ -86,9 +86,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.imageView7:
                 drawableName = "ic_logo_00";
+                Log.i("UniqueID","imageView7");
                 break;
             default:
                 drawableName = "ic_logo_01";
+                Log.i("UniqueID","Default");
                 break;
         }
         int resID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
