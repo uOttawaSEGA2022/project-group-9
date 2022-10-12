@@ -3,6 +3,7 @@ package com.example.lab3calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -148,18 +149,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_equal_click(View view){
+
+        Log.i("Calc","Pass 1");
+
         TextView displayExpression = findViewById(R.id.displayExpression);
         String currentExpression = String.valueOf(displayExpression.getText());
+
+        Log.i("Calc","Pass 2");
+
 
         String[] splitExpression = currentExpression.split(" ");
         String[][] operators_priority = {{"*","/"},{"+","-"}};
         Integer result = null;
+
+        Log.i("Calc","Pass 3");
+
+
+        Log.i("Calc", String.valueOf(splitExpression.length));
 
         for (int i = 0;i < 2; i++) {
             int count = 0;
             while (count< splitExpression.length) {
                 for (int j = 0; j < 2; j++) {
                     if (splitExpression[count] == operators_priority[i][j]) {
+
+                        System.out.print(splitExpression.length);
+
+
                         try {
                         String[] operands = {splitExpression[count -1],splitExpression[count + 1]};
                         if (operators_priority[i][j] == "*") {
@@ -180,11 +196,14 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         //Bro you got to make a new array without the element u want to remove
-                        splitExpression.remove(count-1);
+                        //splitExpression.remove(count-1);
+
+                        splitExpression = removeElement(count-1,splitExpression.length,splitExpression);
+
 
                         count -= 1;
                         splitExpression[count] = String.valueOf(result);
-                        splitExpression.remove(count+1);
+                        splitExpression = removeElement(count+1,splitExpression.length,splitExpression);
                         count -= 1;
                         }
 
@@ -201,7 +220,29 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        System.out.println(splitExpression);
 
 
+
+    }
+
+
+
+    public String[] removeElement(int index, int length, String[] originalArray) {
+
+        String[] returnStatement = new String[length]; // <--initialized statement
+        boolean hitRemovalElement = false;
+
+        for (int i = 0; i< length; i++) {
+            if (i != index && !hitRemovalElement){
+                returnStatement[i] = originalArray[i];
+            }
+
+            else if (i != index && hitRemovalElement){
+                returnStatement[i] = originalArray[i + 1];
+            }
+        }
+
+        return returnStatement;
     }
 }
