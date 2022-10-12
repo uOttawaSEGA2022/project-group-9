@@ -163,9 +163,9 @@ public class MainActivity extends AppCompatActivity {
         String[][] operatorsPriority = {{"*","/"},{"+","-"}};
         String result = null;
 
-
-
         List<String> expression = new ArrayList<String>(Arrays.asList(splitExpression));
+
+        Log.i("UniqueTag", null);
 
         for (int i = 0; i < 2; i++){
             int count = 0;
