@@ -25,7 +25,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".LogoChangeActivity"/>
+        <activity android:name=".LogoChangeActivity" />
     </application>
 
 </manifest>
