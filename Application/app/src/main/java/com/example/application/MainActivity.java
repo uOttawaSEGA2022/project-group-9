@@ -62,20 +62,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
     public void customerLogin() {
-        Intent custIntent = new Intent(this, customerLoginScreen.class);
+        Intent custIntent = new Intent(this, XLoginSignupScreen.class);
+        custIntent.putExtra("CustomerOrChef", "Customer");
         startActivity(custIntent);
     }
 
     public void chefLogin() {
-        Intent chefIntent = new Intent(this, chefLoginScreen.class);
+        Intent chefIntent = new Intent(this, XLoginSignupScreen.class);
+        chefIntent.putExtra("CustomerOrChef", "Chef");
         startActivity(chefIntent);
-    }
-
-
-    public int testfunction(){
-        return 5;
     }
 }

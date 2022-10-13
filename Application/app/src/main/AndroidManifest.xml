@@ -13,42 +13,22 @@
         android:theme="@style/Theme.Application"
         tools:targetApi="31">
         <activity
-            android:name=".userLoggedInScreen"
+            android:name=".E1CustomerLoggedInScreen"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity android:name=".E2ChefLoggedInScreen"/>
+        <activity
+            android:name=".XLoginSignupScreen"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".chefLoginSignUpScreen"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".CustomerLoginSignupScreen"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".activity_chef_signup_screen"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".chefLoginScreen"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".customerLoginScreen"
+            android:name=".ALoginScreen"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -67,6 +47,11 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".B1D1SignUpNameCredentials"/>
+        <activity android:name=".B3SignUpChefShortDescription"/>
+        <activity android:name=".B4SignUpChefVoidCheque"/>
+        <activity android:name=".D3SignUpCustomerCCInfo"/>
+        <activity android:name=".B2D2SignUpAddress"/>
     </application>
 
 </manifest>

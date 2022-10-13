@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/signUpCustomerCCInfoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Customer Sign Up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/signUpCustomerCCInfoMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:text="Please input your payment details below:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpCustomerCCInfoTitle" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpCustomerCCInfoMessage">
+
+        <EditText
+            android:id="@+id/signUpCustomerNameOnCard"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:ems="10"
+            android:hint="Name On Card"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/signUpCustomerCreditCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:ems="10"
+            android:hint="Credit Card Number"
+            android:inputType="numberPassword" />
+
+        <EditText
+            android:id="@+id/signUpCustomerCVVNumber"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:ems="10"
+            android:hint="CVV Number"
+            android:inputType="numberPassword" />
+
+        <EditText
+            android:id="@+id/signUpCustomerExpirationDate"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:ems="10"
+            android:hint="Expiration Date (MM/YYYY)"
+            android:inputType="textPersonName" />
+
+        <CheckBox
+            android:id="@+id/signUpCustomerCCInfoSameAddressCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="User address same as Billing Adress" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/signUpCustomerCCInfoFinishOrContinueBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:text="Continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

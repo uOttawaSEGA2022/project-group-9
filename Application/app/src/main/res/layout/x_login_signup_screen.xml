@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chefLoginSignUpScreen">
+    tools:context=".XLoginSignupScreen">
 
     <TextView
+        android:id="@+id/loginSignUpScreenTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text= "Login or Sign Up Chef?"
+        android:text="Login or Sign Up Customer?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -21,7 +22,7 @@
         android:id="@+id/LoginSignUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login or SignUp Screen Chef"
+        android:text="Login or SignUp Screen Customer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.139"

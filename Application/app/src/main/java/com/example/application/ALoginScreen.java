@@ -10,48 +10,58 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class chefLoginScreen extends MainActivity {
+public class ALoginScreen extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chef_login_screen);
+        setContentView(R.layout.a_login_screen);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        String role = "";
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            role = extras.getString("CustomerOrChef");
+        }
+        final String ROLE = role;
+
+        TextView screenTitle = findViewById(R.id.loginScreenTitle);
+        screenTitle.setText("Welcome Back, " + ROLE);
+
         Button chefSignInButton = (Button) findViewById(R.id.chefSignIn);
 
         chefSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int testreceivedinteger = getMainActivityInteger();
-                String stringInteger = String.valueOf(testreceivedinteger);
-                Toast.makeText(getApplicationContext(), stringInteger, Toast.LENGTH_SHORT).show();
                 TextView chefEmailPasswordErrorMessages = findViewById(R.id.chefEmailPasswordErrorMessages);
                 EditText editTextChefEmail = findViewById(R.id.chefEmail);
                 EditText editTextChefPassword = findViewById(R.id.chefPassword);
-                authenticator authenticatorObject = new authenticator(chefEmailPasswordErrorMessages, editTextChefEmail, editTextChefPassword);
-                String[] credentials = authenticatorObject.getCredentials();
-                boolean signInStatus = authenticatorObject.signIn(credentials);
+                authenticator authenticatorObject = new authenticator();
+                boolean signInStatus = authenticatorObject.checkCredentials(editTextChefEmail, editTextChefPassword, chefEmailPasswordErrorMessages);
                 if (signInStatus){
                     Toast.makeText(getApplicationContext(), "Sign In Successful", Toast.LENGTH_SHORT).show();
-                    goToMainActivity();
+                    if (ROLE.equals("Customer")){
+                        goToCustomerLoggedInScreen();
+                    }
+                    else{
+                        goToChefLoggedInScreen();
+                    }
                 }
             }
         });
     }
 
-    public void goToMainActivity() {
-//        Intent mainActivity = new Intent(this, MainActivity.class);
-//        startActivity(mainActivity);
+    public void goToCustomerLoggedInScreen() {
+        Intent mainActivity = new Intent(this, E1CustomerLoggedInScreen.class);
+        startActivity(mainActivity);
     }
 
-    public int getMainActivityInteger(){
-        MainActivity testActivity = new MainActivity();
-        return testActivity.testfunction();
+    public void goToChefLoggedInScreen() {
+        Intent mainActivity = new Intent(this, E2ChefLoggedInScreen.class);
+        startActivity(mainActivity);
     }
-
 }
