@@ -6,8 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -27,6 +30,8 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
         EditText creditCardNumber = findViewById(R.id.signUpCustomerCreditCardNumber);
         EditText cvvNumber = findViewById(R.id.signUpCustomerCVVNumber);
         EditText expirationDate = findViewById(R.id.signUpCustomerExpirationDate);
+        EditText[] editTexts = {nameOnCard,creditCardNumber,cvvNumber,expirationDate};
+        TextView errorMessages = findViewById(R.id.signUpCustomerCCErrorMessages);
 
 
         String[] tempCustomerInfo = {};
@@ -54,6 +59,8 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
         finishSignUpContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                authenticator authenticatorObject = new authenticator();
+                boolean validateTextInputs = authenticatorObject.checkCCInputs(editTexts, errorMessages);
 
                 // If we implement error checking, move this line of code to after all the error checking
                 addTextInputs(nameOnCard, creditCardNumber, cvvNumber, expirationDate, customerInfo);

@@ -44,6 +44,8 @@ public class B2D2SignUpAddress extends MainActivity {
         EditText city = findViewById(R.id.signUpAddressCity);
         EditText province = findViewById(R.id.signUpAddressProvince);
         EditText postalCode = findViewById(R.id.signUpAddressPostalCode);
+        EditText[] editTexts = {addressLine1,addressLine2,city,province,postalCode};
+        TextView errorMessages =findViewById(R.id.signUpAddressErrorMessages);
 
         if (role.equals("Customer")){
             screenTitle.setText(role + " Sign Up");
@@ -57,6 +59,9 @@ public class B2D2SignUpAddress extends MainActivity {
             @Override
             public void onClick(View v) {
                 // After error checking implementation, move this code section after error checking
+                authenticator authenticatorObject = new authenticator();
+                boolean validateTextInputs = authenticatorObject.checkAddressCredentialsInputs(editTexts, errorMessages);
+
 
                 String[] userInfo = tempHigherOrderUserInfo;
 
