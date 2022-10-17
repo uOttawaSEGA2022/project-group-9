@@ -86,7 +86,7 @@ public class authenticator extends AppCompatActivity {
             return "Invalid Email";
         }
 
-        public String validatePassword (@NonNull String email, @NonNull String password){
+        public String validatePassword (@NonNull String email, @NonNull String password) {
             String numericCharacters = "(.*[0-9].*)";
             String lowerCaseCharacters = "(.*[a-z].*)";
             String upperCaseCharacters = "(.*[A-Z].*)";
@@ -116,4 +116,161 @@ public class authenticator extends AppCompatActivity {
             else
                 return "Valid Password";
         }
+    public boolean checkAddressCredentialsInputs(EditText[] editTexts, TextView errorMessages){
+        EditText line1 = editTexts[0];
+        EditText line2 = editTexts[1];
+        EditText city = editTexts[2];
+        EditText province = editTexts[3];
+        EditText postalcode = editTexts[4];
+
+        boolean addressValidation = this.checkline1line2(line1,line2, errorMessages);
+        if(!addressValidation){
+            return false;
+        }
+        boolean locationValidation = this.checkCityProvince(city,province, errorMessages);
+        if (!locationValidation){
+            return false;
+        }
+        boolean postalcodeValidation = this.checkPostalcode(postalcode,errorMessages);
+        if (!postalcodeValidation){
+            return false;
+        }
+        return true;
+    }
+    public boolean checkline1line2(@NonNull EditText line1, @NonNull EditText line2, TextView errorMessages){
+        String stringline1= line1.getText().toString();
+        String stringline2= line2.getText().toString();
+        String[] address={stringline1,stringline2};
+        for (String currentaddress:address){
+            if (currentaddress.equals("")){
+                errorMessages.setText("Address is invalid");
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkCityProvince(@NonNull EditText city,@NonNull EditText province, TextView errorMessages){
+        String special = "1234567890(.*[!\"#$%&'()*+,-./:;<=>?@^_`{|}~].*)";
+        String stringCity =  city.getText().toString();
+        String stringProvince= province.getText().toString();
+
+        String[] Location = {stringCity,stringProvince};
+
+        for (String currentLocation : Location) {
+            if (currentLocation.equals("")){
+                errorMessages.setText("Invalid Province or City");
+                return false;
+            }
+            if (currentLocation.matches(special)){
+                errorMessages.setText("Invalid Province or City");
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkPostalcode(@NonNull EditText postalcode,TextView errorMessages){
+        String special = "(.*[!\"#$%&'()*+,-./:;<=>?@^_`{|}~].*)";
+        String stringPostal = postalcode.getText().toString();
+        String[] Postalcode = {stringPostal};
+        for (String currentPostal: Postalcode){
+            if(currentPostal.equals("")){
+                    errorMessages.setText("Invalid Postal Code");
+                    return false;
+            }
+            if (currentPostal.matches(special)){
+                errorMessages.setText("Invalid Postal Code");
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkCCInputs(EditText[] editTexts, TextView errorMessages){
+        EditText noc = editTexts[0];
+        EditText ccnumber = editTexts[1];
+        EditText cvvnumber = editTexts[2];
+        EditText expdate = editTexts[3];
+
+        boolean nocValidation = this.checknoc(noc,errorMessages);
+        if (!nocValidation){
+            return false;
+        }
+        boolean CcCvvValidation = this.checkccnumber(ccnumber,cvvnumber,errorMessages);
+        if(!CcCvvValidation) {
+            return false;
+        }
+        boolean expdateValidation = this.checkexpdate(expdate, errorMessages);
+        if(!expdateValidation){
+            return false;
+        }
+        return true;
+    }
+    public boolean checknoc(@NonNull EditText noc,TextView errorMessages){
+        String special = "1234567890(.*[!\"#$%&'()*+,-./:;<=>?@^_`{|}~].*)";
+        String stringnoc = noc.getText().toString();
+        String[] NOC={stringnoc};
+        for (String currentNOC:NOC){
+            if (currentNOC.equals("")){
+                errorMessages.setText("Invalid Name On Card");
+                return false;
+            }
+            if  (currentNOC.matches(special)){
+                errorMessages.setText("Invalid Name On Card");
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkccnumber(@NonNull EditText ccnumber,@NonNull EditText cvvnumber, TextView errorMessages){
+        String lowerCaseCharacters = "(.*[a-z].*)";
+        String upperCaseCharacters = "(.*[A-Z].*)";
+        String special = "(.*[@!#$%&].*)";
+        String stringccnumber = ccnumber.getText().toString();
+        String stringcvvnumber = cvvnumber.getText().toString();
+        String[] cnums={stringccnumber,stringcvvnumber};
+        for (String currentcnums:cnums){
+            if (currentcnums.equals("")){
+                errorMessages.setText("Invalid Credit Card/CVV");
+                return false;
+            }
+            if (currentcnums.matches(lowerCaseCharacters)){
+                errorMessages.setText("Credit Card/CVV must be numerical digits");
+                return false;
+            }
+            if (currentcnums.matches(upperCaseCharacters)){
+                errorMessages.setText("Credit Card/CVV must be numerical digits");
+                return false;
+            }
+            if (currentcnums.matches(special)){
+                errorMessages.setText(("Credit Card/CVV must not contain special characters"));
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkexpdate(@NonNull EditText expdate, TextView errorMessages){
+        String lowerCaseCharacters = "(.*[a-z].*)";
+        String upperCaseCharacters = "(.*[A-Z].*)";
+        String special = "(.*[!\"#$%&'()*+,-.:;<=>?@^_`{|}~].*)";
+        String stringexpdate= expdate.getText().toString();
+        String[] expnums={stringexpdate};
+        for (String currentexpnums:expnums){
+            if(currentexpnums.equals("")){
+                errorMessages.setText("Expiration date is left empty");
+                return false;
+            }
+            if (currentexpnums.matches(lowerCaseCharacters)){
+                errorMessages.setText("Expiration date must only contain numbers");
+                return false;
+            }
+            if (currentexpnums.matches(upperCaseCharacters)){
+                errorMessages.setText("Expiration date must only contain numbers");
+                return false;
+            }
+            if (currentexpnums.matches(special)){
+                errorMessages.setText("Expiration date most not contain special characters");
+                return false;
+            }
+        }
+        return true;
+    }
 }
