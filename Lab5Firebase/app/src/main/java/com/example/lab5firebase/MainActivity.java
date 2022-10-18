@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listView = (ListView) findViewById(R.id.listview);
+        listView.setClickable(true);
 
         arrayList = new ArrayList<>();
         editName = (EditText) findViewById(R.id.enterNameID);
@@ -48,8 +52,15 @@ public class MainActivity extends AppCompatActivity {
                 addNewProduct(view);
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
+                // When clicked, show a toast with the TextView text
+                arrayList.add("Goal");
+                listView.setAdapter(arrayAdapter);
 
+            }
 
+        });
     }
 
     public void addNewProduct (View view) {
