@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 addNewProduct(view);
             }
         });
-        
+
     }
 
     public void addNewProduct (View view) {
