@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listView = (ListView) findViewById(R.id.listview);
-        listView.setClickable(true);
 
         arrayList = new ArrayList<>();
         editName = (EditText) findViewById(R.id.enterNameID);
