@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         arrayList = new ArrayList<>();
         editName = (EditText) findViewById(R.id.enterNameID);
+        editPrice = (EditText) findViewById(R.id.enterPriceID);
 
         arrayList.add("Monitor Dell $300");
         arrayList.add("Mouse $20");
