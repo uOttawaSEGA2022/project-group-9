@@ -48,7 +48,7 @@
         android:id="@+id/addProductID"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="200dp"
         android:fontFamily="sans-serif"
         android:text="Add"
         android:textAlignment="center"
