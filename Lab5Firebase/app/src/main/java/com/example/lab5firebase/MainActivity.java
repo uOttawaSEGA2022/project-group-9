@@ -50,17 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 addNewProduct(view);
             }
         });
-        /*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView <? > arg0, View view, int position, long id) {
-                // When clicked, show a toast with the TextView text
-                arrayList.add("Goal");
-                listView.setAdapter(arrayAdapter);
 
-            }
 
-        });
-         */
     }
 
     public void addNewProduct (View view) {
