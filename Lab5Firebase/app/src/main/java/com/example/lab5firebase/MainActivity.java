@@ -19,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
     EditText editPrice;
     ArrayAdapter arrayAdapter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 addNewProduct(view);
             }
         });
-
-
+        
     }
 
     public void addNewProduct (View view) {
