@@ -68,7 +68,7 @@ public class XLoginSignupScreen extends MainActivity {
 
     public void goToLoginProcess(String ROLE) {
         Intent loginActivity = new Intent(getApplicationContext(), ALoginScreen.class);
-        loginActivity.putExtra("CustomerOrChef", ROLE);
+        loginActivity.putExtra("CustomerOrChefOrAdmin", ROLE);
         startActivity(loginActivity);
     }
 

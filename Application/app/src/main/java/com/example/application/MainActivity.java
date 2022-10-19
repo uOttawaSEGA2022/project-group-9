@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //Connects Button to ID and Java File
         Button customer = (Button) findViewById(R.id.customerButton);
         Button chef = (Button) findViewById(R.id.chefButton);
+        Button admin  = (Button) findViewById(R.id.adminButton);
 
         //On Click Listener
         customer.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 chefLogin();
                 Toast.makeText(getApplicationContext(), "You are logging in as a chef", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adminLogin();
+                Toast.makeText(getApplicationContext(), "You are logging in as a admin", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -76,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         //Creates an intent of the screen to go to next
         Intent custIntent = new Intent(this, XLoginSignupScreen.class);
         //Create a Parameter
-        custIntent.putExtra("CustomerOrChef", "Customer");
+        custIntent.putExtra("CustomerOrChefOrAdmin", "Customer");
         //Start the new activity with parameter
         startActivity(custIntent);
     }
@@ -84,7 +93,13 @@ public class MainActivity extends AppCompatActivity {
     //Same but for chef Login
     public void chefLogin() {
         Intent chefIntent = new Intent(this, XLoginSignupScreen.class);
-        chefIntent.putExtra("CustomerOrChef", "Chef");
+        chefIntent.putExtra("CustomerOrChefOrAdmin", "Chef");
         startActivity(chefIntent);
+    }
+
+    public void adminLogin() {
+        Intent adminIntent = new Intent(this, ALoginScreen.class);
+        adminIntent.putExtra("CustomerOrChefOrAdmin", "Admin");
+        startActivity(adminIntent);
     }
 }
