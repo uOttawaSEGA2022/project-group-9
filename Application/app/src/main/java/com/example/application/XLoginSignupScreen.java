@@ -20,18 +20,24 @@ public class XLoginSignupScreen extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.x_login_signup_screen);
 
+        //Action bar
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        //Role means customer or chef, will get passed as a parameter
         String role = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            //Get data for parameters
             role = extras.getString("CustomerOrChef");
         }
+        //Finalize the String Role
+        //Name ROLE is weird, is there a techanical reason?
         final String ROLE = role;
 
+        //Set Text to screen
         TextView screenTitle = findViewById(R.id.loginSignUpScreenTitle);
         screenTitle.setText("Login or Sign Up " + ROLE +"?");
 
@@ -66,19 +72,32 @@ public class XLoginSignupScreen extends MainActivity {
         startActivity(loginActivity);
     }
 
+    //Next Screen is different if the user is a chef vs client
     public void goToSignUpProcess(String ROLE) {
+        //user Info in an array for easy access
         String[] userInfo;
+        //If the user is customer, they need 19 data entries, chef needs 12
         if (ROLE.equals("Customer")){
             userInfo = new String[19];
         }
         else{
             userInfo = new String[12];
         }
+        //Role is in the first index
         userInfo[0] = ROLE;
-        // Send to activity B1D1 with string array with first value as the ROLE, with key "User Info"
-        Intent b1d1SignUpNameCredentials = new Intent(getApplicationContext(), B1D1SignUpNameCredentials.class);
-        b1d1SignUpNameCredentials.putExtra("User Info", userInfo);
-        startActivity(b1d1SignUpNameCredentials);
+
+        //For Chef Sign up
+        if (userInfo[0] == "Chef") {
+            // Send to activity B1D1 with string array with first value as the ROLE, with key "User Info"
+            Intent b1d1SignUpNameCredentials = new Intent(getApplicationContext(), B1D1SignUpNameCredentials.class);
+            b1d1SignUpNameCredentials.putExtra("User Info", userInfo);
+            startActivity(b1d1SignUpNameCredentials);
+
+        }
+
+        else {
+
+        }
 
         // At this point, the string array has 1 element, at index 0, with the role of the user
         // We can generate the ID here, and input it before the role, then shift all indices

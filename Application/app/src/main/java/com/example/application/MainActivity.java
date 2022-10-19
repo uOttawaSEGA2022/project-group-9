@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+//On launch activity
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -18,21 +19,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Sets up action Bar
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
+            //Title and subtitle (subtitle is different for each screen)
             actionBar.setTitle("Mealer");
             actionBar.setSubtitle("Log in");
+            //Setting a Logo
             actionBar.setLogo(R.drawable.logo);
+            //Use Logo instead of Icon
             actionBar.setDisplayUseLogoEnabled(true);
+            //Set Display
             actionBar.setDisplayShowHomeEnabled(true);
 
         }
 
 
-
+        //Connects Button to ID and Java File
         Button customer = (Button) findViewById(R.id.customerButton);
         Button chef = (Button) findViewById(R.id.chefButton);
 
+        //On Click Listener
         customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    //IDK
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
@@ -62,12 +71,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    //For Customer Login onclick
     public void customerLogin() {
+        //Creates an intent of the screen to go to next
         Intent custIntent = new Intent(this, XLoginSignupScreen.class);
+        //Create a Parameter
         custIntent.putExtra("CustomerOrChef", "Customer");
+        //Start the new activity with parameter
         startActivity(custIntent);
     }
 
+    //Same but for chef Login
     public void chefLogin() {
         Intent chefIntent = new Intent(this, XLoginSignupScreen.class);
         chefIntent.putExtra("CustomerOrChef", "Chef");
