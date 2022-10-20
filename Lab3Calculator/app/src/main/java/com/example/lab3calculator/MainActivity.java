@@ -153,10 +153,6 @@ public class MainActivity extends AppCompatActivity {
 
         String result = evaluatorObject.evaluate();
 
-        System.out.println(result);
-
         displayExpression.setText(result);
-
     }
-
 }
