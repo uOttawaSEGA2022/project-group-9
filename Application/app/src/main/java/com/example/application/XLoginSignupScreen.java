@@ -93,11 +93,6 @@ public class XLoginSignupScreen extends MainActivity {
             b1d1SignUpNameCredentials.putExtra("User Info", userInfo);
             startActivity(b1d1SignUpNameCredentials);
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 547f1aa4b9e2d7f890152cba1d41eff6bdee233e
 
         // At this point, the string array has 1 element, at index 0, with the role of the user
         // We can generate the ID here, and input it before the role, then shift all indices
