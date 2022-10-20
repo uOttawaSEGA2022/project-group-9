@@ -31,7 +31,7 @@ public class XLoginSignupScreen extends MainActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             //Get data for parameters
-            role = extras.getString("CustomerOrChef");
+            role = extras.getString("CustomerOrChefOrAdmin");
         }
         //Finalize the String Role
         //Name ROLE is weird, is there a techanical reason?
@@ -87,13 +87,12 @@ public class XLoginSignupScreen extends MainActivity {
         userInfo[0] = ROLE;
 
         //For Chef Sign up
-        if (userInfo[0] == "Chef") {
             // Send to activity B1D1 with string array with first value as the ROLE, with key "User Info"
             Intent b1d1SignUpNameCredentials = new Intent(getApplicationContext(), B1D1SignUpNameCredentials.class);
             b1d1SignUpNameCredentials.putExtra("User Info", userInfo);
             startActivity(b1d1SignUpNameCredentials);
 
-        }
+
 
 
         // At this point, the string array has 1 element, at index 0, with the role of the user
