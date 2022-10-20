@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class authenticator extends AppCompatActivity {
 
+    //For just name credentials
     public boolean checkNameCredentialsInputs(EditText[] editTexts, TextView errorMessages){
         EditText firstName = editTexts[0];
         EditText lastName = editTexts[1];
@@ -15,11 +16,13 @@ public class authenticator extends AppCompatActivity {
         EditText password = editTexts[3];
         EditText reenterPassword = editTexts[4];
 
+        //Name
         boolean nameValidation = this.checkFirstLastName(firstName, lastName, errorMessages);
         if (!nameValidation){
             return false;
         }
 
+        //Credentials
         boolean credentialValidation = this.checkCredentials(email, password, errorMessages);
         if (!credentialValidation){
             return false;
@@ -38,7 +41,9 @@ public class authenticator extends AppCompatActivity {
 
     }
 
+    //For first and last name
     public boolean checkFirstLastName(@NonNull EditText firstName, @NonNull EditText lastName, TextView errorMessages) {
+        //Characters which can cause issues
         String specialCharacters = "(.*[!\"#$%&'()*+,-./:;<=>?@^_`{|}~].*)";
 
         String stringFirstName = firstName.getText().toString();
@@ -80,12 +85,14 @@ public class authenticator extends AppCompatActivity {
             return new String[]{email, password};
         }
 
+        //Valid Email needs a @ symbol
         public String validateEmail (@NonNull String email){
             if (email.contains("@"))
                 return "Valid Email";
             return "Invalid Email";
         }
 
+        //passwords needs XYZ conditions
         public String validatePassword (@NonNull String email, @NonNull String password) {
             String numericCharacters = "(.*[0-9].*)";
             String lowerCaseCharacters = "(.*[a-z].*)";
@@ -116,6 +123,7 @@ public class authenticator extends AppCompatActivity {
             else
                 return "Valid Password";
         }
+        //For Address
     public boolean checkAddressCredentialsInputs(EditText[] editTexts, TextView errorMessages){
         EditText line1 = editTexts[0];
         EditText city = editTexts[2];
@@ -136,7 +144,9 @@ public class authenticator extends AppCompatActivity {
         }
         return true;
     }
-    public boolean checkline1(@NonNull EditText line1, TextView errorMessages){
+
+    public boolean checkline1(@NonNull EditText line1,TextView errorMessages){
+
         String stringline1= line1.getText().toString();
         String[] address={stringline1};
         for (String currentaddress:address){
@@ -147,6 +157,7 @@ public class authenticator extends AppCompatActivity {
         }
         return true;
     }
+    //City, Province needs to be none empty and contain no special characters
     public boolean checkCityProvince(@NonNull EditText city,@NonNull EditText province, TextView errorMessages){
         String special = "1234567890(.*[!\"#$%&'()*+,-./:;<=>?@^_`{|}~].*)";
         String stringCity =  city.getText().toString();
@@ -166,6 +177,8 @@ public class authenticator extends AppCompatActivity {
         }
         return true;
     }
+
+    //Postal Code needs to be non-empty and no special characters
     public boolean checkPostalcode(@NonNull EditText postalcode,TextView errorMessages){
         String special = "(.*[!\"#$%&'()*+,-./:;<=>?@^_`{|}~].*)";
         String stringPostal = postalcode.getText().toString();

@@ -25,21 +25,21 @@ public class ALoginScreen extends MainActivity {
         String role = "";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            role = extras.getString("CustomerOrChef");
+            role = extras.getString("CustomerOrChefOrAdmin");
         }
         final String ROLE = role;
 
         TextView screenTitle = findViewById(R.id.loginScreenTitle);
         screenTitle.setText("Welcome Back, " + ROLE);
 
-        Button chefSignInButton = (Button) findViewById(R.id.chefSignIn);
+        Button signInButton = (Button) findViewById(R.id.SignIn);
 
-        chefSignInButton.setOnClickListener(new View.OnClickListener() {
+        signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView chefEmailPasswordErrorMessages = findViewById(R.id.chefEmailPasswordErrorMessages);
-                EditText editTextChefEmail = findViewById(R.id.chefEmail);
-                EditText editTextChefPassword = findViewById(R.id.chefPassword);
+                TextView chefEmailPasswordErrorMessages = findViewById(R.id.EmailPasswordErrorMessages);
+                EditText editTextChefEmail = findViewById(R.id.Email);
+                EditText editTextChefPassword = findViewById(R.id.Password);
                 authenticator authenticatorObject = new authenticator();
                 boolean signInStatus = authenticatorObject.checkCredentials(editTextChefEmail, editTextChefPassword, chefEmailPasswordErrorMessages);
                 if (signInStatus){
@@ -47,8 +47,12 @@ public class ALoginScreen extends MainActivity {
                     if (ROLE.equals("Customer")){
                         goToCustomerLoggedInScreen();
                     }
-                    else{
+                    else if (ROLE.equals("Chef")) {
                         goToChefLoggedInScreen();
+                    }
+
+                    else {
+                        goToAdminLoggedInScreen();
                     }
                 }
             }
@@ -62,6 +66,11 @@ public class ALoginScreen extends MainActivity {
 
     public void goToChefLoggedInScreen() {
         Intent mainActivity = new Intent(this, E2ChefLoggedInScreen.class);
+        startActivity(mainActivity);
+    }
+
+    public void goToAdminLoggedInScreen() {
+        Intent mainActivity = new Intent(this, E3AdminLoggedInScreen.class);
         startActivity(mainActivity);
     }
 }
