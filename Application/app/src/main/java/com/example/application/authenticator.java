@@ -126,12 +126,11 @@ public class authenticator extends AppCompatActivity {
         //For Address
     public boolean checkAddressCredentialsInputs(EditText[] editTexts, TextView errorMessages){
         EditText line1 = editTexts[0];
-        EditText line2 = editTexts[1];
         EditText city = editTexts[2];
         EditText province = editTexts[3];
         EditText postalcode = editTexts[4];
 
-        boolean addressValidation = this.checkline1line2(line1,line2, errorMessages);
+        boolean addressValidation = this.checkline1(line1,errorMessages);
         if(!addressValidation){
             return false;
         }
@@ -145,11 +144,11 @@ public class authenticator extends AppCompatActivity {
         }
         return true;
     }
-    //Just for Line1 and Line 2 to be different
-    public boolean checkline1line2(@NonNull EditText line1, @NonNull EditText line2, TextView errorMessages){
+
+    public boolean checkline1(@NonNull EditText line1,TextView errorMessages){
+
         String stringline1= line1.getText().toString();
-        String stringline2= line2.getText().toString();
-        String[] address={stringline1,stringline2};
+        String[] address={stringline1};
         for (String currentaddress:address){
             if (currentaddress.equals("")){
                 errorMessages.setText("Address is invalid");
@@ -279,7 +278,15 @@ public class authenticator extends AppCompatActivity {
                 return false;
             }
             if (currentexpnums.matches(special)){
-                errorMessages.setText("Expiration date most not contain special characters");
+                errorMessages.setText("Expiration date must not contain special characters");
+                return false;
+            }
+            if (currentexpnums.length()>7 || currentexpnums.length()<7){
+                errorMessages.setText("Expiration date must follow MM/YYYY format");
+                return false;
+            }
+            if (currentexpnums.indexOf("/")!=2){
+                errorMessages.setText("Expiration date must follow MM/YYYY format");
                 return false;
             }
         }

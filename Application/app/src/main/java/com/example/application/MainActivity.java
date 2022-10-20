@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         //Creates an intent of the screen to go to next
         Intent custIntent = new Intent(this, XLoginSignupScreen.class);
         //Create a Parameter
-        custIntent.putExtra("CustomerOrChef", "Customer");
+        custIntent.putExtra("CustomerOrChefOrAdmin", "Customer");
         //Start the new activity with parameter
         startActivity(custIntent);
     }
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     //Same but for chef Login
     public void chefLogin() {
         Intent chefIntent = new Intent(this, XLoginSignupScreen.class);
-        chefIntent.putExtra("CustomerOrChef", "Chef");
+        chefIntent.putExtra("CustomerOrChefOrAdmin", "Chef");
         startActivity(chefIntent);
     }
 

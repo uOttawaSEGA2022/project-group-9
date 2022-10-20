@@ -1,6 +1,5 @@
 package com.example.application;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 
 import android.content.Intent;
@@ -11,21 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 public class ALoginScreen extends MainActivity {
-
-    FirebaseAuth fAuth;
-    FirebaseDatabase database;
-    DatabaseReference dataRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +32,6 @@ public class ALoginScreen extends MainActivity {
         TextView screenTitle = findViewById(R.id.loginScreenTitle);
         screenTitle.setText("Welcome Back, " + ROLE);
 
-        fAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-
         Button signInButton = (Button) findViewById(R.id.SignIn);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -60,72 +42,19 @@ public class ALoginScreen extends MainActivity {
                 EditText editTextChefPassword = findViewById(R.id.Password);
                 authenticator authenticatorObject = new authenticator();
                 boolean signInStatus = authenticatorObject.checkCredentials(editTextChefEmail, editTextChefPassword, chefEmailPasswordErrorMessages);
-
-                fAuth.signInWithEmailAndPassword(editTextChefEmail.getText().toString(), editTextChefPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            if (ROLE.equals("Customer")){
-                                dataRef = database.getReference("Customer");
-                                dataRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (snapshot.hasChild(fAuth.getCurrentUser().getUid())) {
-                                            Toast.makeText(ALoginScreen.this, "Login successfull!", Toast.LENGTH_SHORT).show();
-                                            goToCustomerLoggedInScreen();
-                                        } else {
-                                            Toast.makeText(ALoginScreen.this, "Username or Password Incorrect!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-                            }
-                            else if (ROLE.equals("Chef")) {
-                                dataRef = database.getReference("Chef");
-                                dataRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (snapshot.hasChild(fAuth.getCurrentUser().getUid())) {
-                                            Toast.makeText(ALoginScreen.this, "Login successfull!", Toast.LENGTH_SHORT).show();
-                                            goToChefLoggedInScreen();
-                                        } else {
-                                            Toast.makeText(ALoginScreen.this, "Username or Password Incorrect!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-                            }
-
-                            else {
-                                goToAdminLoggedInScreen();
-                            }
-                        } else {
-                            Toast.makeText(ALoginScreen.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
+                if (signInStatus){
+                    Toast.makeText(getApplicationContext(), "Sign In Successful", Toast.LENGTH_SHORT).show();
+                    if (ROLE.equals("Customer")){
+                        goToCustomerLoggedInScreen();
                     }
-                });
+                    else if (ROLE.equals("Chef")) {
+                        goToChefLoggedInScreen();
+                    }
 
-//                if (signInStatus){
-//                    Toast.makeText(getApplicationContext(), "Sign In Successful", Toast.LENGTH_SHORT).show();
-//                    if (ROLE.equals("Customer")){
-//                        goToCustomerLoggedInScreen();
-//                    }
-//                    else if (ROLE.equals("Chef")) {
-//                        goToChefLoggedInScreen();
-//                    }
-//
-//                    else {
-//                        goToAdminLoggedInScreen();
-//                    }
-//                }
+                    else {
+                        goToAdminLoggedInScreen();
+                    }
+                }
             }
         });
     }
