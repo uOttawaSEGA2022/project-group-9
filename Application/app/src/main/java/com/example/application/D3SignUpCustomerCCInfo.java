@@ -2,6 +2,7 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -125,5 +126,12 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
         customerInfo[11] = creditCardNumber.getText().toString();
         customerInfo[12] = cvvNumber.getText().toString();
         customerInfo[13] = expirationDate.getText().toString();
+
+        //Yash's Debugging Code Checking If Array Is Valid
+        Log.i("CHECKING INDICES", "Index 10-13 is updated for customer");
+        System.out.println(customerInfo[10]);
+        System.out.println(customerInfo[11]);
+        System.out.println(customerInfo[12]);
+        System.out.println(customerInfo[13]);
     }
 }

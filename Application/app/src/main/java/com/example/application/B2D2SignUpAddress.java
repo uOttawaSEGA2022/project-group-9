@@ -2,6 +2,7 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -116,6 +117,14 @@ public class B2D2SignUpAddress extends MainActivity {
             userInfo[7] = city.getText().toString();
             userInfo[8] = province.getText().toString();
             userInfo[9] = postalCode.getText().toString();
+
+            //Yash's Debugging Code Checking If Array Is Valid
+            Log.i("CHECKING INDICES", "Index 5-9 is updated same addresses!");
+            System.out.println(userInfo[5]);
+            System.out.println(userInfo[6]);
+            System.out.println(userInfo[7]);
+            System.out.println(userInfo[8]);
+            System.out.println(userInfo[9]);
         }
 
         else{
@@ -124,6 +133,14 @@ public class B2D2SignUpAddress extends MainActivity {
             userInfo[16] = city.getText().toString();
             userInfo[17] = province.getText().toString();
             userInfo[18] = postalCode.getText().toString();
+
+            //Yash's Debugging Code Checking If Array Is Valid
+            Log.i("CHECKING INDICES", "Index 14-18 is updated not same addresses!");
+            System.out.println(userInfo[14]);
+            System.out.println(userInfo[15]);
+            System.out.println(userInfo[16]);
+            System.out.println(userInfo[17]);
+            System.out.println(userInfo[18]);
         }
     }
 }
