@@ -2,6 +2,7 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +39,10 @@ public class B3SignUpChefShortDescription extends MainActivity {
                 Intent b4SignUpChefVoidCheque = new Intent(getApplicationContext(), B4SignUpChefVoidCheque.class);
                 b4SignUpChefVoidCheque.putExtra("Chef Info", chefInfo);
                 startActivity(b4SignUpChefVoidCheque);
+
+                //Yash's Debugging Code Checking If Array Is Valid
+                Log.i("CHECKING INDICES", "Index 10 is updated for Chef!");
+                System.out.println(chefInfo[10]);
             }
         });
     }

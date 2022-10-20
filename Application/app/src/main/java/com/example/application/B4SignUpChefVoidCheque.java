@@ -2,6 +2,7 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,6 +61,10 @@ public class B4SignUpChefVoidCheque extends MainActivity{
                 Intent e2ChefLoggedInScreen = new Intent(getApplicationContext(), E2ChefLoggedInScreen.class);
                 e2ChefLoggedInScreen.putExtra("Chef Info", chefInfo);
                 startActivity(e2ChefLoggedInScreen);
+
+                //Yash's Debugging Code Checking If Array Is Valid
+                Log.i("CHECKING INDICES", "Index 11 is updated for Chef!");
+                System.out.println(chefInfo[11]);
             }
         });
     }
