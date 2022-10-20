@@ -95,9 +95,6 @@ public class XLoginSignupScreen extends MainActivity {
 
         }
 
-        else {
-
-        }
 
         // At this point, the string array has 1 element, at index 0, with the role of the user
         // We can generate the ID here, and input it before the role, then shift all indices
