@@ -72,6 +72,7 @@ public class B1D1SignUpNameCredentials extends MainActivity{
             }
         });
     }
+
     // After this method, the string array should have 5 elements:
     // role, first name, last name, email, password
     // Indices 0 through 4
