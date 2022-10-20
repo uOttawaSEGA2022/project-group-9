@@ -2,17 +2,24 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
 public class B1D1SignUpNameCredentials extends MainActivity{
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +79,6 @@ public class B1D1SignUpNameCredentials extends MainActivity{
             }
         });
     }
-
     // After this method, the string array should have 5 elements:
     // role, first name, last name, email, password
     // Indices 0 through 4
@@ -83,13 +89,6 @@ public class B1D1SignUpNameCredentials extends MainActivity{
         userInfo[2] = lastName.getText().toString();
         userInfo[3] = email.getText().toString();
         userInfo[4] = password.getText().toString();
-
-        //Yash's Debugging Code Checking If Array Is Valid
-        Log.i("CHECKING INDICES", "Index 1-4 is updated!");
-        System.out.println(userInfo[1]);
-        System.out.println(userInfo[2]);
-        System.out.println(userInfo[3]);
-        System.out.println(userInfo[4]);
     }
 
 }

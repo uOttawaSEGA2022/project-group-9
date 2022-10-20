@@ -2,7 +2,6 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,37 +63,35 @@ public class B2D2SignUpAddress extends MainActivity {
                 boolean validateTextInputs = authenticatorObject.checkAddressCredentialsInputs(editTexts, errorMessages);
 
 
-                if (validateTextInputs){
-                    String[] userInfo = tempHigherOrderUserInfo;
+                String[] userInfo = tempHigherOrderUserInfo;
 
-                    if (intentSource.equals("B1D1")){
-                        addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "User");
-                        if (role.equals("Customer")){
-                            // Send to D3
-                            Intent d3SignUpCustomerCCInfo = new Intent(getApplicationContext(), D3SignUpCustomerCCInfo.class);
-                            d3SignUpCustomerCCInfo.putExtra("Customer Info", userInfo);
-                            startActivity(d3SignUpCustomerCCInfo);
+                if (intentSource.equals("B1D1")){
+                    addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "User");
+                    if (role.equals("Customer")){
+                        // Send to D3
+                        Intent d3SignUpCustomerCCInfo = new Intent(getApplicationContext(), D3SignUpCustomerCCInfo.class);
+                        d3SignUpCustomerCCInfo.putExtra("Customer Info", userInfo);
+                        startActivity(d3SignUpCustomerCCInfo);
 
-                        }
-
-                        else{
-                            // Send to B3
-                            Intent b3SignUpCHefShortDescription = new Intent(getApplicationContext(), B3SignUpChefShortDescription.class);
-                            b3SignUpCHefShortDescription.putExtra("Chef Info", userInfo);
-                            startActivity(b3SignUpCHefShortDescription);
-                        }
                     }
+
                     else{
-
-                        addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "Billing");
-
-                        // At this point, it's a customer coming from D3 and inputting a billing address
-                        // We want to finish the sign up process here and the array list is complete
-                        // Implement database logic here
-
-                        Intent e1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
-                        startActivity(e1CustomerLoggedInScreen);
+                        // Send to B3
+                        Intent b3SignUpCHefShortDescription = new Intent(getApplicationContext(), B3SignUpChefShortDescription.class);
+                        b3SignUpCHefShortDescription.putExtra("Chef Info", userInfo);
+                        startActivity(b3SignUpCHefShortDescription);
                     }
+                }
+                else{
+
+                    addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "Billing");
+
+                    // At this point, it's a customer coming from D3 and inputting a billing address
+                    // We want to finish the sign up process here and the array list is complete
+                    // Implement database logic here
+
+                    Intent e1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
+                    startActivity(e1CustomerLoggedInScreen);
                 }
             }
         });
@@ -119,14 +116,6 @@ public class B2D2SignUpAddress extends MainActivity {
             userInfo[7] = city.getText().toString();
             userInfo[8] = province.getText().toString();
             userInfo[9] = postalCode.getText().toString();
-
-            //Yash's Debugging Code Checking If Array Is Valid
-            Log.i("CHECKING INDICES", "Index 5-9 is updated same addresses!");
-            System.out.println(userInfo[5]);
-            System.out.println(userInfo[6]);
-            System.out.println(userInfo[7]);
-            System.out.println(userInfo[8]);
-            System.out.println(userInfo[9]);
         }
 
         else{
@@ -135,14 +124,6 @@ public class B2D2SignUpAddress extends MainActivity {
             userInfo[16] = city.getText().toString();
             userInfo[17] = province.getText().toString();
             userInfo[18] = postalCode.getText().toString();
-
-            //Yash's Debugging Code Checking If Array Is Valid
-            Log.i("CHECKING INDICES", "Index 14-18 is updated not same addresses!");
-            System.out.println(userInfo[14]);
-            System.out.println(userInfo[15]);
-            System.out.println(userInfo[16]);
-            System.out.println(userInfo[17]);
-            System.out.println(userInfo[18]);
         }
     }
 }
