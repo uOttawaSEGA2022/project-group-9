@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class E2ChefLoggedInScreen extends AppCompatActivity {
+public class E2ChefLoggedInScreen extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

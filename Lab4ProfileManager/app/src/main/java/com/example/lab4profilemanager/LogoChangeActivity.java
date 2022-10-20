@@ -23,31 +23,26 @@ public class LogoChangeActivity extends AppCompatActivity {
                 startActivity(mainActivity);
             }
         });
-
-        actionBarBackArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(mainActivity);
-            }
-        });
     }
 
-    //Sets Team Icon, common method
+    /*
+    Sets Team Icon, common method
+
+    Forwards the ID of the image that the user clicked/pressed BACK to the main activity
+     */
     public void SetTeamIcon(View view) {
+
         //Creating a Return intent to pass to the Main Activity
         Intent returnIntent = new Intent();
+
         //Figuring out which image was clicked
-        //Error could be here
         ImageView selectedImage = (ImageView) view;
+
         //Adding stuff to the return intent
         returnIntent.putExtra("imageID", selectedImage.getId());
         setResult(RESULT_OK, returnIntent);
+
         //Finishing Activity and return to main screen!
         finish();
-
     }
-
-
-
 }
