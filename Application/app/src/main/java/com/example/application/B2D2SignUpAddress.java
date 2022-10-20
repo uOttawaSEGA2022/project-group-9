@@ -63,35 +63,37 @@ public class B2D2SignUpAddress extends MainActivity {
                 boolean validateTextInputs = authenticatorObject.checkAddressCredentialsInputs(editTexts, errorMessages);
 
 
-                String[] userInfo = tempHigherOrderUserInfo;
+                if (validateTextInputs){
+                    String[] userInfo = tempHigherOrderUserInfo;
 
-                if (intentSource.equals("B1D1")){
-                    addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "User");
-                    if (role.equals("Customer")){
-                        // Send to D3
-                        Intent d3SignUpCustomerCCInfo = new Intent(getApplicationContext(), D3SignUpCustomerCCInfo.class);
-                        d3SignUpCustomerCCInfo.putExtra("Customer Info", userInfo);
-                        startActivity(d3SignUpCustomerCCInfo);
+                    if (intentSource.equals("B1D1")){
+                        addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "User");
+                        if (role.equals("Customer")){
+                            // Send to D3
+                            Intent d3SignUpCustomerCCInfo = new Intent(getApplicationContext(), D3SignUpCustomerCCInfo.class);
+                            d3SignUpCustomerCCInfo.putExtra("Customer Info", userInfo);
+                            startActivity(d3SignUpCustomerCCInfo);
 
+                        }
+
+                        else{
+                            // Send to B3
+                            Intent b3SignUpCHefShortDescription = new Intent(getApplicationContext(), B3SignUpChefShortDescription.class);
+                            b3SignUpCHefShortDescription.putExtra("Chef Info", userInfo);
+                            startActivity(b3SignUpCHefShortDescription);
+                        }
                     }
-
                     else{
-                        // Send to B3
-                        Intent b3SignUpCHefShortDescription = new Intent(getApplicationContext(), B3SignUpChefShortDescription.class);
-                        b3SignUpCHefShortDescription.putExtra("Chef Info", userInfo);
-                        startActivity(b3SignUpCHefShortDescription);
+
+                        addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "Billing");
+
+                        // At this point, it's a customer coming from D3 and inputting a billing address
+                        // We want to finish the sign up process here and the array list is complete
+                        // Implement database logic here
+
+                        Intent e1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
+                        startActivity(e1CustomerLoggedInScreen);
                     }
-                }
-                else{
-
-                    addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "Billing");
-
-                    // At this point, it's a customer coming from D3 and inputting a billing address
-                    // We want to finish the sign up process here and the array list is complete
-                    // Implement database logic here
-
-                    Intent e1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
-                    startActivity(e1CustomerLoggedInScreen);
                 }
             }
         });
