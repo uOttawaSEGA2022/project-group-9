@@ -57,8 +57,6 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
             }
         });
 
-        // Test
-
         finishSignUpContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

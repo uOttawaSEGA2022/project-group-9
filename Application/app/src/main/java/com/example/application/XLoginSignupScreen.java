@@ -93,7 +93,6 @@ public class XLoginSignupScreen extends MainActivity {
             b1d1SignUpNameCredentials.putExtra("User Info", userInfo);
             startActivity(b1d1SignUpNameCredentials);
 
-
         // At this point, the string array has 1 element, at index 0, with the role of the user
         // We can generate the ID here, and input it before the role, then shift all indices
         // in the rest of designs by 1
@@ -101,6 +100,8 @@ public class XLoginSignupScreen extends MainActivity {
         //Yash's Debugging Code Checking If Array Is Valid
         Log.i("CHECKING INDICES", "Index 0 is updated!");
         System.out.println(userInfo[0]);
+
+        //FINAL COMMIT MESSAGE : YASH JAIN
     }
 
 
