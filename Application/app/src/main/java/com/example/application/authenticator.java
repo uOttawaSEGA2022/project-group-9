@@ -201,91 +201,91 @@ public class authenticator extends AppCompatActivity {
         EditText cvvnumber = editTexts[2];
         EditText expdate = editTexts[3];
 
-        boolean nocValidation = this.checknoc(noc,errorMessages);
+        boolean nocValidation = this.checkNameOnCard(noc,errorMessages);
         if (!nocValidation){
             return false;
         }
-        boolean CcCvvValidation = this.checkccnumber(ccnumber,cvvnumber,errorMessages);
+        boolean CcCvvValidation = this.checkCCNumber(ccnumber,cvvnumber,errorMessages);
         if(!CcCvvValidation) {
             return false;
         }
-        boolean expdateValidation = this.checkexpdate(expdate, errorMessages);
+        boolean expdateValidation = this.checkExpiryDate(expdate, errorMessages);
         if(!expdateValidation){
             return false;
         }
         return true;
     }
-    public boolean checknoc(@NonNull EditText noc,TextView errorMessages){
+    public boolean checkNameOnCard(@NonNull EditText nameOnCard, TextView errorMessages){
         String special = "1234567890(.*[!\"#$%&'()*+,-./:;<=>?@^_`{|}~].*)";
-        String stringnoc = noc.getText().toString();
-        String[] NOC={stringnoc};
-        for (String currentNOC:NOC){
-            if (currentNOC.equals("")){
+        String stringNameOnCard = nameOnCard.getText().toString();
+        String[] nameOnCardList={stringNameOnCard};
+        for (String currentNameOnCard:nameOnCardList){
+            if (currentNameOnCard.equals("")){
                 errorMessages.setText("Invalid Name On Card");
                 return false;
             }
-            if  (currentNOC.matches(special)){
+            if  (currentNameOnCard.matches(special)){
                 errorMessages.setText("Invalid Name On Card");
                 return false;
             }
         }
         return true;
     }
-    public boolean checkccnumber(@NonNull EditText ccnumber,@NonNull EditText cvvnumber, TextView errorMessages){
+    public boolean checkCCNumber(@NonNull EditText CCNumber, @NonNull EditText CVVNumber, TextView errorMessages){
         String lowerCaseCharacters = "(.*[a-z].*)";
         String upperCaseCharacters = "(.*[A-Z].*)";
         String special = "(.*[@!#$%&].*)";
-        String stringccnumber = ccnumber.getText().toString();
-        String stringcvvnumber = cvvnumber.getText().toString();
-        String[] cnums={stringccnumber,stringcvvnumber};
-        for (String currentcnums:cnums){
-            if (currentcnums.equals("")){
+        String stringCCNumber = CCNumber.getText().toString();
+        String stringCVVNumber = CVVNumber.getText().toString();
+        String[] CCAndCVVNumbers={stringCCNumber,stringCVVNumber};
+        for (String currentNumber:CCAndCVVNumbers){
+            if (currentNumber.equals("")){
                 errorMessages.setText("Invalid Credit Card/CVV");
                 return false;
             }
-            if (currentcnums.matches(lowerCaseCharacters)){
+            if (currentNumber.matches(lowerCaseCharacters)){
                 errorMessages.setText("Credit Card/CVV must be numerical digits");
                 return false;
             }
-            if (currentcnums.matches(upperCaseCharacters)){
+            if (currentNumber.matches(upperCaseCharacters)){
                 errorMessages.setText("Credit Card/CVV must be numerical digits");
                 return false;
             }
-            if (currentcnums.matches(special)){
+            if (currentNumber.matches(special)){
                 errorMessages.setText(("Credit Card/CVV must not contain special characters"));
                 return false;
             }
         }
         return true;
     }
-    public boolean checkexpdate(@NonNull EditText expdate, TextView errorMessages){
+    public boolean checkExpiryDate(@NonNull EditText expirtyDate, TextView errorMessages){
         String lowerCaseCharacters = "(.*[a-z].*)";
         String upperCaseCharacters = "(.*[A-Z].*)";
         String special = "(.*[!\"#$%&'()*+,-.:;<=>?@^_`{|}~].*)";
-        String stringexpdate= expdate.getText().toString();
-        String[] expnums={stringexpdate};
-        for (String currentexpnums:expnums){
-            if(currentexpnums.equals("")){
+        String stringExpiryDate= expirtyDate.getText().toString();
+        String[] expiryNumbers={stringExpiryDate};
+        for (String currentExpiryNumber:expiryNumbers){
+            if(currentExpiryNumber.equals("")){
                 errorMessages.setText("Expiration date is left empty");
                 return false;
             }
-            if (currentexpnums.matches(lowerCaseCharacters)){
+            if (currentExpiryNumber.matches(lowerCaseCharacters)){
                 errorMessages.setText("Expiration date must only contain numbers");
                 return false;
             }
-            if (currentexpnums.matches(upperCaseCharacters)){
+            if (currentExpiryNumber.matches(upperCaseCharacters)){
                 errorMessages.setText("Expiration date must only contain numbers");
                 return false;
             }
-            if (currentexpnums.matches(special)){
+            if (currentExpiryNumber.matches(special)){
                 errorMessages.setText("Expiration date must not contain special characters");
                 return false;
             }
-            if (currentexpnums.length()>7 || currentexpnums.length()<7){
+            if (currentExpiryNumber.length()>7 || currentExpiryNumber.length()<7){
                 errorMessages.setText("Expiration date must follow MM/YYYY format");
                 return false;
             }
-            if (currentexpnums.indexOf("/")!=2){
+            if (currentExpiryNumber.indexOf("/")!=2){
                 errorMessages.setText("Expiration date must follow MM/YYYY format");
                 return false;
             }

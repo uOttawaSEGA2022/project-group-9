@@ -67,19 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    //IDK
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if(itemId == android.R.id.home){
-            finish();
-        }
-        return true;
-    }
-
-
-
     //For Customer Login onclick
     public void customerLogin() {
         //Creates an intent of the screen to go to next

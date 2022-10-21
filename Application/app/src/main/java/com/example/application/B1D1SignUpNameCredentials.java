@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 
-import java.util.ArrayList;
-
 public class B1D1SignUpNameCredentials extends MainActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +60,7 @@ public class B1D1SignUpNameCredentials extends MainActivity{
                 boolean validateTextInputs = authenticatorObject.checkNameCredentialsInputs(editTexts, errorMessages);
                 if (validateTextInputs){
                     //Add data to the array
-                    addNameCredentialsToArrayList(firstName, lastName, email, password, userInfo);
+                    addNameCredentialsToArray(firstName, lastName, email, password, userInfo);
                     Intent b2d2SignUpAddress = new Intent(getApplicationContext(), B2D2SignUpAddress.class);
                     //Pass a Source and User Info
                     b2d2SignUpAddress.putExtra("User Info", userInfo);
@@ -76,8 +74,8 @@ public class B1D1SignUpNameCredentials extends MainActivity{
     // After this method, the string array should have 5 elements:
     // role, first name, last name, email, password
     // Indices 0 through 4
-    public static void addNameCredentialsToArrayList(EditText firstName, EditText lastName,
-                                          EditText email, EditText password, String[] userInfo){
+    public static void addNameCredentialsToArray(EditText firstName, EditText lastName,
+                                                 EditText email, EditText password, String[] userInfo){
 
         userInfo[1] = firstName.getText().toString();
         userInfo[2] = lastName.getText().toString();

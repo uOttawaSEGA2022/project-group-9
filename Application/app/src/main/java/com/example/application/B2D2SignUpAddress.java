@@ -68,7 +68,7 @@ public class B2D2SignUpAddress extends MainActivity {
                     String[] userInfo = tempHigherOrderUserInfo;
 
                     if (intentSource.equals("B1D1")){
-                        addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "User");
+                        addAddressInputsToArray(addressLine1, addressLine2, city, province, postalCode, userInfo, "User");
                         if (role.equals("Customer")){
                             // Send to D3
                             Intent d3SignUpCustomerCCInfo = new Intent(getApplicationContext(), D3SignUpCustomerCCInfo.class);
@@ -86,7 +86,7 @@ public class B2D2SignUpAddress extends MainActivity {
                     }
                     else{
 
-                        addAddressInputsToArrayList(addressLine1, addressLine2, city, province, postalCode, userInfo, "Billing");
+                        addAddressInputsToArray(addressLine1, addressLine2, city, province, postalCode, userInfo, "Billing");
 
                         // At this point, it's a customer coming from D3 and inputting a billing address
                         // We want to finish the sign up process here and the array list is complete
@@ -108,10 +108,10 @@ public class B2D2SignUpAddress extends MainActivity {
     * address line 1, address line 2, city, province, postal code
     * */
 
-    public static void addAddressInputsToArrayList(EditText addressLine1, EditText addressLine2,
-                                                   EditText city, EditText province,
-                                                   EditText postalCode, String[] userInfo,
-                                                   String userOrBillingAddress){
+    public static void addAddressInputsToArray(EditText addressLine1, EditText addressLine2,
+                                               EditText city, EditText province,
+                                               EditText postalCode, String[] userInfo,
+                                               String userOrBillingAddress){
 
         if (userOrBillingAddress.equals("User")){
             userInfo[5] = addressLine1.getText().toString();

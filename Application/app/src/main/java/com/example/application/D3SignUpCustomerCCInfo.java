@@ -11,11 +11,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public class D3SignUpCustomerCCInfo extends MainActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +60,7 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
 
                 // If we implement error checking, move this line of code to after all the error checking
                 if (validateTextInputs){
-                    addTextInputs(nameOnCard, creditCardNumber, cvvNumber, expirationDate, customerInfo);
+                    addTextInputsToArray(nameOnCard, creditCardNumber, cvvNumber, expirationDate, customerInfo);
                     if (userAddressSameAsShippingAddress.isChecked()){
 
                         // Adding the billing address (same as user address)
@@ -120,9 +115,9 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
      * name on card, credit card number, cvv number, expiration date
      * */
 
-    public static void addTextInputs(EditText nameOnCard, EditText creditCardNumber,
-                                     EditText cvvNumber, EditText expirationDate,
-                                     String[] customerInfo){
+    public static void addTextInputsToArray(EditText nameOnCard, EditText creditCardNumber,
+                                            EditText cvvNumber, EditText expirationDate,
+                                            String[] customerInfo){
 
         customerInfo[10] = nameOnCard.getText().toString();
         customerInfo[11] = creditCardNumber.getText().toString();
