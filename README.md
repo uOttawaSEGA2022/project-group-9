@@ -9,6 +9,6 @@ And replace Username as the local user name on the local machine and the error s
   
 We followed this guide to get the solution: https://www.geeksforgeeks.org/how-to-fix-sdk-location-not-found-in-android-studio/  
 
-Admin Credentials:
+Admin Credentials:  
 admin@email.com  
 Admin123$
