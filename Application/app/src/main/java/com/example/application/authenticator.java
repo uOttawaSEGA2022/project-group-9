@@ -44,7 +44,7 @@ public class authenticator extends AppCompatActivity {
     //For first and last name
     public boolean checkFirstLastName(@NonNull EditText firstName, @NonNull EditText lastName, TextView errorMessages) {
         //Characters which can cause issues
-        String specialCharacters = "(.*[!\"#$%&'()*+,-./:;<=>?@^_`{|}~].*)";
+        String specialCharacters = "(.*[!\"#$%&'()*+,-./:;<=>?@ ^_`{|}~].*)";
 
         String stringFirstName = firstName.getText().toString();
         String stringLastName = lastName.getText().toString();
