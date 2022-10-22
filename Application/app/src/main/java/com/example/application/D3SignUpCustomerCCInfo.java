@@ -8,13 +8,32 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.ActionBar;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class D3SignUpCustomerCCInfo extends MainActivity{
+
+    FirebaseAuth fAuth;
+    FirebaseDatabase database;
+    DatabaseReference dataRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.d3_signup_customer_cc_info);
 
         ActionBar actionBar = getSupportActionBar();
@@ -28,6 +47,9 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
         EditText expirationDate = findViewById(R.id.signUpCustomerExpirationDate);
         EditText[] editTexts = {nameOnCard,creditCardNumber,cvvNumber,expirationDate};
         TextView errorMessages = findViewById(R.id.signUpCustomerCCErrorMessages);
+
+        fAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
 
         String[] tempCustomerInfo = {};
@@ -89,10 +111,35 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
                          * name on card, credit card number, cvv number, expiration date
                          * address line 1, address line 2, city, province, postal code (Billing address)
                          * */
+                        String[] registerInfo = {"role", "first_name", "last_name", "email", "password",
+                                "addressline1", "addressline2", "city", "province", "postalcode",
+                                "nameoncard", "creditcardnumber", "cvvnumber", "expirationdate",
+                                "addressline1", "addressline2", "city", "province", "postalcode"};
 
+                        fAuth.createUserWithEmailAndPassword(customerInfo[3], customerInfo[4]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()) {
+                                    dataRef = database.getReference("Customer").child(fAuth.getCurrentUser().getUid());
+
+                                    for (int i=0; i<customerInfo.length; i++) {
+                                        if(i == 0 || i == 3 || i == 4) continue;
+                                        Log.d("chefInfo",registerInfo[i] + " " + customerInfo[i]);
+                                        dataRef.child(registerInfo[i]).setValue(customerInfo[i]);
+                                    }
+
+                                    Toast.makeText(D3SignUpCustomerCCInfo.this, "sign up successfull!", Toast.LENGTH_SHORT).show();
+
+                                    Intent e1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
+                                    // We can send name and some info on the user to the log in screen here, or we can fetch from the database immediately
+                                    startActivity(e1CustomerLoggedInScreen);
+                                } else {
+                                    Toast.makeText(D3SignUpCustomerCCInfo.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
 
                         Intent e1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
-                        // We can send name and some info on the user to the log in screen here, or we can fetch from the database immediately
                         startActivity(e1CustomerLoggedInScreen);
                     }
                     else{

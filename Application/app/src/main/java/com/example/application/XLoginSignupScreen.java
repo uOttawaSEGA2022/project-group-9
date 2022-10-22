@@ -35,7 +35,6 @@ public class XLoginSignupScreen extends MainActivity {
             role = extras.getString("CustomerOrChefOrAdmin");
         }
         //Finalize the String Role
-        //Name ROLE is weird, is there a techanical reason?
         final String ROLE = role;
 
         //Set Text to screen
@@ -88,10 +87,21 @@ public class XLoginSignupScreen extends MainActivity {
         userInfo[0] = ROLE;
 
         //For Chef Sign up
+        if (userInfo[0].equals("Chef")) {
+
             // Send to activity B1D1 with string array with first value as the ROLE, with key "User Info"
             Intent b1d1SignUpNameCredentials = new Intent(getApplicationContext(), B1D1SignUpNameCredentials.class);
             b1d1SignUpNameCredentials.putExtra("User Info", userInfo);
             startActivity(b1d1SignUpNameCredentials);
+
+        }
+        if (userInfo[0].equals("Customer")) {
+            // Send to activity B1D1 with string array with first value as the ROLE, with key "User Info"
+            Intent b1d1SignUpNameCredentials = new Intent(getApplicationContext(), B1D1SignUpNameCredentials.class);
+            b1d1SignUpNameCredentials.putExtra("User Info", userInfo);
+            startActivity(b1d1SignUpNameCredentials);
+
+        }
 
         // At this point, the string array has 1 element, at index 0, with the role of the user
         // We can generate the ID here, and input it before the role, then shift all indices

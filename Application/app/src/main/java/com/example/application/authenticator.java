@@ -44,7 +44,7 @@ public class authenticator extends AppCompatActivity {
     //For first and last name
     public boolean checkFirstLastName(@NonNull EditText firstName, @NonNull EditText lastName, TextView errorMessages) {
         //Characters which can cause issues
-        String specialCharacters = "(.*[!\"#$%&'()*+,-./:;<=>?@ ^_`{|}~].*)";
+        String specialCharacters = "(.*[!\"#$%&'()*+,-./:;<=>?@^_`{|}~].*)";
 
         String stringFirstName = firstName.getText().toString();
         String stringLastName = lastName.getText().toString();
@@ -64,66 +64,66 @@ public class authenticator extends AppCompatActivity {
         return true;
     }
 
-        public boolean checkCredentials (EditText email, EditText password, @NonNull TextView emailPasswordErrorMessages){
-            String stringEmail = email.getText().toString();
-            String emailValidation = validateEmail(stringEmail);
-            String stringPassword = password.getText().toString();
-            String passwordValidation = validatePassword(stringEmail, stringPassword);
-            if (!emailValidation.equals("Valid Email"))
-                emailPasswordErrorMessages.setText(emailValidation);
-            else if (!passwordValidation.equals("Valid Password"))
-                emailPasswordErrorMessages.setText(passwordValidation);
-            else {
-                return true;
-            }
-            return false;
+    public boolean checkCredentials (EditText email, EditText password, @NonNull TextView emailPasswordErrorMessages){
+        String stringEmail = email.getText().toString();
+        String emailValidation = validateEmail(stringEmail);
+        String stringPassword = password.getText().toString();
+        String passwordValidation = validatePassword(stringEmail, stringPassword);
+        if (!emailValidation.equals("Valid Email"))
+            emailPasswordErrorMessages.setText(emailValidation);
+        else if (!passwordValidation.equals("Valid Password"))
+            emailPasswordErrorMessages.setText(passwordValidation);
+        else {
+            return true;
         }
+        return false;
+    }
 
-        public String[] getCredentials (@NonNull EditText editTextEmail, @NonNull EditText editTextPassword) {
-            String email = editTextEmail.getText().toString();
-            String password = editTextPassword.getText().toString();
-            return new String[]{email, password};
-        }
+    public String[] getCredentials (@NonNull EditText editTextEmail, @NonNull EditText editTextPassword) {
+        String email = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
+        return new String[]{email, password};
+    }
 
-        //Valid Email needs a @ symbol
-        public String validateEmail (@NonNull String email){
-            if (email.contains("@"))
-                return "Valid Email";
-            return "Invalid Email";
-        }
+    //Valid Email needs a @ symbol
+    public String validateEmail (@NonNull String email){
+        if (email.contains("@"))
+            return "Valid Email";
+        return "Invalid Email";
+    }
 
-        //passwords needs XYZ conditions
-        public String validatePassword (@NonNull String email, @NonNull String password) {
-            String numericCharacters = "(.*[0-9].*)";
-            String lowerCaseCharacters = "(.*[a-z].*)";
-            String upperCaseCharacters = "(.*[A-Z].*)";
-            String specialCharacters = "(.*[@!#$%&].*)";
+    //passwords needs XYZ conditions
+    public String validatePassword (@NonNull String email, @NonNull String password) {
+        String numericCharacters = "(.*[0-9].*)";
+        String lowerCaseCharacters = "(.*[a-z].*)";
+        String upperCaseCharacters = "(.*[A-Z].*)";
+        String specialCharacters = "(.*[@!#$%&].*)";
 
-            if (password.equals(""))
-                return "Password cannot be empty";
+        if (password.equals(""))
+            return "Password cannot be empty";
 
-            else if (password.equals(email))
-                return "Email and password cannot be the same";
+        else if (password.equals(email))
+            return "Email and password cannot be the same";
 
-            else if (password.length() < 8 || password.length() > 20)
-                return "Password needs to be between 8 and 20 characters";
+        else if (password.length() < 8 || password.length() > 20)
+            return "Password needs to be between 8 and 20 characters";
 
-            else if (!password.matches(numericCharacters))
-                return "Password must contain one number 0-9";
+        else if (!password.matches(numericCharacters))
+            return "Password must contain one number 0-9";
 
-            else if (!password.matches(lowerCaseCharacters))
-                return "Password must contain one lower case letter a-z";
+        else if (!password.matches(lowerCaseCharacters))
+            return "Password must contain one lower case letter a-z";
 
-            else if (!password.matches(upperCaseCharacters))
-                return "Password must contain one upper case letter A-Z";
+        else if (!password.matches(upperCaseCharacters))
+            return "Password must contain one upper case letter A-Z";
 
-            else if (!password.matches(specialCharacters))
-                return "Password must contain special character @,!,#,$,%,&";
+        else if (!password.matches(specialCharacters))
+            return "Password must contain special character @,!,#,$,%,&";
 
-            else
-                return "Valid Password";
-        }
-        //For Address
+        else
+            return "Valid Password";
+    }
+    //For Address
     public boolean checkAddressCredentialsInputs(EditText[] editTexts, TextView errorMessages){
         EditText line1 = editTexts[0];
         EditText city = editTexts[2];
@@ -185,8 +185,8 @@ public class authenticator extends AppCompatActivity {
         String[] Postalcode = {stringPostal};
         for (String currentPostal: Postalcode){
             if(currentPostal.equals("")){
-                    errorMessages.setText("Invalid Postal Code");
-                    return false;
+                errorMessages.setText("Invalid Postal Code");
+                return false;
             }
             if (currentPostal.matches(special)){
                 errorMessages.setText("Invalid Postal Code");

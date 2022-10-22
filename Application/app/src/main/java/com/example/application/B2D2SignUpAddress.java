@@ -7,15 +7,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class B2D2SignUpAddress extends MainActivity {
+
+    FirebaseAuth fAuth;
+    FirebaseDatabase database;
+    DatabaseReference dataRef;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.b2d2_signup_address);
+
+        fAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -90,7 +110,30 @@ public class B2D2SignUpAddress extends MainActivity {
 
                         // At this point, it's a customer coming from D3 and inputting a billing address
                         // We want to finish the sign up process here and the array list is complete
-                        // Implement database logic here
+
+                        String[] registerInfo = {"role", "first_name", "last_name", "email", "password",
+                                "addressline1", "addressline2", "city", "province", "postalcode",
+                                "nameoncard", "creditcardnumber", "cvvnumber", "expirationdate",
+                                "addressline1", "addressline2", "city", "province", "postalcode"};
+
+                        fAuth.createUserWithEmailAndPassword(userInfo[3], userInfo[4]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()) {
+                                    dataRef = database.getReference("Chef").child(fAuth.getCurrentUser().getUid());
+
+                                    for (int i=0; i<userInfo.length; i++) {
+                                        if(i == 0 || i == 3 || i == 4 || i == 11) continue;
+                                        Log.d("chefInfo",registerInfo[i] + " " + userInfo[i]);
+                                        dataRef.child(registerInfo[i]).setValue(userInfo[i]);
+                                    }
+
+                                    Toast.makeText(B2D2SignUpAddress.this, "sign up successfull!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(B2D2SignUpAddress.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
 
                         Intent e1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
                         startActivity(e1CustomerLoggedInScreen);
@@ -103,10 +146,10 @@ public class B2D2SignUpAddress extends MainActivity {
 
     // At this point, the arrayList should have 10 elements, going through indices 0-9:
     /*
-    * role
-    * first name, last name, email, password
-    * address line 1, address line 2, city, province, postal code
-    * */
+     * role
+     * first name, last name, email, password
+     * address line 1, address line 2, city, province, postal code
+     * */
 
     public static void addAddressInputsToArray(EditText addressLine1, EditText addressLine2,
                                                EditText city, EditText province,
