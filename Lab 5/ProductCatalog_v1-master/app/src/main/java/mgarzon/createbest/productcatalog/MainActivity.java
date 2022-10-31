@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Adding / Removing a Product
         listViewProducts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -81,15 +82,17 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         //attaching value event listener
 
-        //Code is as written in slides but getting an ERROR here because
-        //ValueEventListener is abstract and cannot be instantiated
-        databaseProducts.addValueEventListener(new ValueEventListener()) {
+        //We need an event listener
+        databaseProducts.addValueEventListener(new ValueEventListener() {
+
             @Override
+                    //When data changes
             public void onDataChange(DataSnapshot dataSnapShot) {
                 //Clearing the previous artist list
                 products.clear();
 
                 //Iterating through all the nodes
+                //dataSnapshot scope issue?
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     //Getting product
                     Product product = postSnapshot.getValue(Product.class);
@@ -101,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 ProductList productsAdapter = new ProductList(MainActivity.this, products);
 
                 //Attaching adapter to the list view
-            listViewProducts.setAdapter(productsAdapter);
+                listViewProducts.setAdapter(productsAdapter);
 
             }
 
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        }
+        });
     }
 
 
