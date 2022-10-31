@@ -81,7 +81,8 @@ public class XLoginSignupScreen extends MainActivity {
             userInfo = new String[19];
         }
         else{
-            userInfo = new String[12];
+            //added 1 more element for a boolean to see if the chef is suspensed
+            userInfo = new String[13];
         }
         //Role is in the first index
         userInfo[0] = ROLE;
