@@ -4,6 +4,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import mgarzon.createbest.productcatalog.Product;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -33,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
     Button buttonAddProduct;
     ListView listViewProducts;
 
-    List<Product> products;
+    public List<Product> products;
+    int test;
 
     //Creating an instance of DatabaseReference so that we can read/write data from/to our data base
     DatabaseReference databaseProducts;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAddProduct = (Button) findViewById(R.id.addButton);
 
         products = new ArrayList<>();
+        test = 5;
         
         //Read/write data from/to our data base
         databaseProducts = FirebaseDatabase.getInstance().getReference("products");
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Product product = products.get(i);
+                test+= 5;
                 showUpdateDeleteDialog(product.getId(), product.getProductName());
                 return true;
             }
@@ -91,9 +95,10 @@ public class MainActivity extends AppCompatActivity {
                 //Clearing the previous artist list
                 products.clear();
 
-                //Iterating through all the nodes
-                //dataSnapshot scope issue?
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                //We thought it was a scope issue
+                //We thought it was a scope issue
+                // The issues is placing is an elephant in a car (Wrong item in a slot)
+                for (DataSnapshot postSnapshot : dataSnapShot.getChildren()) {
                     //Getting product
                     Product product = postSnapshot.getValue(Product.class);
                     //Adding product to the list
