@@ -31,6 +31,57 @@
 
 
 
+    <TextView
+        android:id="@+id/selectDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:text="January 01 2022"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.750"
+        android:onClick="openDatePicker"/>
+
+
+    <Button
+        android:id="@+id/suspenseChefUntilSelectedDateButton"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:text="Suspense Chef Until Date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.850" />
+
+    <Button
+        android:id="@+id/suspenseChefPermanentlyButton"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:text="Suspense Chef Permanently"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.800"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.850" />
+
+
     <Button
         android:id="@+id/logOffButton"
         android:layout_width="172dp"
@@ -41,6 +92,6 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.950" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

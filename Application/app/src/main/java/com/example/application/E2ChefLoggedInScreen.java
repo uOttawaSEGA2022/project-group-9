@@ -1,5 +1,6 @@
 package com.example.application;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class E2ChefLoggedInScreen extends MainActivity {
 
+    //@SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,10 +19,20 @@ public class E2ChefLoggedInScreen extends MainActivity {
 
         Button logOff = (Button) findViewById(R.id.logOffButton);
         TextView chefSuspensed = findViewById(R.id.chefSuspensedText);
+        TextView chefSuspensedLength = findViewById(R.id.chefSuspensedLengthText);
 
         //check to see if the chef is suspensed in the database
         if(true) {
             chefSuspensed.setVisibility(View.VISIBLE);
+        }
+
+        //Get Info from DB and set data
+        if (true) {
+            chefSuspensedLength.setText("You are suspensed permanently");
+        }
+
+        if (true) {
+            chefSuspensedLength.setText("You are suspensed for " + "inset var here" + " days");
         }
 
 
