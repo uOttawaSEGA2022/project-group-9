@@ -1,5 +1,6 @@
 package com.example.lab5;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,7 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -84,13 +87,24 @@ public class MainActivity extends AppCompatActivity {
                 firestre.collection("foods").document(Integer.toString(no)).set(mp);
                 n.setText("");
                 p.setText("");
-
+                Intent i = new Intent(ma, MainActivity.class);
+                startActivity(i);
             }
         });
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                seeData();
+
+                firestre.collection("foods").whereEqualTo("name",n.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        DocumentSnapshot ds=task.getResult().getDocuments().get(0);
+                        String di=ds.getId();
+                        firestre.collection("foods").document(di).delete();
+                        Intent i = new Intent(ma, MainActivity.class);
+                        startActivity(i);
+                    }
+                });
             }
         });
 
