@@ -1,10 +1,10 @@
 package mgarzon.createbest.productcatalog;
+package mgarzon.createbest.productcatalog.Product;
 
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import mgarzon.createbest.productcatalog.Product;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonAddProduct;
     ListView listViewProducts;
 
-    public List<Product> products;
-    int test;
+    List<Product> products;
 
     //Creating an instance of DatabaseReference so that we can read/write data from/to our data base
     DatabaseReference databaseProducts;
@@ -51,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAddProduct = (Button) findViewById(R.id.addButton);
 
         products = new ArrayList<>();
-        test = 5;
-        
+
         //Read/write data from/to our data base
         databaseProducts = FirebaseDatabase.getInstance().getReference("products");
 
@@ -69,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Product product = products.get(i);
-                test+= 5;
                 showUpdateDeleteDialog(product.getId(), product.getProductName());
                 return true;
             }
