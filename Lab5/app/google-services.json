@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "963287366110",
+    "project_id": "lab5-dda3a",
+    "storage_bucket": "lab5-dda3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963287366110:android:a23f0933001a968780c54f",
+        "android_client_info": {
+          "package_name": "com.example.lab5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963287366110-cs10qtfol2g8pfins40gptqcdpq5dbfk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbFuWe2nZx52Q_36uvXHS5OZ60OiuPmC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963287366110-cs10qtfol2g8pfins40gptqcdpq5dbfk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
