@@ -52,4 +52,17 @@ public class ExampleUnitTest {
         b=out.equals("Valid Password");
         assertEquals(false,b);
     }
+    @Test
+    public void testvalidpassword()
+    {
+        String password;
+        password="Ee12@4712wqa";
+        String email="xyAz123@gmail.com";
+        String out;
+
+        out=authenticator.validatePassword(email,password);
+        boolean b;
+        b=out.equals("Valid Password");
+        assertEquals(true,b);
+    }
 }
