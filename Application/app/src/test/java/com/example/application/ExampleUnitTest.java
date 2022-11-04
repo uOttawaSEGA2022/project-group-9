@@ -14,4 +14,42 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+    @Test
+    public void testemptypassword()
+    {
+        String password;
+        password="";
+        String email="xyz@gmail.com";
+        String out;
+        out=authenticator.validatePassword(email,password);
+        boolean b;
+        b=out.equals("Valid Password");
+        assertEquals(false,b);
+    }
+    @Test
+    public void testshortpassword()
+    {
+        String password;
+        password="Aa123";
+        String email="xyz@gmail.com";
+        String out;
+
+        out=authenticator.validatePassword(email,password);
+        boolean b;
+        b=out.equals("Valid Password");
+        assertEquals(false,b);
+    }
+    @Test
+    public void passwordemailsame()
+    {
+        String password;
+        password="xyAz123@gmail.com";
+        String email="xyAz123@gmail.com";
+        String out;
+
+        out=authenticator.validatePassword(email,password);
+        boolean b;
+        b=out.equals("Valid Password");
+        assertEquals(false,b);
+    }
 }

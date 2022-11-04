@@ -86,14 +86,14 @@ public class authenticator extends AppCompatActivity {
     }
 
     //Valid Email needs a @ symbol
-    public String validateEmail (@NonNull String email){
+    public static String validateEmail (@NonNull String email){
         if (email.contains("@"))
             return "Valid Email";
         return "Invalid Email";
     }
 
     //passwords needs XYZ conditions
-    public String validatePassword (@NonNull String email, @NonNull String password) {
+    public static String validatePassword (@NonNull String email, @NonNull String password) {
         String numericCharacters = "(.*[0-9].*)";
         String lowerCaseCharacters = "(.*[a-z].*)";
         String upperCaseCharacters = "(.*[A-Z].*)";
