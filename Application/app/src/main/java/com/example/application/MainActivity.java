@@ -50,23 +50,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 customerClicked();
-                Toast.makeText(getApplicationContext(), "You are logging in as a customer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You are a customer", Toast.LENGTH_SHORT).show();
             }
         });
 
         chef.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chefLogin();
-                Toast.makeText(getApplicationContext(), "You are logging in as a chef", Toast.LENGTH_SHORT).show();
+                chefClicked();
+                Toast.makeText(getApplicationContext(), "You are a chef", Toast.LENGTH_SHORT).show();
             }
         });
 
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adminLogin();
-                Toast.makeText(getApplicationContext(), "You are logging in as a admin", Toast.LENGTH_SHORT).show();
+                adminClicked();
+                Toast.makeText(getApplicationContext(), "You are a admin", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -94,13 +94,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Same but for chef Login
-    public void chefLogin() {
+    public void chefClicked() {
         Intent chefIntent = new Intent(this, XLoginSignupScreen.class);
         chefIntent.putExtra("CustomerOrChefOrAdmin", "Chef");
         startActivity(chefIntent);
     }
 
-    public void adminLogin() {
+    public void adminClicked() {
         Intent adminIntent = new Intent(this, ALoginScreen.class);
         adminIntent.putExtra("CustomerOrChefOrAdmin", "Admin");
         startActivity(adminIntent);

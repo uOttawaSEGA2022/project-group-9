@@ -60,14 +60,14 @@ public class ALoginScreen extends MainActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView chefEmailPasswordErrorMessages = findViewById(R.id.EmailPasswordErrorMessages);
-                EditText editTextChefEmail = findViewById(R.id.Email);
-                EditText editTextChefPassword = findViewById(R.id.Password);
+                TextView EmailPasswordErrorMessages = findViewById(R.id.EmailPasswordErrorMessages);
+                EditText editTextEmail = findViewById(R.id.Email);
+                EditText editTextPassword = findViewById(R.id.Password);
                 authenticator authenticatorObject = new authenticator();
-                boolean signInStatus = authenticatorObject.checkCredentials(editTextChefEmail, editTextChefPassword, chefEmailPasswordErrorMessages);
+                boolean signInStatus = authenticatorObject.checkCredentials(editTextEmail, editTextPassword, EmailPasswordErrorMessages);
 
                 if (signInStatus){
-                    fAuth.signInWithEmailAndPassword(editTextChefEmail.getText().toString(), editTextChefPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    fAuth.signInWithEmailAndPassword(editTextEmail.getText().toString(), editTextPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
