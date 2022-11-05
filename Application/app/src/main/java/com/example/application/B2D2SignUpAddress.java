@@ -123,7 +123,7 @@ public class B2D2SignUpAddress extends MainActivity {
                                     dataRef = database.getReference("Chef").child(fAuth.getCurrentUser().getUid());
 
                                     for (int i=0; i<userInfo.length; i++) {
-                                        if(i == 0 || i == 3 || i == 4 || i == 11) continue;
+                                        if(i == 0 || i == 4 || i == 11) continue;
                                         Log.d("chefInfo",registerInfo[i] + " " + userInfo[i]);
                                         dataRef.child(registerInfo[i]).setValue(userInfo[i]);
                                     }

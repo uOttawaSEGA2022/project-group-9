@@ -119,7 +119,7 @@ public class B4SignUpChefVoidCheque extends MainActivity{
                             dataRef = database.getReference("Chef").child(fAuth.getCurrentUser().getUid());
 
                             for (int i=0; i<chefInfo.length; i++) {
-                                if(i == 0 || i == 3 || i == 4 || i == 11) continue;
+                                if(i == 0 || i == 11) continue;
                                 Log.d("chefInfo",registerInfo[i] + " " + chefInfo[i]);
                                 dataRef.child(registerInfo[i]).setValue(chefInfo[i]);
                             }

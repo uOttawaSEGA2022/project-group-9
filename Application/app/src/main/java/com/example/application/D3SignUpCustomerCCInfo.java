@@ -123,7 +123,7 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
                                     dataRef = database.getReference("Customer").child(fAuth.getCurrentUser().getUid());
 
                                     for (int i=0; i<customerInfo.length; i++) {
-                                        if(i == 0 || i == 3 || i == 4) continue;
+                                        if(i == 0) continue;
                                         Log.d("chefInfo",registerInfo[i] + " " + customerInfo[i]);
                                         dataRef.child(registerInfo[i]).setValue(customerInfo[i]);
                                     }
