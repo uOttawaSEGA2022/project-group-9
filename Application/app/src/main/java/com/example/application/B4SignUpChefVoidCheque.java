@@ -112,6 +112,9 @@ public class B4SignUpChefVoidCheque extends MainActivity{
                 // This is not an image, it's a drawable asset converted into string somehow
                 // idk how to make it into an image, but this is the best we got
                 chefInfo[11] = voidCheque.getDrawable().toString();
+                chefInfo[12] = "False";
+                chefInfo[13] = "Null";
+
                 fAuth.createUserWithEmailAndPassword(chefInfo[3], chefInfo[4]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
