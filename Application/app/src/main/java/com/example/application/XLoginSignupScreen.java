@@ -78,7 +78,7 @@ public class XLoginSignupScreen extends MainActivity {
         String[] userInfo;
         //If the user is customer, they need 19 data entries, chef needs 14
         if (ROLE.equals("Customer")){
-            userInfo = new String[18];
+            userInfo = new String[19];
         }
         else{
             //added 1 more element for a boolean to see if the chef is suspensed
