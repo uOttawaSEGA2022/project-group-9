@@ -59,7 +59,7 @@ public class B4SignUpChefVoidCheque extends MainActivity{
         fAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-        String[] registerInfo = {"role", "firstname", "lastname", "", "", "addressline1", "addressline2", "city", "province", "postalcode", "shortdesc", ""};
+        String[] registerInfo = {"role", "firstname", "lastname", "email", "password", "addressline1", "addressline2", "city", "province", "postalcode", "shortdesc", "voidcheque","isSuspensed","Suspended until"};
 
         //onButton Click
         takePictureBtn.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +111,7 @@ public class B4SignUpChefVoidCheque extends MainActivity{
             public void onClick(View v) {
                 // This is not an image, it's a drawable asset converted into string somehow
                 // idk how to make it into an image, but this is the best we got
-                chefInfo[11] = voidCheque.getDrawable().toString();
+                chefInfo[11] = "Blank Image";
                 chefInfo[12] = "False";
                 chefInfo[13] = "Null";
 
