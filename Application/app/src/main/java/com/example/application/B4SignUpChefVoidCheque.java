@@ -115,6 +115,10 @@ public class B4SignUpChefVoidCheque extends MainActivity{
                 chefInfo[12] = "False";
                 chefInfo[13] = "Null";
 
+                Log.d("chefInfo",chefInfo[11]);
+                Log.d("chefInfo", String.valueOf(chefInfo.length));
+
+
                 fAuth.createUserWithEmailAndPassword(chefInfo[3], chefInfo[4]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
