@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                customerLogin();
+                customerClicked();
                 Toast.makeText(getApplicationContext(), "You are logging in as a customer", Toast.LENGTH_SHORT).show();
             }
         });
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //For Customer Login onclick
-    public void customerLogin() {
+    public void customerClicked() {
         //Creates an intent of the screen to go to next
         Intent custIntent = new Intent(this, XLoginSignupScreen.class);
         //Create a Parameter
