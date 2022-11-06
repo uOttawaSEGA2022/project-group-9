@@ -17,6 +17,13 @@ public class E1CustomerLoggedInScreen extends MainActivity {
 
         Button logOff = (Button) findViewById(R.id.logOffButton);
 
+        String email = "";
+        //Getting Data from loggining
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            email = extras.getString("email");
+        }
+
         logOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

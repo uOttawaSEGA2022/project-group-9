@@ -24,13 +24,16 @@ public class E3AdminLoggedInScreen extends MainActivity {
         EditText datePicker = findViewById(R.id.datePickerText);
         TextView errorMessages = findViewById(R.id.errorMessageText);
 
-        authenticator authenticatorObject = new authenticator();
-
+        String email = "";
         //Getting Data from loggining
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            Log.d("MSG", "In");
+            email = extras.getString("email");
         }
+
+        authenticator authenticatorObject = new authenticator();
+
+
 
         //Admin needs to be able to look at complaints
 

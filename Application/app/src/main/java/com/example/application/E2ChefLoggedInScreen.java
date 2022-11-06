@@ -32,6 +32,13 @@ public class E2ChefLoggedInScreen extends MainActivity {
         TextView chefSuspensed = findViewById(R.id.chefSuspensedText);
         TextView chefSuspensedLength = findViewById(R.id.chefSuspensedLengthText);
 
+        String userEmail = null;
+        //Getting Data from loggining
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            userEmail = extras.getString("email");
+        }
+
         fAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
@@ -45,6 +52,8 @@ public class E2ChefLoggedInScreen extends MainActivity {
         Log.d("gettingData", reference.getParent().toString());
 
         //gets data from database
+        //done to prevent errors, next line
+        String finalUserEmail = userEmail;
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
@@ -52,7 +61,11 @@ public class E2ChefLoggedInScreen extends MainActivity {
                 // ..
 
                 for(DataSnapshot item_snapshot:dataSnapshot.getChildren()) {
-                    item_snapshot.child("email");
+                    Log.d("gettingData", String.valueOf(item_snapshot.child("email")));
+                    if (item_snapshot.child("email").toString() == finalUserEmail) {
+                        Log.d("gettingData", item_snapshot.toString());
+
+                    }
 
 
                 }

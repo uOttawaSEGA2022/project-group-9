@@ -29,6 +29,7 @@ public class ALoginScreen extends MainActivity {
     FirebaseAuth fAuth;
     FirebaseDatabase database;
     DatabaseReference dataRef;
+    EditText editTextEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class ALoginScreen extends MainActivity {
 
         fAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chef");
 
         Button signInButton = (Button) findViewById(R.id.SignIn);
 
@@ -127,11 +129,15 @@ public class ALoginScreen extends MainActivity {
 
     public void goToCustomerLoggedInScreen() {
         Intent mainActivity = new Intent(this, E1CustomerLoggedInScreen.class);
+        mainActivity.putExtra("Email", editTextEmail.getText().toString());
+        Log.d("testing", editTextEmail.getText().toString());
         startActivity(mainActivity);
     }
 
     public void goToChefLoggedInScreen() {
         Intent mainActivity = new Intent(this, E2ChefLoggedInScreen.class);
+        mainActivity.putExtra("Email", editTextEmail.getText().toString());
+        Log.d("testing", editTextEmail.getText().toString());
         startActivity(mainActivity);
     }
 
@@ -139,8 +145,8 @@ public class ALoginScreen extends MainActivity {
         //Intent mainActivity = new Intent(this, E3AdminLoggedInScreen.class);
         Intent mainActivity = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
 
-        mainActivity.putExtra("UserID", fAuth.getCurrentUser().getUid());
-        Log.d("MSG", fAuth.getCurrentUser().getUid());
+        mainActivity.putExtra("Email", editTextEmail.getText().toString());
+        Log.d("testing", editTextEmail.getText().toString());
         startActivity(mainActivity);
     }
 }
