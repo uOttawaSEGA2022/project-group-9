@@ -128,25 +128,24 @@ public class ALoginScreen extends MainActivity {
     }
 
     public void goToCustomerLoggedInScreen() {
-        Intent mainActivity = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
-        mainActivity.putExtra("Email", editTextEmail.getText().toString());
+        Intent E1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
+        E1CustomerLoggedInScreen.putExtra("Email", editTextEmail.getText().toString());
         Log.d("testing", editTextEmail.getText().toString());
-        startActivity(mainActivity);
+        startActivity(E1CustomerLoggedInScreen);
     }
 
     public void goToChefLoggedInScreen() {
-        Intent mainActivity = new Intent(getApplicationContext(), E2ChefLoggedInScreen.class);
-        mainActivity.putExtra("Email", editTextEmail.getText().toString());
+        Intent E2ChefLoggedInScreen = new Intent(getApplicationContext(), E2ChefLoggedInScreen.class);
+        E2ChefLoggedInScreen.putExtra("Email", editTextEmail.getText().toString());
         Log.d("testing", editTextEmail.getText().toString());
-        startActivity(mainActivity);
+        startActivity(E2ChefLoggedInScreen);
     }
 
     public void goToAdminLoggedInScreen() {
-        Intent mainActivity = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
+        Intent E3AdminLoggedInScreen = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
         //Intent mainActivity = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
-
-        mainActivity.putExtra("Email", editTextEmail.getText().toString());
+        E3AdminLoggedInScreen.putExtra("Email", editTextEmail.getText().toString());
         Log.d("testing", editTextEmail.getText().toString());
-        startActivity(mainActivity);
+        startActivity(E3AdminLoggedInScreen);
     }
 }
