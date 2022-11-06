@@ -53,6 +53,45 @@ public class ExampleUnitTest {
         assertEquals(false,b);
     }
     @Test
+    public void testpasswordwithoutnumber()
+    {
+        String password;
+        password="Ee@wqa";
+        String email="xyAz123@gmail.com";
+        String out;
+
+        out=authenticator.validatePassword(email,password);
+        boolean b;
+        b=out.equals("Valid Password");
+        assertEquals(false,b);
+    }
+    @Test
+    public void testpasswordwithoutsmalletter()
+    {
+        String password;
+        password="E12@4712WER12";
+        String email="xyAz123@gmail.com";
+        String out;
+
+        out=authenticator.validatePassword(email,password);
+        boolean b;
+        b=out.equals("Valid Password");
+        assertEquals(false,b);
+    }
+    @Test
+    public void testpasswordwithoutcapitalletter()
+    {
+        String password;
+        password="e12@4712wqa";
+        String email="xyAz123@gmail.com";
+        String out;
+
+        out=authenticator.validatePassword(email,password);
+        boolean b;
+        b=out.equals("Valid Password");
+        assertEquals(false,b);
+    }
+    @Test
     public void testvalidpassword()
     {
         String password;
