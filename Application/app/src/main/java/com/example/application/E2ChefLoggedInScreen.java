@@ -37,20 +37,26 @@ public class E2ChefLoggedInScreen extends MainActivity {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chef");
         Log.d("gettingData", "Hello");
+        //Next Line prints "Chef"
         Log.d("gettingData", reference.getKey());
+        //Prints URL to Chef Path on firebase
         Log.d("gettingData", reference.toString());
+        //Prints URL to Main Path on firebase
         Log.d("gettingData", reference.getParent().toString());
-        Log.d("gettingData", reference.getRoot().toString());
 
-
-        reference.child("WcrE5plVLGSxEiIC6yt6ubrEUvr1");
+        //gets data from database
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 // Get Post object and use the values to update the UI
                 // ..
 
-                Log.d("Getting Data",dataSnapshot.getValue().toString());
+                for(DataSnapshot item_snapshot:dataSnapshot.getChildren()) {
+                    item_snapshot.child("email");
+
+
+                }
+
             }
 
             @Override
