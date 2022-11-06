@@ -39,6 +39,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         if (extras != null) {
             userEmail = extras.getString("email");
         }
+        final String EMAIL = userEmail;
 
 
          */
@@ -57,13 +58,12 @@ public class E2ChefLoggedInScreen extends MainActivity {
 
         //gets data from database
         //done to prevent errors, next line
-        final String EMAIL = userEmail;
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 // Get Post object and use the values to update the UI
                 // ..
-
+                /*
                 for(DataSnapshot item_snapshot:dataSnapshot.getChildren()) {
                     Log.d("gettingData", String.valueOf(item_snapshot.child("email")));
                     if (item_snapshot.child("email").toString() == EMAIL) {
@@ -74,7 +74,14 @@ public class E2ChefLoggedInScreen extends MainActivity {
 
                 }
 
+                */
+                 
+
             }
+
+
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
