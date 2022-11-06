@@ -292,4 +292,39 @@ public class authenticator extends AppCompatActivity {
         }
         return true;
     }
+
+    public boolean validateSuspensionDateFormat(@NonNull EditText dateMMDDYYYY, TextView errorMessages){
+        String lowerCaseCharacters = "(.*[a-z].*)";
+        String upperCaseCharacters = "(.*[A-Z].*)";
+        String special = "(.*[!\"#$%&'()*+,-.:;<=>?@^_`{|}~].*)";
+        String stringExpiryDate= dateMMDDYYYY.getText().toString();
+        String[] expiryNumbers={stringExpiryDate};
+        for (String currentExpiryNumber:expiryNumbers){
+            if(currentExpiryNumber.equals("")){
+                errorMessages.setText("Expiration date is left empty");
+                return false;
+            }
+            if (currentExpiryNumber.matches(lowerCaseCharacters)){
+                errorMessages.setText("Expiration date must only contain numbers");
+                return false;
+            }
+            if (currentExpiryNumber.matches(upperCaseCharacters)){
+                errorMessages.setText("Expiration date must only contain numbers");
+                return false;
+            }
+            if (currentExpiryNumber.matches(special)){
+                errorMessages.setText("Expiration date must not contain special characters");
+                return false;
+            }
+            if (currentExpiryNumber.length()>10 || currentExpiryNumber.length()<10){
+                errorMessages.setText("Expiration date must follow MM/YYYY format");
+                return false;
+            }
+            if (currentExpiryNumber.indexOf("/")!=3){
+                errorMessages.setText("Expiration date must follow MM/YYYY format");
+                return false;
+            }
+        }
+        return true;
+    }
 }
