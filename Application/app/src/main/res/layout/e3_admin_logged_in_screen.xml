@@ -30,7 +30,6 @@
         app:layout_constraintVertical_bias="0.132" />
 
 
-
     <TextView
         android:id="@+id/selectDateText"
         android:layout_width="wrap_content"
@@ -38,23 +37,25 @@
         android:text="Select Date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintHorizontal_bias="0.150"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.650" />
 
-    <Button
-        android:id="@+id/datePickerButton"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
-        android:text="January 01 2022"
+    <EditText
+        android:id="@+id/datePickerText"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_margin="15dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:hint="DD/MM/YYYY"
         app:layout_constraintVertical_bias="0.750"
-        android:onClick="openDatePicker"/>
+        app:layout_constraintHorizontal_bias="0.100"
+        android:inputType="text" />
 
 
     <Button
@@ -81,6 +82,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.850" />
 
+    <Button
+        android:id="@+id/dismissComplaintButton"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:text="Dismiss Complaint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.800"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.750" />
+
 
     <Button
         android:id="@+id/logOffButton"
@@ -93,5 +106,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.950" />
+
+    <TextView
+        android:id="@+id/errorMessageText"
+        android:layout_width="172dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.700"
+        app:layout_constraintVertical_bias="0.750" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
