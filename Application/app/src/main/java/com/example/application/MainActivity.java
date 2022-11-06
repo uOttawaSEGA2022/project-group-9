@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,14 +14,29 @@ import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 //On launch activity
 public class MainActivity extends AppCompatActivity {
-
+    FirebaseAuth fAuth;
+    FirebaseDatabase database;
+    DatabaseReference dataRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_main);
+
+
+
+        fAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         //Sets up action Bar
         ActionBar actionBar = getSupportActionBar();
@@ -102,6 +118,29 @@ public class MainActivity extends AppCompatActivity {
 
     public void adminClicked() {
         //Intent adminIntent = new Intent(this, ALoginScreen.class);
+
+        String[] userInfo;
+        userInfo = new String[2];
+        userInfo[0] = "lWujifoQ5TMM9fWoBzlRAr8duNr2";
+        userInfo[1] = "Placed Chicken in a vegan meal";
+        String[] registerInfo = {"chefID", "reason"};
+
+        fAuth.createUserWithEmailAndPassword(userInfo[0], userInfo[1]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    dataRef = database.getReference("Complaints").child(fAuth.getCurrentUser().getUid());
+
+                    for (int i=0; i<userInfo.length; i++) {
+                        Log.d("chefInfo",registerInfo[i] + " " + userInfo[i]);
+                        dataRef.child(registerInfo[i]).setValue(userInfo[i]);
+                    }
+
+                }
+            }
+        });
+
+
         Intent adminIntent = new Intent(this, ALoginScreen.class);
         adminIntent.putExtra("CustomerOrChefOrAdmin", "Admin");
         startActivity(adminIntent);
