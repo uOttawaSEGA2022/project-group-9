@@ -10,16 +10,31 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class XLoginSignupScreen extends MainActivity {
 
+    FirebaseAuth fAuth;
+    FirebaseDatabase database;
+    DatabaseReference dataRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.x_login_signup_screen);
+
+        fAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         //Action bar
         ActionBar actionBar = getSupportActionBar();
@@ -80,6 +95,10 @@ public class XLoginSignupScreen extends MainActivity {
         if (ROLE.equals("Customer")){
             userInfo = new String[19];
         }
+
+        else if (ROLE.equals("Customer")) {
+            userInfo = new String[3];
+        }
         else{
             //added 1 more element for a boolean to see if the chef is suspensed
             //added 1 more element for length of chef suspension
@@ -103,6 +122,29 @@ public class XLoginSignupScreen extends MainActivity {
             b1d1SignUpNameCredentials.putExtra("User Info", userInfo);
             startActivity(b1d1SignUpNameCredentials);
 
+        }
+
+        if (userInfo[0].equals("Admin")) {
+            userInfo[1] = "JayV@gmail.com";
+            userInfo[2] = "JayVach12345#";
+            String[] registerInfo = {"role", "email", "password"};
+
+
+            fAuth.createUserWithEmailAndPassword(userInfo[1], userInfo[2]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()) {
+                        dataRef = database.getReference("Admin").child(fAuth.getCurrentUser().getUid());
+
+                        for (int i = 0; i < userInfo.length; i++) {
+                            if (i == 0) continue;
+                            Log.d("adminInfo", registerInfo[i] + " " + userInfo[i]);
+                            dataRef.child(registerInfo[i]).setValue(userInfo[i]);
+                        }
+
+                    }
+                }
+            });
         }
 
         // At this point, the string array has 1 element, at index 0, with the role of the user
