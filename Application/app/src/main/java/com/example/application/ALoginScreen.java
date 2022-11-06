@@ -136,7 +136,11 @@ public class ALoginScreen extends MainActivity {
     }
 
     public void goToAdminLoggedInScreen() {
-        Intent mainActivity = new Intent(this, E3AdminLoggedInScreen.class);
+        //Intent mainActivity = new Intent(this, E3AdminLoggedInScreen.class);
+        Intent mainActivity = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
+
+        mainActivity.putExtra("UserID", fAuth.getCurrentUser().getUid());
+        Log.d("MSG", fAuth.getCurrentUser().getUid());
         startActivity(mainActivity);
     }
 }

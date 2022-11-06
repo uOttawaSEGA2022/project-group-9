@@ -36,6 +36,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         database = FirebaseDatabase.getInstance();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chef");
+        reference.child("WcrE5plVLGSxEiIC6yt6ubrEUvr1");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
