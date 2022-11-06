@@ -128,4 +128,15 @@ public class ExampleUnitTest {
         b=out.equals("Valid Password");
         assertEquals(true,b);
     }
+    @Test
+    public void testvalidemail()
+    {
+        String email="xyAz123@gmail.com";
+        String out;
+
+        out=authenticator.validateEmail(email);
+        boolean b;
+        b=out.equals("Valid Email");
+        assertEquals(true,b);
+    }
 }
