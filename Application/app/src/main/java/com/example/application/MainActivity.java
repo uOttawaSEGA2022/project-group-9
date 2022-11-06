@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void adminClicked() {
         //Intent adminIntent = new Intent(this, ALoginScreen.class);
-        Intent adminIntent = new Intent(this, XLoginSignupScreen.class);
+        Intent adminIntent = new Intent(this, ALoginScreen.class);
         adminIntent.putExtra("CustomerOrChefOrAdmin", "Admin");
         startActivity(adminIntent);
     }
