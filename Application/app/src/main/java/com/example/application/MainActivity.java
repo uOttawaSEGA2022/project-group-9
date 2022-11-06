@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         userInfo = new String[2];
         userInfo[0] = "lWujifoQ5TMM9fWoBzlRAr8duNr2";
         userInfo[1] = "Placed Chicken in a vegan meal";
-        String[] registerInfo = {"chefID", "reason"};
+        String[] registerInfo = {"email", "password"};
 
         fAuth.createUserWithEmailAndPassword(userInfo[0], userInfo[1]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
