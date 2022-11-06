@@ -37,6 +37,7 @@ public class E3AdminLoggedInScreen extends MainActivity {
         EditText datePicker = findViewById(R.id.datePickerText);
         TextView errorMessages = findViewById(R.id.errorMessageText);
 
+        /*
         String userEmail = "";
         //Getting Data from loggining
         Bundle extras = getIntent().getExtras();
@@ -45,8 +46,10 @@ public class E3AdminLoggedInScreen extends MainActivity {
         }
 
         final String EMAIL = userEmail;
+                Log.d("testing",EMAIL);
+        */
 
-        Log.d("testing",EMAIL);
+
 
         authenticator authenticatorObject = new authenticator();
 
