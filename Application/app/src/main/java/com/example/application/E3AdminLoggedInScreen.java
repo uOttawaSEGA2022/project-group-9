@@ -31,6 +31,8 @@ public class E3AdminLoggedInScreen extends MainActivity {
             email = extras.getString("email");
         }
 
+        final String EMAIL = email;
+
         authenticator authenticatorObject = new authenticator();
 
 
