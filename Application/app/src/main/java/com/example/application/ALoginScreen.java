@@ -128,21 +128,21 @@ public class ALoginScreen extends MainActivity {
     }
 
     public void goToCustomerLoggedInScreen() {
-        Intent mainActivity = new Intent(this, E1CustomerLoggedInScreen.class);
+        Intent mainActivity = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
         mainActivity.putExtra("Email", editTextEmail.getText().toString());
         Log.d("testing", editTextEmail.getText().toString());
         startActivity(mainActivity);
     }
 
     public void goToChefLoggedInScreen() {
-        Intent mainActivity = new Intent(this, E2ChefLoggedInScreen.class);
+        Intent mainActivity = new Intent(getApplicationContext(), E2ChefLoggedInScreen.class);
         mainActivity.putExtra("Email", editTextEmail.getText().toString());
         Log.d("testing", editTextEmail.getText().toString());
         startActivity(mainActivity);
     }
 
     public void goToAdminLoggedInScreen() {
-        Intent mainActivity = new Intent(this, E3AdminLoggedInScreen.class);
+        Intent mainActivity = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
         //Intent mainActivity = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
 
         mainActivity.putExtra("Email", editTextEmail.getText().toString());

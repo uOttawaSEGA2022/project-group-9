@@ -53,7 +53,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
 
         //gets data from database
         //done to prevent errors, next line
-        String finalUserEmail = userEmail;
+        final String EMAIL = userEmail;
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
@@ -62,7 +62,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
 
                 for(DataSnapshot item_snapshot:dataSnapshot.getChildren()) {
                     Log.d("gettingData", String.valueOf(item_snapshot.child("email")));
-                    if (item_snapshot.child("email").toString() == finalUserEmail) {
+                    if (item_snapshot.child("email").toString() == EMAIL) {
                         Log.d("gettingData", item_snapshot.toString());
 
                     }
