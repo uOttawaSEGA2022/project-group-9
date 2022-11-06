@@ -36,6 +36,13 @@ public class E2ChefLoggedInScreen extends MainActivity {
         database = FirebaseDatabase.getInstance();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chef");
+        Log.d("gettingData", "Hello");
+        Log.d("gettingData", reference.getKey());
+        Log.d("gettingData", reference.toString());
+        Log.d("gettingData", reference.getParent().toString());
+        Log.d("gettingData", reference.getRoot().toString());
+
+
         reference.child("WcrE5plVLGSxEiIC6yt6ubrEUvr1");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,11 +66,11 @@ public class E2ChefLoggedInScreen extends MainActivity {
         }
 
         //Get Info from DB and set data
-        if (true) {
+        if (false) {
             chefSuspensedLength.setText("You are suspensed permanently");
         }
 
-        if (true) {
+        if (false) {
             chefSuspensedLength.setText("You are suspensed for " + "inset var here" + " days");
         }
 
