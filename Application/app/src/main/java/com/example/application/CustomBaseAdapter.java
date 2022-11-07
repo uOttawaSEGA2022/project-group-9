@@ -4,22 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 public class CustomBaseAdapter extends BaseAdapter {
 
     Context context;
-    String tempListOfChefIDs;
+    String tempListOfChefIDs[];
+    String tempListOfReasons[];
+    LayoutInflater inflater;
 
-    public CustomBaseAdapter(Context ctx, String[] fruitList, int[] image) {
-
+    public CustomBaseAdapter(Context ctx, String[] chefIdList, String[] reasonList) {
+        inflater = LayoutInflater.from(ctx);
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return tempListOfChefIDs.length;
     }
 
     @Override
@@ -34,6 +39,12 @@ public class CustomBaseAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        convertView= inflater.inflate(R.layout.activity_custom_list_view_complaints,null);
+        TextView chefIDView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
+        TextView reasonView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
+        chefIDView.setText(tempListOfChefIDs[position]);
+        reasonView.setText(tempListOfChefIDs[position]);
+
+        return convertView;
     }
 }

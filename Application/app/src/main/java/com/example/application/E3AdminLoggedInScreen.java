@@ -43,12 +43,17 @@ public class E3AdminLoggedInScreen extends MainActivity {
         Button suspenseChefPermanently = (Button) findViewById(R.id.suspenseChefPermanentlyButton);
         Button dismissComplaint = (Button) findViewById(R.id.dismissComplaintButton);
         Button logOff = (Button) findViewById(R.id.logOffButton);
-        listViewComplaints = (ListView) findViewById(R.id.listViewComplaints);
         EditText datePicker = findViewById(R.id.datePickerText);
         TextView errorMessages = findViewById(R.id.errorMessageText);
 
+        //https://www.youtube.com/watch?v=aUFdgLSEl0g&ab_channel=CodingPursuit
+        //So Admin can view complaints
         String tempListOfChefIDs[] = {"lWujifoQ5TMM9fWoBzlRAr8duNr2", "lWujifoQ5TMM9fWoBzlRAr8duNr2"};
         String tempListOfReasons[] = {"Burnt my Food", "Claimed food was halel when it wasn't"};
+        listViewComplaints = (ListView) findViewById(R.id.listViewComplaints);
+        CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(getApplicationContext(),tempListOfChefIDs,tempListOfReasons);
+        listViewComplaints.setAdapter(customBaseAdapter);
+
 
         //For passing data from one file to another
         /*
