@@ -46,7 +46,7 @@ public class E3AdminLoggedInScreen extends MainActivity {
         }
 
         final String EMAIL = userEmail;
-                Log.d("testing",EMAIL);
+        Log.d("testing",EMAIL);
 
 
 

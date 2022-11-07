@@ -27,7 +27,7 @@ public class E1CustomerLoggedInScreen extends MainActivity {
 
         final String EMAIL = userEmail;
 
-         
+
 
 
         logOff.setOnClickListener(new View.OnClickListener() {

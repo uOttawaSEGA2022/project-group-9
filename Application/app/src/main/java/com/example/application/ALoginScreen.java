@@ -115,7 +115,7 @@ public class ALoginScreen extends MainActivity {
 //                                    });
                                     goToChefLoggedInScreen();
                                 } else {
-                                    goToAdminLoggedInScreen();
+                                    goToAdminLoggedInScreen(emailText);
                                 }
                             } else {
                                 Toast.makeText(ALoginScreen.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
@@ -140,7 +140,7 @@ public class ALoginScreen extends MainActivity {
         startActivity(E2ChefLoggedInScreen);
     }
 
-    public void goToAdminLoggedInScreen() {
+    public void goToAdminLoggedInScreen(EditText emailText) {
         Intent E3AdminLoggedInScreen = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
         E3AdminLoggedInScreen.putExtra("Email", emailText.getText().toString());
         startActivity(E3AdminLoggedInScreen);
