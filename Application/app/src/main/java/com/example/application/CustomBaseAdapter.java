@@ -20,6 +20,10 @@ public class CustomBaseAdapter extends BaseAdapter {
 
     public CustomBaseAdapter(Context ctx, String[] chefIdList, String[] reasonList) {
         inflater = LayoutInflater.from(ctx);
+        this.context = ctx;
+        this.tempListOfChefIDs =chefIdList;
+        this.tempListOfReasons = reasonList;
+
     }
 
     @Override
