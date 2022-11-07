@@ -49,11 +49,7 @@ public class E3AdminLoggedInScreen extends MainActivity {
         //All code for the listView can be seen here
         //https://www.youtube.com/watch?v=aUFdgLSEl0g&ab_channel=CodingPursuit
         //So Admin can view complaints
-        String tempListOfChefIDs[] = {"lWujifoQ5TMM9fWoBzlRAr8duNr2", "lWujifoQ5TMM9fWoBzlRAr8duNr2"};
-        String tempListOfReasons[] = {"Burnt my Food", "Claimed food was halel when it wasn't"};
-        listViewComplaints = (ListView) findViewById(R.id.listViewComplaints);
-        CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(getApplicationContext(),tempListOfChefIDs,tempListOfReasons);
-        listViewComplaints.setAdapter(customBaseAdapter);
+
 
 
         //For passing data from one file to another
@@ -95,10 +91,19 @@ public class E3AdminLoggedInScreen extends MainActivity {
                     newComplaint.setChefID(String.valueOf(postSnapshot.child("chefID")));
                     newComplaint.setReason(String.valueOf(postSnapshot.child("reason")));
 
+                    Log.d("testing",String.valueOf(postSnapshot.child("chefID")));
+                    Log.d("testing",String.valueOf(postSnapshot.child("reason")));
+
                     listOfComplaints.add(newComplaint);
 
 
                 }
+
+                String tempListOfChefIDs[] = {"lWujifoQ5TMM9fWoBzlRAr8duNr2", "lWujifoQ5TMM9fWoBzlRAr8duNr2"};
+                String tempListOfReasons[] = {"Burnt my Food", "Claimed food was halel when it wasn't"};
+                listViewComplaints = (ListView) findViewById(R.id.listViewComplaints);
+                CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(getApplicationContext(),tempListOfChefIDs,tempListOfReasons);
+                listViewComplaints.setAdapter(customBaseAdapter);
 
             }
 
@@ -136,11 +141,12 @@ public class E3AdminLoggedInScreen extends MainActivity {
             @Override
             public void onClick(View view) {
                 //Makes sure the log in is good
-                Toast.makeText(getApplicationContext(), "Suspense Chef until date provided", Toast.LENGTH_SHORT).show();
 
                 if (authenticatorObject.validateSuspensionDateFormat(datePicker,errorMessages)) {
                     //Set Chef Suspensed Date from datePicker
                     datePicker.getText().toString();
+                    Toast.makeText(getApplicationContext(), "Suspense Chef until date provided", Toast.LENGTH_SHORT).show();
+
                     //IDK how to set the data in the data base
                 }
         }
