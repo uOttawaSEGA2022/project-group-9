@@ -75,7 +75,9 @@ public class E3AdminLoggedInScreen extends MainActivity {
 
         //So the Admin can view complaints
         //dataRef to work your way down the tree
-        dataRef = database.getReference("Complaints");
+        fAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        dataRef = FirebaseDatabase.getInstance().getReference().child("Complaints");
         listOfComplaints = new ArrayList<>();
 
         //Creates Complaint Class and Arraylist to store all complaints
