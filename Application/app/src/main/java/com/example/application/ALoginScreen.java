@@ -115,7 +115,7 @@ public class ALoginScreen extends MainActivity {
 //                                    });
                                     goToChefLoggedInScreen();
                                 } else {
-                                    goToAdminLoggedInScreen(emailText);
+                                    goToAdminLoggedInScreen();
                                 }
                             } else {
                                 Toast.makeText(ALoginScreen.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
@@ -130,19 +130,19 @@ public class ALoginScreen extends MainActivity {
 
     public void goToCustomerLoggedInScreen() {
         Intent E1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
-        E1CustomerLoggedInScreen.putExtra("Email", emailText.getText().toString());
+        //E1CustomerLoggedInScreen.putExtra("Email", emailText.getText().toString());
         startActivity(E1CustomerLoggedInScreen);
     }
 
     public void goToChefLoggedInScreen() {
         Intent E2ChefLoggedInScreen = new Intent(getApplicationContext(), E2ChefLoggedInScreen.class);
-        E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
+        //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
         startActivity(E2ChefLoggedInScreen);
     }
 
-    public void goToAdminLoggedInScreen(EditText emailText) {
+    public void goToAdminLoggedInScreen() {
         Intent E3AdminLoggedInScreen = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
-        E3AdminLoggedInScreen.putExtra("Email", emailText.getText().toString());
+        //E3AdminLoggedInScreen.putExtra("Email", emailText.getText().toString());
         startActivity(E3AdminLoggedInScreen);
     }
 }
