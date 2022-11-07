@@ -31,6 +31,9 @@ public class E3AdminLoggedInScreen extends MainActivity {
     DatabaseReference dataRef;
     List<Complaint> listOfComplaints;
     ListView listViewComplaints;
+    String tempListOfChefIDs[];
+    String tempListOfReasons[];
+    Integer numOfComplaints = 0;
 
 
     @Override
@@ -91,16 +94,14 @@ public class E3AdminLoggedInScreen extends MainActivity {
                     newComplaint.setChefID(String.valueOf(postSnapshot.child("chefID")));
                     newComplaint.setReason(String.valueOf(postSnapshot.child("reason")));
 
-                    Log.d("testing",String.valueOf(postSnapshot.child("chefID")));
-                    Log.d("testing",String.valueOf(postSnapshot.child("reason")));
-
-                    listOfComplaints.add(newComplaint);
+                    tempListOfChefIDs[numOfComplaints] = String.valueOf(postSnapshot.child("chefID"));
+                    tempListOfReasons[numOfComplaints] = String.valueOf(postSnapshot.child("reason"));
+                    numOfComplaints++;
 
 
                 }
 
-                String tempListOfChefIDs[] = {"lWujifoQ5TMM9fWoBzlRAr8duNr2", "lWujifoQ5TMM9fWoBzlRAr8duNr2"};
-                String tempListOfReasons[] = {"Burnt my Food", "Claimed food was halel when it wasn't"};
+
                 listViewComplaints = (ListView) findViewById(R.id.listViewComplaints);
                 CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(getApplicationContext(),tempListOfChefIDs,tempListOfReasons);
                 listViewComplaints.setAdapter(customBaseAdapter);
