@@ -10,10 +10,13 @@ And replace Username as the local user name on the local machine and the error s
 We followed this guide to get the solution: https://www.geeksforgeeks.org/how-to-fix-sdk-location-not-found-in-android-studio/  
 
 Admin Credentials:  
-
 JayV@gmail.com
 JayVach12345#
 
 Gmail for Firebase
 lucifer15102002@gmail.com
-1596374280
+1596374280  
+
+The above email will require 2 factor authentication, which will get sent to the following email address:  
+segengineers123@gmail.com  
+GROUP-nine123
