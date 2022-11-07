@@ -79,6 +79,8 @@ public class E3AdminLoggedInScreen extends MainActivity {
         database = FirebaseDatabase.getInstance();
         dataRef = FirebaseDatabase.getInstance().getReference().child("Complaints");
         listOfComplaints = new ArrayList<>();
+        tempListOfChefIDs = new String[10];
+        tempListOfReasons = new String[10];
 
         //Creates Complaint Class and Arraylist to store all complaints
         dataRef.addValueEventListener(new ValueEventListener() {
