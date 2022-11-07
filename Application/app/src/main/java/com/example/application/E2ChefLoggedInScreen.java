@@ -59,12 +59,15 @@ public class E2ChefLoggedInScreen extends MainActivity {
         //gets data from database
         //done to prevent errors, next line
         reference.addValueEventListener(new ValueEventListener() {
+            //Will be called by default despite the name
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 // Get Post object and use the values to update the UI
                 // ..
                 /*
+                //Children / child means sub folder
                 for(DataSnapshot item_snapshot:dataSnapshot.getChildren()) {
+                //find value of child key "email"
                     Log.d("gettingData", String.valueOf(item_snapshot.child("email")));
                     if (item_snapshot.child("email").toString() == EMAIL) {
                         Log.d("gettingData", item_snapshot.toString());

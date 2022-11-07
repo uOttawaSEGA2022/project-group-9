@@ -79,6 +79,7 @@ public class E3AdminLoggedInScreen extends MainActivity {
         database = FirebaseDatabase.getInstance();
         dataRef = FirebaseDatabase.getInstance().getReference().child("Complaints");
         listOfComplaints = new ArrayList<>();
+        //Only 10 complaints can be handled rn, maybe this can turn into a scrolly bar
         tempListOfChefIDs = new String[10];
         tempListOfReasons = new String[10];
 
@@ -86,16 +87,17 @@ public class E3AdminLoggedInScreen extends MainActivity {
         dataRef.addValueEventListener(new ValueEventListener() {
 
             @Override
-            //When data changes
+            //On start up despite the name
             public void onDataChange(DataSnapshot dataSnapShot) {
-                //Clearing the previous artist list
 
                 //for every complaint entry on firebase
                 for (DataSnapshot postSnapshot : dataSnapShot.getChildren()) {
+                    //This complaint code does nothing rn but will be reworked for deliverable 3
                     Complaint newComplaint = new Complaint();
                     newComplaint.setChefID(String.valueOf(postSnapshot.child("chefID")));
                     newComplaint.setReason(String.valueOf(postSnapshot.child("reason")));
 
+                    //places data in an array
                     tempListOfChefIDs[numOfComplaints] = String.valueOf(postSnapshot.child("chefID"));
                     tempListOfReasons[numOfComplaints] = String.valueOf(postSnapshot.child("reason"));
                     numOfComplaints++;
@@ -103,7 +105,7 @@ public class E3AdminLoggedInScreen extends MainActivity {
 
                 }
 
-
+                //uses data from array to display
                 listViewComplaints = (ListView) findViewById(R.id.listViewComplaints);
                 CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(getApplicationContext(),tempListOfChefIDs,tempListOfReasons);
                 listViewComplaints.setAdapter(customBaseAdapter);
@@ -117,6 +119,7 @@ public class E3AdminLoggedInScreen extends MainActivity {
         });
 
 
+        //do not touch
         logOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,6 +127,9 @@ public class E3AdminLoggedInScreen extends MainActivity {
                 startActivity(mainActivity);            }
         });
 
+        //This should remove the top action from the arraylist and change data in the chef folder
+        //change the isSuspensed var to "true" as a String
+        //change suspensed until to a 01/01/2200
         suspenseChefPermanently.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +138,7 @@ public class E3AdminLoggedInScreen extends MainActivity {
             }
         });
 
+        //This should remove the top action from the arraylist
         dismissComplaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,6 +147,9 @@ public class E3AdminLoggedInScreen extends MainActivity {
             }
         });
 
+        //This should remove the top action from the arraylist and change data in the chef folder
+        //change the isSuspensed var to "true" as a String
+        //change suspensed until to a DD/MM/YY
         suspenseChefUntilSelectedDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

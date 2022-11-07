@@ -5,7 +5,8 @@ public class Complaint {
     private String chefID;
     private String reason;
 
-
+    //Look both Saad's Lab5 and the starter code for Lab5, we need create classes to make actions for complaints I think
+    //One Complaint class means 1
     public Complaint() {
     }
 

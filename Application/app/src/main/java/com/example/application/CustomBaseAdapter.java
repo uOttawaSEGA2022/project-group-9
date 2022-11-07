@@ -17,7 +17,7 @@ public class CustomBaseAdapter extends BaseAdapter {
     String tempListOfChefIDs[];
     String tempListOfReasons[];
     LayoutInflater inflater;
-
+    //All this code is need for the admin to see a list of complaints on his screen
     public CustomBaseAdapter(Context ctx, String[] chefIdList, String[] reasonList) {
         inflater = LayoutInflater.from(ctx);
         this.context = ctx;
