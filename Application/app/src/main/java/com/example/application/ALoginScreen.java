@@ -29,7 +29,7 @@ public class ALoginScreen extends MainActivity {
     FirebaseAuth fAuth;
     FirebaseDatabase database;
     DatabaseReference dataRef;
-    EditText editTextEmail;
+    EditText emailText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class ALoginScreen extends MainActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chef");
 
         Button signInButton = (Button) findViewById(R.id.SignIn);
+        EditText emailText = findViewById(R.id.Email);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,23 +130,19 @@ public class ALoginScreen extends MainActivity {
 
     public void goToCustomerLoggedInScreen() {
         Intent E1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
-        //E1CustomerLoggedInScreen.putExtra("Email", editTextEmail.getText().toString());
-        Log.d("testing", editTextEmail.getText().toString());
+        E1CustomerLoggedInScreen.putExtra("Email", emailText.getText().toString());
         startActivity(E1CustomerLoggedInScreen);
     }
 
     public void goToChefLoggedInScreen() {
         Intent E2ChefLoggedInScreen = new Intent(getApplicationContext(), E2ChefLoggedInScreen.class);
-        //E2ChefLoggedInScreen.putExtra("Email", editTextEmail.getText().toString());
-        Log.d("testing", editTextEmail.getText().toString());
+        E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
         startActivity(E2ChefLoggedInScreen);
     }
 
     public void goToAdminLoggedInScreen() {
         Intent E3AdminLoggedInScreen = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
-        //Intent mainActivity = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
-        //E3AdminLoggedInScreen.putExtra("Email", editTextEmail.getText().toString());
-        Log.d("testing", editTextEmail.getText().toString());
+        E3AdminLoggedInScreen.putExtra("Email", emailText.getText().toString());
         startActivity(E3AdminLoggedInScreen);
     }
 }

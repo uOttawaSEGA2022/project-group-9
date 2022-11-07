@@ -32,7 +32,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         TextView chefSuspensed = findViewById(R.id.chefSuspensedText);
         TextView chefSuspensedLength = findViewById(R.id.chefSuspensedLengthText);
 
-        /*
+
         String userEmail = null;
         //Getting Data from loggining
         Bundle extras = getIntent().getExtras();
@@ -42,7 +42,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         final String EMAIL = userEmail;
 
 
-         */
+
 
         fAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
