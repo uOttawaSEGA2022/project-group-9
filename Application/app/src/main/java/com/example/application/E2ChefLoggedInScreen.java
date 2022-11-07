@@ -31,7 +31,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         Button logOff = (Button) findViewById(R.id.logOffButton);
         TextView chefSuspensed = findViewById(R.id.chefSuspensedText);
         TextView chefSuspensedLength = findViewById(R.id.chefSuspensedLengthText);
-
+        chefSuspensedLength.setVisibility(View.INVISIBLE);
         /*
         String userEmail = null;
         //Getting Data from loggining
@@ -91,8 +91,8 @@ public class E2ChefLoggedInScreen extends MainActivity {
 
 
         //check to see if the chef is suspensed in the database
-        if(false) {
-            chefSuspensed.setVisibility(View.VISIBLE);
+        if(true) {
+            chefSuspensed.setVisibility(View.INVISIBLE);
         }
 
         //Get Info from DB and set data
