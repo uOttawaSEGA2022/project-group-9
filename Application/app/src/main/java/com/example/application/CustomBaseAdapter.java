@@ -45,7 +45,7 @@ public class CustomBaseAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView= inflater.inflate(R.layout.activity_custom_list_view_complaints,null);
         TextView chefIDView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
-        TextView reasonView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
+        TextView reasonView = (TextView) convertView.findViewById(R.id.reasonComplaint);
         chefIDView.setText(tempListOfChefIDs[position]);
         reasonView.setText(tempListOfChefIDs[position]);
 
