@@ -91,7 +91,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
 
 
         //check to see if the chef is suspensed in the database
-        if(true) {
+        if(false) {
             chefSuspensed.setVisibility(View.VISIBLE);
         }
 

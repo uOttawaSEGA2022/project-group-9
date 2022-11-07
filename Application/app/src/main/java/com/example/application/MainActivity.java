@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     public void adminClicked() {
         //Intent adminIntent = new Intent(this, ALoginScreen.class);
 
+        /*
         //This code until the last 3 lines in the method is for creating complaints in the DB, some issue here
         String[] userInfo;
         userInfo = new String[2];
@@ -140,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+         */
 
 
         Intent adminIntent = new Intent(this, ALoginScreen.class);

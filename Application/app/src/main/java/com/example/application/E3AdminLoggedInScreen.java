@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,12 +20,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class E3AdminLoggedInScreen extends MainActivity {
 
     FirebaseAuth fAuth;
     FirebaseDatabase database;
     DatabaseReference dataRef;
+    List<Complaint> listOfComplaints;
+    ListView listViewComplaints;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +41,16 @@ public class E3AdminLoggedInScreen extends MainActivity {
 
         Button suspenseChefUntilSelectedDateButton = (Button) findViewById(R.id.suspenseChefUntilSelectedDateButton);
         Button suspenseChefPermanently = (Button) findViewById(R.id.suspenseChefPermanentlyButton);
+        Button dismissComplaint = (Button) findViewById(R.id.dismissComplaintButton);
         Button logOff = (Button) findViewById(R.id.logOffButton);
+        listViewComplaints = (ListView) findViewById(R.id.listViewComplaints);
         EditText datePicker = findViewById(R.id.datePickerText);
         TextView errorMessages = findViewById(R.id.errorMessageText);
 
+        String tempListOfChefIDs[] = {"lWujifoQ5TMM9fWoBzlRAr8duNr2", "lWujifoQ5TMM9fWoBzlRAr8duNr2"};
+        String tempListOfReasons[] = {"Burnt my Food", "Claimed food was halel when it wasn't"};
+
+        //For passing data from one file to another
         /*
         String userEmail = "";
         //Getting Data from loggining
@@ -54,9 +68,37 @@ public class E3AdminLoggedInScreen extends MainActivity {
         authenticator authenticatorObject = new authenticator();
 
 
+        //So the Admin can view complaints
+        //dataRef to work your way down the tree
+        dataRef = database.getReference("Complaints");
+        listOfComplaints = new ArrayList<>();
 
-        //Admin needs to be able to look at complaints
+        //Creates Complaint Class and Arraylist to store all complaints
+        dataRef.addValueEventListener(new ValueEventListener() {
 
+            @Override
+            //When data changes
+            public void onDataChange(DataSnapshot dataSnapShot) {
+                //Clearing the previous artist list
+
+                //for every complaint entry on firebase
+                for (DataSnapshot postSnapshot : dataSnapShot.getChildren()) {
+                    Complaint newComplaint = new Complaint();
+                    newComplaint.setChefID(String.valueOf(postSnapshot.child("chefID")));
+                    newComplaint.setReason(String.valueOf(postSnapshot.child("reason")));
+
+                    listOfComplaints.add(newComplaint);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         logOff.setOnClickListener(new View.OnClickListener() {
@@ -66,10 +108,28 @@ public class E3AdminLoggedInScreen extends MainActivity {
                 startActivity(mainActivity);            }
         });
 
+        suspenseChefPermanently.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Suspense Top Chef Permanentlys", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        dismissComplaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Top Complaint Dismissed", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         suspenseChefUntilSelectedDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Makes sure the log in is good
+                Toast.makeText(getApplicationContext(), "Suspense Chef until date provided", Toast.LENGTH_SHORT).show();
+
                 if (authenticatorObject.validateSuspensionDateFormat(datePicker,errorMessages)) {
                     //Set Chef Suspensed Date from datePicker
                     datePicker.getText().toString();
