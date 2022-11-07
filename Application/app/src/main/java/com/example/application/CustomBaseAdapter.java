@@ -21,7 +21,7 @@ public class CustomBaseAdapter extends BaseAdapter {
     public CustomBaseAdapter(Context ctx, String[] chefIdList, String[] reasonList) {
         inflater = LayoutInflater.from(ctx);
         this.context = ctx;
-        this.tempListOfChefIDs =chefIdList;
+        this.tempListOfChefIDs = chefIdList;
         this.tempListOfReasons = reasonList;
 
     }
@@ -47,7 +47,7 @@ public class CustomBaseAdapter extends BaseAdapter {
         TextView chefIDView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
         TextView reasonView = (TextView) convertView.findViewById(R.id.reasonComplaint);
         chefIDView.setText(tempListOfChefIDs[position]);
-        reasonView.setText(tempListOfChefIDs[position]);
+        reasonView.setText(tempListOfReasons[position]);
 
         return convertView;
     }

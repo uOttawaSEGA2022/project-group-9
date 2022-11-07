@@ -7,7 +7,7 @@
     tools:context=".CustomListViewComplaints">
 
     <TextView
-        android:layout_width="400dp"
+        android:layout_width="200dp"
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
         app:layout_constraintVertical_bias="0.25"
         android:id="@+id/chefIDComplaint" />
     <TextView
-        android:layout_width="400dp"
+        android:layout_width="200dp"
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
