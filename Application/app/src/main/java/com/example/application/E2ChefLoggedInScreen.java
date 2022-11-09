@@ -32,6 +32,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         TextView chefSuspensed = findViewById(R.id.chefSuspensedText);
         TextView chefSuspensedLength = findViewById(R.id.chefSuspensedLengthText);
         chefSuspensedLength.setVisibility(View.INVISIBLE);
+        Button addDish=(Button) findViewById(R.id.adddish);
         /*
         String userEmail = null;
         //Getting Data from loggining
@@ -114,6 +115,12 @@ public class E2ChefLoggedInScreen extends MainActivity {
                 Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(mainActivity);            }
         });
-
+       addDish.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent addd=new Intent(getApplicationContext(),AddMeal.class);
+               startActivity(addd);
+           }
+       });
     }
 }
