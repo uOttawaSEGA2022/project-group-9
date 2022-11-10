@@ -26,13 +26,9 @@ import java.util.List;
 
 public class E3AdminLoggedInScreen extends MainActivity {
 
-    FirebaseAuth fAuth;
-    FirebaseDatabase database;
-    DatabaseReference dataRef;
     List<Complaint> listOfComplaints;
-    ListView listViewComplaints;
-    String tempListOfChefIDs[];
-    String tempListOfReasons[];
+    String[] tempListOfChefIDs;
+    String[] tempListOfReasons;
     Integer numOfComplaints = 0;
 
 
@@ -48,6 +44,7 @@ public class E3AdminLoggedInScreen extends MainActivity {
         Button logOff = (Button) findViewById(R.id.logOffButton);
         EditText datePicker = findViewById(R.id.datePickerText);
         TextView errorMessages = findViewById(R.id.errorMessageText);
+        ListView listViewComplaints = findViewById(R.id.listViewComplaints);
 
         //All code for the listView can be seen here
         //https://www.youtube.com/watch?v=aUFdgLSEl0g&ab_channel=CodingPursuit
@@ -74,49 +71,15 @@ public class E3AdminLoggedInScreen extends MainActivity {
 
 
         //So the Admin can view complaints
-        //dataRef to work your way down the tree
-        fAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        dataRef = FirebaseDatabase.getInstance().getReference().child("Complaints");
         listOfComplaints = new ArrayList<>();
         //Only 10 complaints can be handled rn, maybe this can turn into a scrolly bar
         tempListOfChefIDs = new String[10];
         tempListOfReasons = new String[10];
 
         //Creates Complaint Class and Arraylist to store all complaints
-        dataRef.addValueEventListener(new ValueEventListener() {
+        DatabaseServices databaseServices = new DatabaseServices();
+        databaseServices.displayComplaintsForAdmin(getApplicationContext(), tempListOfChefIDs, tempListOfChefIDs, numOfComplaints, listViewComplaints);
 
-            @Override
-            //On start up despite the name
-            public void onDataChange(DataSnapshot dataSnapShot) {
-
-                //for every complaint entry on firebase
-                for (DataSnapshot postSnapshot : dataSnapShot.getChildren()) {
-                    //This complaint code does nothing rn but will be reworked for deliverable 3
-                    Complaint newComplaint = new Complaint();
-                    newComplaint.setChefID(String.valueOf(postSnapshot.child("chefID")));
-                    newComplaint.setReason(String.valueOf(postSnapshot.child("reason")));
-
-                    //places data in an array
-                    tempListOfChefIDs[numOfComplaints] = String.valueOf(postSnapshot.child("chefID"));
-                    tempListOfReasons[numOfComplaints] = String.valueOf(postSnapshot.child("reason"));
-                    numOfComplaints++;
-
-
-                }
-
-                //uses data from array to display
-                listViewComplaints = (ListView) findViewById(R.id.listViewComplaints);
-                CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(getApplicationContext(),tempListOfChefIDs,tempListOfReasons);
-                listViewComplaints.setAdapter(customBaseAdapter);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
         //do not touch

@@ -20,9 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class E2ChefLoggedInScreen extends MainActivity {
-    FirebaseAuth fAuth;
-    FirebaseDatabase database;
-    DatabaseReference dataRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +40,6 @@ public class E2ChefLoggedInScreen extends MainActivity {
         final String EMAIL = userEmail;
         */
 
-
-
-        fAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chef");
         Log.d("gettingData", "Hello");

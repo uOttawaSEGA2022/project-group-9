@@ -2,40 +2,19 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 
 public class B2D2SignUpAddress extends MainActivity {
-
-    FirebaseAuth fAuth;
-    FirebaseDatabase database;
-    DatabaseReference dataRef;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseApp.initializeApp(this);
         setContentView(R.layout.b2d2_signup_address);
-
-        fAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -116,24 +95,9 @@ public class B2D2SignUpAddress extends MainActivity {
                                 "nameoncard", "creditcardnumber", "cvvnumber", "expirationdate",
                                 "addressline1", "addressline2", "city", "province", "postalcode"};
 
-                        fAuth.createUserWithEmailAndPassword(userInfo[3], userInfo[4]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()) {
-                                    dataRef = database.getReference("Chef").child(fAuth.getCurrentUser().getUid());
+                        DatabaseServices databaseServices = new DatabaseServices();
+                        databaseServices.createUser(B2D2SignUpAddress.this, userInfo, "Customer");
 
-                                    for (int i=0; i<userInfo.length; i++) {
-                                        if(i == 0 || i == 11) continue;
-                                        Log.d("chefInfo",registerInfo[i] + " " + userInfo[i]);
-                                        dataRef.child(registerInfo[i]).setValue(userInfo[i]);
-                                    }
-
-                                    Toast.makeText(B2D2SignUpAddress.this, "sign up successfull!", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(B2D2SignUpAddress.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
 
                         Intent e1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
                         startActivity(e1CustomerLoggedInScreen);
@@ -162,14 +126,6 @@ public class B2D2SignUpAddress extends MainActivity {
             userInfo[7] = city.getText().toString();
             userInfo[8] = province.getText().toString();
             userInfo[9] = postalCode.getText().toString();
-
-            //Yash's Debugging Code Checking If Array Is Valid
-            Log.i("CHECKING INDICES", "Index 5-9 is updated same addresses!");
-            System.out.println(userInfo[5]);
-            System.out.println(userInfo[6]);
-            System.out.println(userInfo[7]);
-            System.out.println(userInfo[8]);
-            System.out.println(userInfo[9]);
         }
 
         else{
@@ -178,14 +134,6 @@ public class B2D2SignUpAddress extends MainActivity {
             userInfo[16] = city.getText().toString();
             userInfo[17] = province.getText().toString();
             userInfo[18] = postalCode.getText().toString();
-
-            //Yash's Debugging Code Checking If Array Is Valid
-            Log.i("CHECKING INDICES", "Index 14-18 is updated not same addresses!");
-            System.out.println(userInfo[14]);
-            System.out.println(userInfo[15]);
-            System.out.println(userInfo[16]);
-            System.out.println(userInfo[17]);
-            System.out.println(userInfo[18]);
         }
     }
 }

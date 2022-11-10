@@ -1,42 +1,18 @@
 package com.example.application;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.ActionBar;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class B4SignUpChefVoidCheque extends MainActivity{
-
-    FirebaseAuth fAuth;
-    FirebaseDatabase database;
-    DatabaseReference dataRef;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseApp.initializeApp(this);
         setContentView(R.layout.b4_signup_chef_void_cheque);
 
         ActionBar actionBar = getSupportActionBar();
@@ -56,10 +32,6 @@ public class B4SignUpChefVoidCheque extends MainActivity{
         Button finishSignUpBtn = findViewById(R.id.chefSignUpVoidChequeFinishSignUpBtn);
 
         ImageView voidCheque = findViewById(R.id.chefSignUpVoidChequeImage);
-        fAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-
-        String[] registerInfo = {"role", "firstname", "lastname", "email", "password", "addressline1", "addressline2", "city", "province", "postalcode", "shortdesc", "voidcheque","isSuspensed","Suspended until"};
 
         //onButton Click
         takePictureBtn.setOnClickListener(new View.OnClickListener() {
@@ -115,35 +87,12 @@ public class B4SignUpChefVoidCheque extends MainActivity{
                 chefInfo[12] = "False";
                 chefInfo[13] = "Null";
 
-                Log.d("chefInfo",chefInfo[11]);
-                Log.d("chefInfo", String.valueOf(chefInfo.length));
+                DatabaseServices databaseServices = new DatabaseServices();
+                databaseServices.createUser(B4SignUpChefVoidCheque.this, chefInfo, "Chef");
 
-
-                fAuth.createUserWithEmailAndPassword(chefInfo[3], chefInfo[4]).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            dataRef = database.getReference("Chef").child(fAuth.getCurrentUser().getUid());
-
-                            for (int i=0; i<chefInfo.length; i++) {
-                                if(i == 0 || i == 11) continue;
-                                Log.d("chefInfo",registerInfo[i] + " " + chefInfo[i]);
-                                dataRef.child(registerInfo[i]).setValue(chefInfo[i]);
-                            }
-
-                            Toast.makeText(B4SignUpChefVoidCheque.this, "sign up successfull!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(B4SignUpChefVoidCheque.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
                 Intent e2ChefLoggedInScreen = new Intent(getApplicationContext(), E2ChefLoggedInScreen.class);
                 e2ChefLoggedInScreen.putExtra("Chef Info", chefInfo);
                 startActivity(e2ChefLoggedInScreen);
-
-                //Yash's Debugging Code Checking If Array Is Valid
-                Log.i("CHECKING INDICES", "Index 11 is updated for Chef!");
-                System.out.println(chefInfo[11]);
             }
         });
     }

@@ -24,19 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 //On launch activity
 public class MainActivity extends AppCompatActivity {
-    FirebaseAuth fAuth;
-    FirebaseDatabase database;
-    DatabaseReference dataRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_main);
-
-
-
-        fAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
 
         //Sets up action Bar
         ActionBar actionBar = getSupportActionBar();
