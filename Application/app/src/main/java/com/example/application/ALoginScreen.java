@@ -10,16 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 public class ALoginScreen extends MainActivity {
-    FirebaseAuth fAuth;
-    FirebaseDatabase database;
-    DatabaseReference dataRef;
-    EditText emailText;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -43,10 +34,6 @@ public class ALoginScreen extends MainActivity {
         TextView screenTitle = findViewById(R.id.loginScreenTitle);
         screenTitle.setText("Welcome Back, " + ROLE);
 
-        fAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chef");
-
 
         Button signInButton = (Button) findViewById(R.id.SignIn);
         EditText emailText = findViewById(R.id.Email);
@@ -54,6 +41,10 @@ public class ALoginScreen extends MainActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // THIS IS FOR CHEF DEVELOPMENT PURPOSES, REMOVE BEFORE SUBMITTING ######################
+//                Intent goToChefLoggedInScreen = new Intent(ALoginScreen.this, E2ChefLoggedInScreen.class);
+//                startActivity(goToChefLoggedInScreen);
+                // ######################################################################################
                 TextView EmailPasswordErrorMessages = findViewById(R.id.EmailPasswordErrorMessages);
                 EditText editTextEmail = findViewById(R.id.Email);
                 EditText editTextPassword = findViewById(R.id.Password);

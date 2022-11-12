@@ -2,7 +2,6 @@ package com.example.application;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class DatabaseServices extends MainActivity {
@@ -80,9 +82,12 @@ public class DatabaseServices extends MainActivity {
                         //E1CustomerLoggedInScreen.putExtra("Email", emailText.getText().toString());
                         context.startActivity(E1CustomerLoggedInScreen);
                     } else if (ROLE.equals("Chef")) {
-                        Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
-                        //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
-                        context.startActivity(E2ChefLoggedInScreen);
+                        boolean isSuspended = checkSuspendedChef(context);
+                        if (!isSuspended){
+                            Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
+                            //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
+                            context.startActivity(E2ChefLoggedInScreen);
+                        }
                     } else {
                         Intent E3AdminLoggedInScreen = new Intent(context, E3AdminLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
                         //E3AdminLoggedInScreen.putExtra("Email", emailText.getText().toString());
@@ -133,5 +138,50 @@ public class DatabaseServices extends MainActivity {
 
             }
         });
+    }
+
+    public static boolean checkSuspendedChef(Context context){
+        // Implement this method which gets called whenever the chef signs in successfully
+        // The method needs to check if the chef is suspended
+        // If the chef is suspended, go to another activity that shows they are suspended and return true (Using the context variable)
+        // If the chef isn't suspended, return false
+        return false;
+    }
+
+    public List<Meal> getCurrentChefMeals(){
+        // Implement this method which gets called when a chef goes to see their meals (menu, not offered)
+        // This method fetches all the current chef's meals, which are in the database, under the current chef's section
+        // It will fetch all the values of every meal, pack them into a HashMap and create a meal and add that meal to the list
+        // For reference, check the chef "CaptianMK@gmail.com" in the database to see how the meals are supposed to be implemented and fetched
+        // For more reference, check the Meal.java class to see what key value pairs should be in the HashMap
+
+        // The following is for testing purposes, delete when implementing the main functionality
+        List<Meal> mealList = new ArrayList<>();
+
+        HashMap<String, Object> mealInfo = new HashMap<>();
+
+        List<String> ingredients = new ArrayList<>();
+        ingredients.add("Bun");
+        ingredients.add("Beef Patty");
+
+        List<String> allergens = new ArrayList<>();
+        allergens.add("Gluten");
+
+        mealInfo.put("Name", "burger");
+        mealInfo.put("Type", "main dish");
+        mealInfo.put("Cuisine", "american");
+        mealInfo.put("Ingredients", ingredients);
+        mealInfo.put("Allergens", allergens);
+        mealInfo.put("Price", "6");
+        mealInfo.put("Description", "This is a burger");
+        mealInfo.put("Cook", "Masterchef");
+        mealInfo.put("IsOffered", true);
+
+        Meal test = new Meal(mealInfo);
+
+        mealList.add(test);
+        mealList.add(test);
+
+        return mealList;
     }
 }

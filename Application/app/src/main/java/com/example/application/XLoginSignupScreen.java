@@ -3,19 +3,13 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-
-
-
-import java.util.ArrayList;
 
 public class XLoginSignupScreen extends MainActivity {
 

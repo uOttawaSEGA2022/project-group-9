@@ -9,8 +9,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.ActionBar;
 
-import java.util.ArrayList;
-
 public class B3SignUpChefShortDescription extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

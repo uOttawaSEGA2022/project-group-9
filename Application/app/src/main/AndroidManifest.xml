@@ -20,7 +20,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AddMeal"
+            android:name=".ChefAddMealActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -94,6 +94,7 @@
         <activity android:name=".B4SignUpChefVoidCheque" />
         <activity android:name=".D3SignUpCustomerCCInfo" />
         <activity android:name=".B2D2SignUpAddress" />
+        <activity android:name=".AllChefMeals"/>
     </application>
 
 </manifest>

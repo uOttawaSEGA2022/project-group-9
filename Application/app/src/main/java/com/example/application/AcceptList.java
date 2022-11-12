@@ -1,7 +1,5 @@
 package com.example.application;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.LinkedList;
 import java.util.List;
 
-public class AcceptList extends AppCompatActivity {
+public class AcceptList extends MainActivity {
     List<String> lst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +37,16 @@ public class AcceptList extends AppCompatActivity {
         });
         Button d;
         d=(Button) findViewById(R.id.done);
-        d.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mainActivity = new Intent(getApplicationContext(), AddMeal.class);
-                mainActivity.putExtra("NAME",name);
-                mainActivity.putExtra("LIST",Bus.savedata(lst));
-                mainActivity.putExtra("OBJREF", fr);
-                startActivity(mainActivity);
-
-            }
-        });
+//        d.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent mainActivity = new Intent(getApplicationContext(), ChefAddMealActivity.class);
+//                mainActivity.putExtra("NAME",name);
+//                mainActivity.putExtra("LIST",Bus.savedata(lst));
+//                mainActivity.putExtra("OBJREF", fr);
+//                startActivity(mainActivity);
+//
+//            }
+//        });
     }
 }

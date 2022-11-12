@@ -1,63 +1,83 @@
 package com.example.application;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Meal {
     String name;
     String type;
     String cuisine;
-    List<String> ingrediants;
+    List<String> ingredients;
     List<String> allergens;
-    double price;
-    String desc;
+    String price;
+    String description;
     String cook;
-    public Meal(String name,
-    String type,
-    String cuisine,
-    List<String> ingrediants,
-    List<String> allergens,
-    double price,
-    String desc,
-    String cook)
-    {
-         this.name=name;
-        this.type=type;
-        this.cuisine=cuisine;
-        this.ingrediants=ingrediants;
-        this.allergens=allergens;
-        this.price=price;
-         this.desc=desc;
-        this.cook=cook;
-    }
-    public Meal(String name,
-                String type,
-                String cuisine,
+    boolean isOffered;
 
-
-                double price,
-                String desc,
-                String cook)
-    {
-        this.name=name;
-        this.type=type;
-        this.cuisine=cuisine;
-
-        this.price=price;
-        this.desc=desc;
-        this.cook=cook;
+    @SuppressWarnings({"All"})
+    public Meal(HashMap<String, Object> mealInfo){
+        this.name = (String) mealInfo.get("Name");
+        this.type = (String) mealInfo.get("Type");
+        this.cuisine = (String) mealInfo.get("Cuisine");
+        this.ingredients = (List<String>) mealInfo.get("Ingredients");
+        this.allergens = (List<String>) mealInfo.get("Allergens");
+        this.price = (String) mealInfo.get("Price");
+        this.description = (String) mealInfo.get("Description");
+        this.cook = (String) mealInfo.get("Cook");
+        this.isOffered = (boolean) mealInfo.get("IsOffered");
     }
 
-    public void addingrediants(List<String> l)
-    {
-        this.ingrediants=l;
+    public HashMap<String, Object> toHashMap(){
+        HashMap<String, Object> mealHashMap = new HashMap<String, Object>();
+        mealHashMap.put("Name", name);
+        mealHashMap.put("Type", type);
+        mealHashMap.put("Cuisine", cuisine);
+        mealHashMap.put("Ingredients", ingredients);
+        mealHashMap.put("Allergens", allergens);
+        mealHashMap.put("Price", price);
+        mealHashMap.put("Description", description);
+        mealHashMap.put("Cook", cook);
+        mealHashMap.put("IsOffered", isOffered);
+
+        return mealHashMap;
+
     }
 
-    public void addallergens(List<String> l)
-    {
-        this.allergens=l;
+    public String getName(){
+        return this.name;
     }
-    public String getName()
-    {
-        return name;
+
+    public String getType(){
+        return this.type;
+    }
+
+    public String getCuisine(){
+        return this.cuisine;
+    }
+
+    public List<String> getIngredients(){
+        return this.ingredients;
+    }
+
+    public List<String> getAllergens(){ return this.allergens; }
+
+    public String getPrice(){
+        return this.price;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public String getCook(){
+        return this.cook;
+    }
+
+    public boolean getIsOffered(){
+        return this.isOffered;
+    }
+
+    public void setName(String newName){
+        this.name = newName;
     }
 }
