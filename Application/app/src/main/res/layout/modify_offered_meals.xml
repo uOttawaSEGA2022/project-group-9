@@ -6,62 +6,42 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/chefMealsTitle"
+        android:id="@+id/modifyOfferedMealsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
-        android:text="Your Menu"
+        android:text="Edit your offered meals"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/allChefMealsDeleteInstructionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Long press to delete a meal from your menu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chefMealsTitle" />
-
     <ScrollView
-        android:id="@+id/allChefMealsScrollView"
+        android:id="@+id/modifyOfferedMealsAllChefMealsScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
         android:contentDescription="All chef meals"
-        app:layout_constraintBottom_toTopOf="@+id/modifyOfferedMealsBtn"
+        app:layout_constraintBottom_toTopOf="@+id/finishModifyingOfferedMealsBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allChefMealsDeleteInstructionTextView">
+        app:layout_constraintTop_toBottomOf="@+id/modifyOfferedMealsTitle">
 
         <LinearLayout
-            android:id="@+id/allChefMealsLinearLayout"
+            android:id="@+id/modifyOfferedMealsAllChefMealsLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/modifyOfferedMealsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Modify Offered Meals"
-        app:layout_constraintBottom_toTopOf="@+id/addMealBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/addMealBtn"
+        android:id="@+id/finishModifyingOfferedMealsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
-        android:text="Add Meal"
+        android:text="Finish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

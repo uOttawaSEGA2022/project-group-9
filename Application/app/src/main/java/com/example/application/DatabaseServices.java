@@ -181,6 +181,7 @@ public class DatabaseServices extends MainActivity {
         Meal test = new Meal(mealInfo);
 
         mealInfo.put("Name", "Pizza");
+        mealInfo.put("IsOffered", false);
         Meal test2 = new Meal(mealInfo);
 
         mealList.add(test);
@@ -193,6 +194,9 @@ public class DatabaseServices extends MainActivity {
         // Implement this which gets called after the cook finishes adding or updating one of his meals on the menu
         // It's very important to be able to differentiate between updating an existing meal or adding a new one, using the given argument
 
+        // This method is also called when the chef changes the offered status of a meal, it's called as "Editing"
+        // So if implemented correctly, it should support that as well
+
         // The following code is for testing purposes, delete when implementing the database code
         Log.d("HelloThereBro", editingOrAddingMeal);
         Log.d("HelloThereBro", meal.toHashMap().toString());
@@ -201,5 +205,10 @@ public class DatabaseServices extends MainActivity {
     public String getCurrentChef(){
         // Implement this method which gets called when a cook finishes ADDING a new meal and its cook is yet unknown
         return null;
+    }
+
+    public void removeMeal(Meal meal){
+        // Implement this method which gets called when a cook deletes a meal from his menu
+        // It needs to go to the current chef in the realtime database, then delete the meal that matches the meal deleted from the menu locally
     }
 }
