@@ -29,6 +29,7 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
         EditText[] editTexts = {nameOnCard,creditCardNumber,cvvNumber,expirationDate};
         TextView errorMessages = findViewById(R.id.signUpCustomerCCErrorMessages);
 
+        //testing purposes only
         String[] tempCustomerInfo = {};
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
