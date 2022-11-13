@@ -13,14 +13,7 @@
         android:theme="@style/Theme.Application"
         tools:targetApi="31">
         <activity
-            android:name=".AcceptList"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".ChefAddMealActivity"
+            android:name=".AddOrEditChefMeal"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -95,6 +88,7 @@
         <activity android:name=".D3SignUpCustomerCCInfo" />
         <activity android:name=".B2D2SignUpAddress" />
         <activity android:name=".AllChefMeals"/>
+        <activity android:name=".testingClass"/>
     </application>
 
 </manifest>

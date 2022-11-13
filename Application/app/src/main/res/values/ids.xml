@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="mealAllergensEditText" type="id" />
+    <item name="mealNameEditText" type="id" />
+    <item name="mealTypeEditText" type="id" />
+    <item name="mealCuisineEditText" type="id" />
+    <item name="mealIngredientsEditText" type="id" />
+    <item name="mealIngredientsList" type="id" />
+    <item name="mealAllergensList" type="id" />
+    <item name="mealPriceEditText" type="id" />
+    <item name="mealDescriptionEditText" type="id" />
+</resources>

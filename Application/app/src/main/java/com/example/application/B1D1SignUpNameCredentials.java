@@ -30,7 +30,7 @@ public class B1D1SignUpNameCredentials extends MainActivity{
         //get data from parameters and use it
         String[] userInfo = tempUserInfo;
         final String ROLE = userInfo[0];
-        TextView screenTitle = findViewById(R.id.signUpNameCredentialsTitle);
+        TextView screenTitle = findViewById(R.id.addOrEditChefMealTitle);
 
         //Set text to Chef/ Customer Sign Up
         if (!ROLE.equals(screenTitle.getText().toString())){

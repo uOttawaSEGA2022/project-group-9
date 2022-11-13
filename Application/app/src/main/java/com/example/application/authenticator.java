@@ -327,4 +327,32 @@ public class authenticator extends AppCompatActivity {
         }
         return true;
     }
+
+    public String validateMealNameTypeCuisinePrice(String name, String type, String cuisine, String price){
+        if (name.strip().equals("")){
+            return "Invalid Name Input";
+        }
+
+        else if (type.strip().equals("")){
+            return "Invalid Type Input";
+        }
+
+        else if (cuisine.strip().equals("")){
+            return "Invalid Cuisine Input";
+        }
+
+        else if (price.strip().equals("")){
+            return "Invalid Price Input";
+        }
+
+        try{
+            int priceInteger = Integer.parseInt(price);
+        }
+
+        catch(NumberFormatException e){
+            return "Price is not a number";
+        }
+
+        return "Valid";
+    }
 }

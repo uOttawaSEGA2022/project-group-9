@@ -2,6 +2,7 @@ package com.example.application;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -179,9 +180,26 @@ public class DatabaseServices extends MainActivity {
 
         Meal test = new Meal(mealInfo);
 
+        mealInfo.put("Name", "Pizza");
+        Meal test2 = new Meal(mealInfo);
+
         mealList.add(test);
-        mealList.add(test);
+        mealList.add(test2);
 
         return mealList;
+    }
+
+    public void updateOrAddChefMeal(Meal meal, String editingOrAddingMeal){
+        // Implement this which gets called after the cook finishes adding or updating one of his meals on the menu
+        // It's very important to be able to differentiate between updating an existing meal or adding a new one, using the given argument
+
+        // The following code is for testing purposes, delete when implementing the database code
+        Log.d("HelloThereBro", editingOrAddingMeal);
+        Log.d("HelloThereBro", meal.toHashMap().toString());
+    }
+
+    public String getCurrentChef(){
+        // Implement this method which gets called when a cook finishes ADDING a new meal and its cook is yet unknown
+        return null;
     }
 }

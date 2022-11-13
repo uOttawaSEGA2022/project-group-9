@@ -1,9 +1,10 @@
 package com.example.application;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class Meal {
+public class Meal implements Serializable {
     String name;
     String type;
     String cuisine;
@@ -79,5 +80,37 @@ public class Meal {
 
     public void setName(String newName){
         this.name = newName;
+    }
+
+    public void setType(String newType){
+        this.type = newType;
+    }
+
+    public void setCuisine(String newCuisine){
+        this.cuisine = newCuisine;
+    }
+
+    public void setIngredients(List<String> newIngredients){
+        this.ingredients = newIngredients;
+    }
+
+    public void setAllergens(List<String> newAllergens){
+        this.allergens = newAllergens;
+    }
+
+    public void setPrice(String newPrice){
+        this.price = newPrice;
+    }
+
+    public void setDescription(String newDescription){
+        this.description = newDescription;
+    }
+
+    public void setCook(String newCook){
+        this.cook = newCook;
+    }
+
+    public void setOffered(boolean newIsOffered){
+        this.isOffered = newIsOffered;
     }
 }

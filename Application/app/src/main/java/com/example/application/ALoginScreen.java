@@ -44,6 +44,8 @@ public class ALoginScreen extends MainActivity {
                 // THIS IS FOR CHEF DEVELOPMENT PURPOSES, REMOVE BEFORE SUBMITTING ######################
 //                Intent goToChefLoggedInScreen = new Intent(ALoginScreen.this, E2ChefLoggedInScreen.class);
 //                startActivity(goToChefLoggedInScreen);
+//                Intent test = new Intent(ALoginScreen.this, testingClass.class);
+//                startActivity(test);
                 // ######################################################################################
                 TextView EmailPasswordErrorMessages = findViewById(R.id.EmailPasswordErrorMessages);
                 EditText editTextEmail = findViewById(R.id.Email);

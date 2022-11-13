@@ -1,13 +1,12 @@
 package com.example.application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -27,6 +26,15 @@ public class AllChefMeals extends MainActivity{
 
         displayChefMeals(allChefMeals);
 
+        addMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToAddMeal = new Intent(getApplicationContext(), AddOrEditChefMeal.class);
+                goToAddMeal.putExtra("Editing or Adding", "Adding");
+                startActivity(goToAddMeal);
+            }
+        });
+
         /*
         * What I want to do here is have a list of meals grabbed from the database
         * I will list every meal with kind of a small star or something indicating it's offered
@@ -44,8 +52,6 @@ public class AllChefMeals extends MainActivity{
 
     public void displayChefMeals(LinearLayout allChefMeals){
         DatabaseServices databaseServices = new DatabaseServices();
-
-        List<TableLayout> allChefMealsAdapterList = new ArrayList<TableLayout>();
 
         List<Meal> currentChefMeals = databaseServices.getCurrentChefMeals();
 
@@ -74,6 +80,17 @@ public class AllChefMeals extends MainActivity{
                 mealIsOfferedTextView.setText("Not Offered");
                 mealIsOfferedIcon.setImageResource(R.drawable.not_offered_unchecked_mark);
             }
+
+            mealTemplate.setClickable(true);
+            mealTemplate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent goToEditChefMeal = new Intent(AllChefMeals.this, AddOrEditChefMeal.class);
+                    goToEditChefMeal.putExtra("Meal", meal);
+                    goToEditChefMeal.putExtra("Editing or Adding", "Editing");
+                    startActivity(goToEditChefMeal);
+                }
+            });
 
             allChefMeals.addView(mealTemplate);
         }
