@@ -35,10 +35,6 @@ public class E3AdminLoggedInScreen extends MainActivity {
         TextView errorMessages = findViewById(R.id.errorMessageText);
         ListView listViewComplaints = findViewById(R.id.listViewComplaints);
 
-        //All code for the listView can be seen here
-        //https://www.youtube.com/watch?v=aUFdgLSEl0g&ab_channel=CodingPursuit
-        //So Admin can view complaints
-
 
 
         //For passing data from one file to another
