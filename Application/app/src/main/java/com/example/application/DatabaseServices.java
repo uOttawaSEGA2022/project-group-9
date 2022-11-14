@@ -139,8 +139,8 @@ public class DatabaseServices extends MainActivity {
                     listOfComplaints.add(newComplaint);
 
                     //places data in an array
-                    tempListOfChefIDs[numOfComplaints] = String.valueOf(postSnapshot.child("chefID"));
-                    tempListOfReasons[numOfComplaints] = String.valueOf(postSnapshot.child("reason"));
+                    tempListOfChefIDs[numOfComplaints] = postSnapshot.child("chefID").toString();
+                    tempListOfReasons[numOfComplaints] = postSnapshot.child("reason").toString();
                     numOfComplaints++;
 
                     Log.i("MSG",String.valueOf(postSnapshot.child("chefID")));
