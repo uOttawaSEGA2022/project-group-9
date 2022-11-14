@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class CustomBaseAdapter extends BaseAdapter {
+public class CustomBaseAdapterSimple extends BaseAdapter {
 
     Context context;
     String tempListOfChefIDs[];
     String tempListOfReasons[];
     LayoutInflater inflater;
     //All this code is need for the admin to see a list of complaints on his screen
-    public CustomBaseAdapter(Context ctx, String[] chefIdList, String[] reasonList) {
+    public CustomBaseAdapterSimple(Context ctx, String[] chefIdList, String[] reasonList) {
         inflater = LayoutInflater.from(ctx);
         this.context = ctx;
         this.tempListOfChefIDs = chefIdList;
@@ -39,7 +39,7 @@ public class CustomBaseAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView= inflater.inflate(R.layout.activity_custom_list_view_complaints,null);
+        convertView= inflater.inflate(R.layout.activity_custom_list_view_complaints_simple,null);
         TextView chefIDView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
         TextView reasonView = (TextView) convertView.findViewById(R.id.reasonComplaint);
         chefIDView.setText(tempListOfChefIDs[position]);

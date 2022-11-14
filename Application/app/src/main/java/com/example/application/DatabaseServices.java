@@ -153,8 +153,13 @@ public class DatabaseServices extends MainActivity {
                 }
 
                 //uses data from array to display
-                CustomBaseAdapter customBaseAdapter = new CustomBaseAdapter(context ,tempListOfChefIDs,tempListOfReasons);
-                listViewComplaints.setAdapter(customBaseAdapter);
+                /*
+                CustomBaseAdapterSimple customBaseAdapterSimple = new CustomBaseAdapterSimple(context ,tempListOfChefIDs,tempListOfReasons);
+                listViewComplaints.setAdapter(customBaseAdapterSimple);
+                */
+
+                CustomBaseAdapterClass customBaseAdapterClassComplaint = new CustomBaseAdapterClass(context ,listOfComplaints);
+                listViewComplaints.setAdapter(customBaseAdapterClassComplaint);
 
             }
 
