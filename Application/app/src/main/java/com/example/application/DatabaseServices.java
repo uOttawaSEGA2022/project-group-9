@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -89,12 +90,12 @@ public class DatabaseServices extends MainActivity {
                         //E1CustomerLoggedInScreen.putExtra("Email", emailText.getText().toString());
                         context.startActivity(E1CustomerLoggedInScreen);
                     } else if (ROLE.equals("Chef")) {
-                        boolean isSuspended = checkSuspendedChef(context);
-                        if (!isSuspended){
+                          checkSuspendedChef(email,context);
+                        /*if (!isSuspended){
                             Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
                             //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
                             context.startActivity(E2ChefLoggedInScreen);
-                        }
+                        }*/
                     } else {
                         Intent E3AdminLoggedInScreen = new Intent(context, E3AdminLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
                         //E3AdminLoggedInScreen.putExtra("Email", emailText.getText().toString());
@@ -172,14 +173,76 @@ public class DatabaseServices extends MainActivity {
         });
     }
 
-    public static boolean checkSuspendedChef(Context context){
+
+    public void checkSuspendedChef(String email,Context context)
+    {
         // Implement this method which gets called whenever the chef signs in successfully
         // The method needs to check if the chef is suspended
         // If the chef is suspended, go to another activity that shows they are suspended and return true (Using the context variable)
         // If the chef isn't suspended, return false
-        return false;
-    }
 
+
+
+        ValueEventListener ve=new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot p:dataSnapshot.getChildren()) {
+                    System.out.println("email is"+p.child("email").getValue().toString());
+                    if( p.child("isSuspensed").getValue().toString().equals("False"))
+                    {
+                        System.out.println("i am false");
+                        Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
+                        //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
+                        context.startActivity(E2ChefLoggedInScreen);
+                    }
+                    else
+                    {
+                        //whetherSuspended.add(true);
+                    }
+                }
+                //System.out.println(dataSnapshot.child("email").toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        Query q=FirebaseDatabase.getInstance().getReference("Chef").orderByChild("email").equalTo(email);
+        q.addListenerForSingleValueEvent(ve);
+        /*database.getReference().child("Chef").addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            for (DataSnapshot p:dataSnapshot.getChildren())
+            {
+                if(p.child("email").getValue().toString().equals(email)) {
+                    //p.child("firstname").setValue("Mahesh");
+                    System.out.println("my email is"+p.child("email").getValue().toString());
+                    if( p.child("isSuspensed").getValue().toString().equals("False"))
+                    {
+                        System.out.println("i am false");
+                        whetherSuspended=false;
+                    }
+                    else
+                    {
+                        whetherSuspended=true;
+                    }
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });
+        //database.getReference().child("Chef").get().*/
+
+
+    }
     public List<Meal> getCurrentChefMeals(){
         // Implement this method which gets called when a chef goes to see their meals (menu, not offered)
         // This method fetches all the current chef's meals, which are in the database, under the current chef's section
