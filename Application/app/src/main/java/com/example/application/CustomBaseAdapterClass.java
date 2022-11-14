@@ -13,6 +13,7 @@ public class CustomBaseAdapterClass extends BaseAdapter {
 
     Context context;
     ArrayList<Complaint> listOfComplaints;
+    int currentComplaintCounter;
 
     LayoutInflater inflater;
     //All this code is need for the admin to see a list of complaints on his screen
@@ -20,6 +21,7 @@ public class CustomBaseAdapterClass extends BaseAdapter {
         inflater = LayoutInflater.from(ctx);
         this.context = ctx;
         this.listOfComplaints = complaintArrayList;
+        currentComplaintCounter = 0;
 
     }
 
@@ -42,7 +44,10 @@ public class CustomBaseAdapterClass extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView= inflater.inflate(R.layout.activity_custom_list_view_complaints_class_complaint,null);
 
-
+        TextView chefIDView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
+        TextView reasonView = (TextView) convertView.findViewById(R.id.reasonComplaint);
+        chefIDView.setText("ChefId: " + listOfComplaints.get(currentComplaintCounter).getChefID());
+        reasonView.setText("Reason: " + listOfComplaints.get(currentComplaintCounter).getReason());
 
         return convertView;
     }
