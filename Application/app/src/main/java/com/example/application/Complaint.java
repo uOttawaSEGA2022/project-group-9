@@ -16,11 +16,11 @@ public class Complaint {
     }
 
     public String getChefID(){
-        return this.getChefID();
+        return chefID;
     }
 
     public String getReason(){
-        return this.getChefID();
+        return reason;
     }
 
     public void setChefID(String chefID){
