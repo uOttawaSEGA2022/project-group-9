@@ -52,6 +52,7 @@ public class CustomBaseAdapterClass extends BaseAdapter {
         TextView chefIDView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
         TextView reasonView = (TextView) convertView.findViewById(R.id.reasonComplaint);
 
+        //Increment works
         Log.i("MSG","Size:" + getCount());
         Log.i("MSG", String.valueOf((getCount() > currentComplaintCounter)));
         if (getCount() > currentComplaintCounter) {
