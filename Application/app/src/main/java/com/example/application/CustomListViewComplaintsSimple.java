@@ -2,7 +2,7 @@ package com.example.application;
 
 import android.os.Bundle;
 
-public class CustomListViewComplaints extends MainActivity {
+public class CustomListViewComplaintsSimple extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
