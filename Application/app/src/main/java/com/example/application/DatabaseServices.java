@@ -143,8 +143,11 @@ public class DatabaseServices extends MainActivity {
                     tempListOfReasons[numOfComplaints] = postSnapshot.child("reason").toString();
                     numOfComplaints++;
 
-                    Log.i("MSG",String.valueOf(postSnapshot.child("chefID")));
-                    Log.i("MSG",String.valueOf(postSnapshot.child("reason")));
+                    Log.i("MSG", (String) postSnapshot.child("chefID").getValue());
+
+                    Log.i("MSG", (String) postSnapshot.child("reason").getValue());
+
+                    postSnapshot.child("chefID").getValue();
 
 
                 }
