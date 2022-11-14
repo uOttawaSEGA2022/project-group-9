@@ -133,14 +133,14 @@ public class DatabaseServices extends MainActivity {
                 for (DataSnapshot postSnapshot : dataSnapShot.getChildren()) {
                     //This complaint code does nothing rn but will be reworked for deliverable 3
                     Complaint newComplaint = new Complaint();
-                    newComplaint.setChefID(String.valueOf(postSnapshot.child("chefID")));
-                    newComplaint.setReason(String.valueOf(postSnapshot.child("reason")));
+                    newComplaint.setChefID((String) postSnapshot.child("chefID").getValue());
+                    newComplaint.setReason((String) postSnapshot.child("chefID").getValue());
 
                     listOfComplaints.add(newComplaint);
 
                     //places data in an array
-                    tempListOfChefIDs[numOfComplaints] = postSnapshot.child("chefID").toString();
-                    tempListOfReasons[numOfComplaints] = postSnapshot.child("reason").toString();
+                    tempListOfChefIDs[numOfComplaints] = (String) postSnapshot.child("chefID").getValue();
+                    tempListOfReasons[numOfComplaints] =(String) postSnapshot.child("reason").getValue();
                     numOfComplaints++;
 
                     Log.i("MSG", (String) postSnapshot.child("chefID").getValue());
