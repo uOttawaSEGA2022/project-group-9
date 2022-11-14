@@ -1,6 +1,7 @@
 package com.example.application;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,10 @@ public class CustomBaseAdapterClass extends BaseAdapter {
         return 0;
     }
 
+    public void setCurrentComplaintCounter() {
+        this.currentComplaintCounter++;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView= inflater.inflate(R.layout.activity_custom_list_view_complaints_class_complaint,null);
@@ -47,6 +52,8 @@ public class CustomBaseAdapterClass extends BaseAdapter {
         TextView chefIDView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
         TextView reasonView = (TextView) convertView.findViewById(R.id.reasonComplaint);
 
+        Log.i("MSG","Size:" + getCount());
+        Log.i("MSG", String.valueOf((getCount() > currentComplaintCounter)));
         if (getCount() > currentComplaintCounter) {
             chefIDView.setText("ChefId: " + listOfComplaints.get(currentComplaintCounter).getChefID());
             reasonView.setText("Reason: " + listOfComplaints.get(currentComplaintCounter).getReason());

@@ -152,13 +152,13 @@ public class DatabaseServices extends MainActivity {
 
                 }
 
-                //uses non-Complaint Object Data from array to display
+                //uses non-Complaint Object Data from array to display //un comment this to get everything to work in an non-clean, working method
                 /*
                 CustomBaseAdapterSimple customBaseAdapterSimple = new CustomBaseAdapterSimple(context ,tempListOfChefIDs,tempListOfReasons);
                 listViewComplaints.setAdapter(customBaseAdapterSimple);
                 */
 
-                //Uses Complain Object Data
+                //Uses Complain Object Data Use this for a clean- semi working version
                 CustomBaseAdapterClass customBaseAdapterClassComplaint = new CustomBaseAdapterClass(context ,listOfComplaints);
                 listViewComplaints.setAdapter(customBaseAdapterClassComplaint);
 
