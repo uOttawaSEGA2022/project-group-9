@@ -147,7 +147,6 @@ public class DatabaseServices extends MainActivity {
 
                     Log.i("MSG", (String) postSnapshot.child("reason").getValue());
 
-                    postSnapshot.child("chefID").getValue();
 
 
                 }

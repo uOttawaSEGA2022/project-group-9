@@ -30,71 +30,6 @@
         app:layout_constraintVertical_bias="0.132" />
 
 
-    <TextView
-        android:id="@+id/selectDateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Select Date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.150"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55" />
-
-    <EditText
-        android:id="@+id/datePickerText"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_margin="15dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:hint="DD/MM/YYYY"
-        app:layout_constraintVertical_bias="0.62"
-        app:layout_constraintHorizontal_bias="0.100"
-        android:inputType="text" />
-
-
-    <Button
-        android:id="@+id/suspenseChefUntilSelectedDateButton"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
-        android:text="Suspense Chef Until Date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.10"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.850" />
-
-    <Button
-        android:id="@+id/suspenseChefPermanentlyButton"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
-        android:text="Suspense Chef Permanently"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.800"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.850" />
-
-    <Button
-        android:id="@+id/dismissComplaintButton"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
-        android:text="Dismiss Complaint"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.800"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.750" />
-
-
     <Button
         android:id="@+id/logOffButton"
         android:layout_width="172dp"
@@ -107,16 +42,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.950" />
 
-    <TextView
-        android:id="@+id/errorMessageText"
-        android:layout_width="172dp"
-        android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.100"
-        app:layout_constraintVertical_bias="0.72" />
 
     <ListView
         android:id="@+id/listViewComplaints"
@@ -125,7 +50,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3">
     </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
