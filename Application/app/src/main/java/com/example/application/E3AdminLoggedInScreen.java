@@ -65,4 +65,9 @@ public class E3AdminLoggedInScreen extends MainActivity {
 
     }
 
+    public void actionComplaintInListView() {
+        Intent adminActionComplaintActivity = new Intent(getApplicationContext(), AdminActionComplaint.class);
+        startActivity(adminActionComplaintActivity);
+    }
+
 }
