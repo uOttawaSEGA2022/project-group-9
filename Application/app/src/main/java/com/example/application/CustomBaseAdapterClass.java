@@ -46,8 +46,11 @@ public class CustomBaseAdapterClass extends BaseAdapter {
 
         TextView chefIDView = (TextView) convertView.findViewById(R.id.chefIDComplaint);
         TextView reasonView = (TextView) convertView.findViewById(R.id.reasonComplaint);
-        chefIDView.setText("ChefId: " + listOfComplaints.get(currentComplaintCounter).getChefID());
-        reasonView.setText("Reason: " + listOfComplaints.get(currentComplaintCounter).getReason());
+
+        if (getCount() > currentComplaintCounter) {
+            chefIDView.setText("ChefId: " + listOfComplaints.get(currentComplaintCounter).getChefID());
+            reasonView.setText("Reason: " + listOfComplaints.get(currentComplaintCounter).getReason());
+        }
         currentComplaintCounter++;
 
         return convertView;
