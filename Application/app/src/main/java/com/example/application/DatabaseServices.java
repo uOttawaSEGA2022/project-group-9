@@ -31,6 +31,12 @@ public class DatabaseServices extends MainActivity {
     String[] chefRegisterInfo;
     String[] customerRegisterInfo;
 
+    //So Admin can view complaints
+    String[] tempListOfChefIDs;
+    String[] tempListOfReasons;
+    ArrayList<Complaint> listOfComplaints;
+    Integer numOfComplaints = 0;
+
     public DatabaseServices(){
         FirebaseApp.initializeApp(this);
 
@@ -102,16 +108,26 @@ public class DatabaseServices extends MainActivity {
         });
     }
 
-    public void displayComplaintsForAdmin(Context context, String[] tempListOfChefIDs, String[] tempListOfReasons, int numOfComplaints, ListView listViewComplaints){
+    public void displayComplaintsForAdmin(Context context, ListView listViewComplaints){
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference().child("Complaints");
 
-        final int[] test = {numOfComplaints};
+        //Only 10 complaints can be handled rn, maybe this can turn into a scrolly bar
+        tempListOfChefIDs = new String[10];
+        tempListOfReasons = new String[10];
+        numOfComplaints = 0;
+        listOfComplaints = new ArrayList<Complaint>();
+        //final int[] test = {numOfComplaints};
 
         dataRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             //On start up despite the name
             public void onDataChange(DataSnapshot dataSnapShot) {
+
+                tempListOfChefIDs = new String[10];
+                tempListOfReasons = new String[10];
+                numOfComplaints = 0;
+                //final int[] test = {numOfComplaints};
 
                 //for every complaint entry on firebase
                 for (DataSnapshot postSnapshot : dataSnapShot.getChildren()) {
@@ -121,9 +137,9 @@ public class DatabaseServices extends MainActivity {
                     newComplaint.setReason(String.valueOf(postSnapshot.child("reason")));
 
                     //places data in an array
-                    tempListOfChefIDs[test[0]] = String.valueOf(postSnapshot.child("chefID"));
-                    tempListOfReasons[test[0]] = String.valueOf(postSnapshot.child("reason"));
-                    test[0]++;
+                    tempListOfChefIDs[numOfComplaints] = String.valueOf(postSnapshot.child("chefID"));
+                    tempListOfReasons[numOfComplaints] = String.valueOf(postSnapshot.child("reason"));
+                    numOfComplaints++;
 
 
                 }

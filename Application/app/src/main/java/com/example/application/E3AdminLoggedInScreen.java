@@ -15,10 +15,7 @@ import java.util.List;
 
 public class E3AdminLoggedInScreen extends MainActivity {
 
-    List<Complaint> listOfComplaints;
-    String[] tempListOfChefIDs;
-    String[] tempListOfReasons;
-    Integer numOfComplaints = 0;
+
 
 
     @Override
@@ -55,15 +52,14 @@ public class E3AdminLoggedInScreen extends MainActivity {
         authenticator authenticatorObject = new authenticator();
 
 
-        //So the Admin can view complaints
-        listOfComplaints = new ArrayList<>();
-        //Only 10 complaints can be handled rn, maybe this can turn into a scrolly bar
-        tempListOfChefIDs = new String[10];
-        tempListOfReasons = new String[10];
+
+
+
+
 
         //Creates Complaint Class and Arraylist to store all complaints
         DatabaseServices databaseServices = new DatabaseServices();
-        databaseServices.displayComplaintsForAdmin(getApplicationContext(), tempListOfChefIDs, tempListOfChefIDs, numOfComplaints, listViewComplaints);
+        databaseServices.displayComplaintsForAdmin(getApplicationContext(), listViewComplaints);
 
         // logic to add suspended values to database
 
