@@ -134,7 +134,7 @@ public class DatabaseServices extends MainActivity {
                     //This complaint code does nothing rn but will be reworked for deliverable 3
                     Complaint newComplaint = new Complaint();
                     newComplaint.setChefID((String) postSnapshot.child("chefID").getValue());
-                    newComplaint.setReason((String) postSnapshot.child("chefID").getValue());
+                    newComplaint.setReason((String) postSnapshot.child("reason").getValue());
 
                     listOfComplaints.add(newComplaint);
 

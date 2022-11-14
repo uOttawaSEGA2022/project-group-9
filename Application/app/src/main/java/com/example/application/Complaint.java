@@ -28,6 +28,6 @@ public class Complaint {
     }
 
     public void setReason(String reason){
-        this.chefID = chefID;
+        this.reason = reason;
     }
 }
