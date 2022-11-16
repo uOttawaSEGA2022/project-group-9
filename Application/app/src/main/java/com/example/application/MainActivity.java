@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Connects Button to ID and Java File
-        Button customer = (Button) findViewById(R.id.customerButton);
-        Button chef = (Button) findViewById(R.id.chefButton);
-        Button admin  = (Button) findViewById(R.id.adminButton);
+        Button customerButton = (Button) findViewById(R.id.customerButtonID);
+        Button chefButton = (Button) findViewById(R.id.chefButtonID);
+        Button adminButton  = (Button) findViewById(R.id.adminButtonID);
 
         //On Click Listener
-        customer.setOnClickListener(new View.OnClickListener() {
+        customerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 customerClicked();
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        chef.setOnClickListener(new View.OnClickListener() {
+        chefButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chefClicked();
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        admin.setOnClickListener(new View.OnClickListener() {
+        adminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 adminClicked();

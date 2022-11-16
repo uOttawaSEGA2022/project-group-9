@@ -59,7 +59,7 @@ public class B2D2SignUpAddress extends MainActivity {
             @Override
             public void onClick(View v) {
                 // After error checking implementation, move this code section after error checking
-                authenticator authenticatorObject = new authenticator();
+                AuthenticatorServices authenticatorObject = new AuthenticatorServices();
                 boolean validateTextInputs = authenticatorObject.checkAddressCredentialsInputs(editTexts, errorMessages);
 
 

@@ -55,7 +55,7 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
         finishSignUpContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                authenticator authenticatorObject = new authenticator();
+                AuthenticatorServices authenticatorObject = new AuthenticatorServices();
                 boolean validateTextInputs = authenticatorObject.checkCCInputs(editTexts, errorMessages);
 
                 // If we implement error checking, move this line of code to after all the error checking

@@ -54,7 +54,7 @@ public class B1D1SignUpNameCredentials extends MainActivity{
             @Override
             public void onClick(View v) {
                 //To authenticate text fields
-                authenticator authenticatorObject = new authenticator();
+                AuthenticatorServices authenticatorObject = new AuthenticatorServices();
                 //To keep track of the textInputs are fine
                 boolean validateTextInputs = authenticatorObject.checkNameCredentialsInputs(editTexts, errorMessages);
                 if (validateTextInputs){

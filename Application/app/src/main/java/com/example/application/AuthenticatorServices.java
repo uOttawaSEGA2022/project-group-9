@@ -6,7 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class authenticator extends AppCompatActivity {
+public class AuthenticatorServices extends AppCompatActivity {
 
     //For just name credentials
     public boolean checkNameCredentialsInputs(EditText[] editTexts, TextView errorMessages){

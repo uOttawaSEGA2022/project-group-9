@@ -22,7 +22,7 @@ public class AdminActionComplaint extends MainActivity {
         EditText datePickerEditText = findViewById(R.id.datePickerText);
         TextView errorMessagesTextView = findViewById(R.id.errorMessageText);
 
-        authenticator authenticatorObject = new authenticator();
+        AuthenticatorServices authenticatorObject = new AuthenticatorServices();
 
         //This should remove the top action from the arraylist and change data in the chef folder
         //change the isSuspensed var to "true" as a String

@@ -115,7 +115,7 @@ public class AddOrEditChefMeal extends MainActivity {
                 String finalMealPrice = String.valueOf(mealPrice.getText());
                 String finalMealDescription = String.valueOf(mealDescription.getText());
 
-                authenticator authenticatorObject = new authenticator();
+                AuthenticatorServices authenticatorObject = new AuthenticatorServices();
 
                 String inputValidationMessage = authenticatorObject.validateMealNameTypeCuisinePrice(finalMealName, finalMealType, finalMealCuisine, finalMealPrice);
 

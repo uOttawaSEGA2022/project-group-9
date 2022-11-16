@@ -31,12 +31,12 @@ public class ALoginScreen extends MainActivity {
 
         Log.d("Testing", ROLE);
 
-        TextView screenTitle = findViewById(R.id.loginScreenTitle);
-        screenTitle.setText("Welcome Back, " + ROLE);
+        TextView titleTextViewTextView = findViewById(R.id.TitleTextViewID);
+        titleTextViewTextView.setText("Welcome Back, " + ROLE);
 
 
-        Button signInButton = (Button) findViewById(R.id.SignIn);
-        EditText emailText = findViewById(R.id.Email);
+        Button signInButton = (Button) findViewById(R.id.SignInButtonID);
+        EditText emailEditText = findViewById(R.id.EmailEditTextID);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,18 +47,18 @@ public class ALoginScreen extends MainActivity {
 //                Intent test = new Intent(ALoginScreen.this, testingClass.class);
 //                startActivity(test);
                 // ######################################################################################
-                TextView EmailPasswordErrorMessages = findViewById(R.id.EmailPasswordErrorMessages);
-                EditText editTextEmail = findViewById(R.id.Email);
-                EditText editTextPassword = findViewById(R.id.Password);
-                authenticator authenticatorObject = new authenticator();
-                boolean signInStatus = authenticatorObject.checkCredentials(editTextEmail, editTextPassword, EmailPasswordErrorMessages);
+                TextView errorMessagesTextView = findViewById(R.id.ErrorMessagesTextViewID);
+                EditText emailEditText = findViewById(R.id.EmailEditTextID);
+                EditText passwordEditText = findViewById(R.id.PasswordEditTextID);
+                AuthenticatorServices authenticatorObject = new AuthenticatorServices();
+                boolean signInStatus = authenticatorObject.checkCredentials(emailEditText, passwordEditText, errorMessagesTextView);
 
 
                 if (signInStatus){
 
                     DatabaseServices databaseServices = new DatabaseServices();
-                    String email = editTextEmail.getText().toString();
-                    String password = editTextPassword.getText().toString();
+                    String email = emailEditText.getText().toString();
+                    String password = passwordEditText.getText().toString();
 
                     databaseServices.signInUser(getApplicationContext(), ALoginScreen.this, email, password, ROLE);
 
