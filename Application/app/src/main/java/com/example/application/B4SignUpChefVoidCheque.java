@@ -2,18 +2,30 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 
 public class B4SignUpChefVoidCheque extends MainActivity{
+
+    private final int GALLERY_REQ_CODE = 1000;
+    ImageView imgGallery;
+
+    Button btnGallery;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.b4_signup_chef_void_cheque);
+
+        btnGallery = findViewById(R.id.chefSignUpVoidChequeLoadFromPhoneBtn);
+        imgGallery = (ImageView) findViewById(R.id.chefSignUpVoidChequeImage);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -28,10 +40,16 @@ public class B4SignUpChefVoidCheque extends MainActivity{
         String[] chefInfo = tempChefInfo;
 
         Button takePictureBtn = findViewById(R.id.chefSignUpVoidChequeTakePictureBtn);
-        Button loadFromPhoneBtn = findViewById(R.id.chefSignUpVoidChequeLoadFromPhoneBtn);
         Button finishSignUpBtn = findViewById(R.id.chefSignUpVoidChequeFinishSignUpBtn);
 
-        ImageView voidCheque = findViewById(R.id.chefSignUpVoidChequeImage);
+
+
+
+
+
+
+
+
 
         //onButton Click
         takePictureBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,12 +89,7 @@ public class B4SignUpChefVoidCheque extends MainActivity{
         */
 
 
-        loadFromPhoneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Load picture", Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         finishSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,5 +108,34 @@ public class B4SignUpChefVoidCheque extends MainActivity{
                 startActivity(e2ChefLoggedInScreen);
             }
         });
+
+//      CODE FOR UPLOADING IMAGE DURING SIGN UP { JAY }
+
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iGallery = new Intent(Intent.ACTION_PICK);
+                iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(iGallery, GALLERY_REQ_CODE);
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode==RESULT_OK){
+
+            if(requestCode==GALLERY_REQ_CODE){
+
+                //for gallery
+                imgGallery.setImageURI(data.getData() );
+
+
+             }
+        }
     }
 }
