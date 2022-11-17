@@ -66,7 +66,7 @@ public class DatabaseServices extends MainActivity {
                     DatabaseReference dataRef = database.getReference(ROLE).child(fAuth.getCurrentUser().getUid());
 
                     for (int i=0; i<userInfo.length; i++) {
-                        if(i == 0 || i == 11) continue;
+                        if(i == 0) continue;
                         dataRef.child(registerInfo[i]).setValue(userInfo[i]);
                     }
 
