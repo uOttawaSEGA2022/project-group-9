@@ -18,7 +18,6 @@ public class B4SignUpChefVoidCheque extends MainActivity{
 
     Button btnGallery;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +40,6 @@ public class B4SignUpChefVoidCheque extends MainActivity{
 
         Button takePictureBtn = findViewById(R.id.chefSignUpVoidChequeTakePictureBtn);
         Button finishSignUpBtn = findViewById(R.id.chefSignUpVoidChequeFinishSignUpBtn);
-
-
-
-
-
-
-
-
-
 
         //onButton Click
         takePictureBtn.setOnClickListener(new View.OnClickListener() {
@@ -87,9 +77,6 @@ public class B4SignUpChefVoidCheque extends MainActivity{
             }
         }
         */
-
-
-
 
         finishSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,8 +120,6 @@ public class B4SignUpChefVoidCheque extends MainActivity{
 
                 //for gallery
                 imgGallery.setImageURI(data.getData() );
-
-
              }
         }
     }
