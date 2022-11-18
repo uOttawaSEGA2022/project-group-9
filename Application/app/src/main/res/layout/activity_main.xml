@@ -28,10 +28,9 @@
 
     <Button
         android:id="@+id/customerButtonID"
-        android:layout_width="196dp"
-        android:layout_height="50dp"
+        android:layout_width="172dp"
+        android:layout_height="48dp"
         android:text="@string/customer"
-        android:textStyle="bold"
         android:fontFamily= "cursive"
         android:background="@drawable/roundstyle"
         android:backgroundTint="@color/lime_green"
@@ -48,7 +47,6 @@
         android:layout_width="172dp"
         android:layout_height="48dp"
         android:text="@string/chef"
-        android:textStyle="bold"
         android:fontFamily= "cursive"
         android:textColor="@android:color/white"
         android:background="@drawable/roundstyle"
@@ -65,7 +63,6 @@
         android:layout_width="172dp"
         android:layout_height="48dp"
         android:text="Admin"
-        android:textStyle="bold"
         android:fontFamily="cursive"
         android:background="@drawable/roundstyle"
         android:backgroundTint="@color/lime_green"
