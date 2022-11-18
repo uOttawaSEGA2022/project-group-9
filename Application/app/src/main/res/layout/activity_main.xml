@@ -12,20 +12,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green"
     tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1 Packed Meal"
+        android:textStyle="bold"
+        android:fontFamily= "cursive"
+        android:textSize="58sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.150" />
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome, Are you a Chef, Customer, or Admin?"
         android:fontFamily= "cursive"
-        android:textSize="28dp"
+        android:textStyle="bold"
+        android:textSize="38sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintVertical_bias="0.300" />
 
     <Button
         android:id="@+id/customerButtonID"
@@ -33,7 +52,9 @@
         android:layout_height="48dp"
         android:text="@string/customer"
         android:fontFamily= "cursive"
-        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"
         android:background="@drawable/roundstyle"
         android:backgroundTint="@color/lime_green"
         android:textColor="@android:color/white"
@@ -42,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintVertical_bias="0.550" />
 
     <Button
         android:id="@+id/chefButtonID"
@@ -50,7 +71,9 @@
         android:layout_height="48dp"
         android:text="@string/chef"
         android:fontFamily= "cursive"
-        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"
         android:textColor="@android:color/white"
         android:background="@drawable/roundstyle"
         android:backgroundTint="@color/lime_green"
@@ -59,7 +82,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.650" />
 
     <Button
         android:id="@+id/adminButtonID"
@@ -67,7 +90,9 @@
         android:layout_height="48dp"
         android:text="Admin"
         android:fontFamily="cursive"
-        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"
         android:background="@drawable/roundstyle"
         android:backgroundTint="#32CD30"
         android:colorAccent = "#32CD30"
@@ -77,6 +102,6 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.600" />
+        app:layout_constraintVertical_bias="0.750" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

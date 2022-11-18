@@ -1,6 +1,7 @@
 package com.example.application;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         Button customerButton = (Button) findViewById(R.id.customerButtonID);
         Button chefButton = (Button) findViewById(R.id.chefButtonID);
         Button adminButton  = (Button) findViewById(R.id.adminButtonID);
+
+        customerButton.setBackgroundColor(Color.DKGRAY);
 
         //On Click Listener
         customerButton.setOnClickListener(new View.OnClickListener() {
