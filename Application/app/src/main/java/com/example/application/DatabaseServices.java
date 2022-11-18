@@ -290,7 +290,7 @@ public class DatabaseServices extends MainActivity {
 
 
     }
-    public List<Meal> getCurrentChefMeals(){
+    public List<Meal> getCurrentChefMeals(String email){
         // Implement this method which gets called when a chef goes to see their meals (menu, not offered)
         // This method fetches all the current chef's meals, which are in the database, under the current chef's section
         // It will fetch all the values of every meal, pack them into a HashMap and create a meal and add that meal to the list
@@ -331,7 +331,7 @@ public class DatabaseServices extends MainActivity {
         return mealList;
     }
 
-    public void updateOrAddChefMeal(Meal meal, String editingOrAddingMeal){
+    public void updateOrAddChefMeal(Meal meal, String editingOrAddingMeal,String email){
         // Implement this which gets called after the cook finishes adding or updating one of his meals on the menu
         // It's very important to be able to differentiate between updating an existing meal or adding a new one, using the given argument
 
@@ -348,7 +348,7 @@ public class DatabaseServices extends MainActivity {
         return null;
     }
 
-    public void removeMeal(Meal meal){
+    public void removeMeal(Meal meal,String email){
         // Implement this method which gets called when a cook deletes a meal from his menu
         // It needs to go to the current chef in the realtime database, then delete the meal that matches the meal deleted from the menu locally
     }

@@ -92,6 +92,8 @@ public class B4SignUpChefVoidCheque extends MainActivity{
 
                 Intent e2ChefLoggedInScreen = new Intent(getApplicationContext(), E2ChefLoggedInScreen.class);
                 e2ChefLoggedInScreen.putExtra("Chef Info", chefInfo);
+                e2ChefLoggedInScreen.putExtra("Chef Info", chefInfo);
+                e2ChefLoggedInScreen.putExtra("Email",chefInfo[3]);
                 startActivity(e2ChefLoggedInScreen);
             }
         });

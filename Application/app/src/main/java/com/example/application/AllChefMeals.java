@@ -16,11 +16,14 @@ import androidx.appcompat.app.ActionBar;
 import java.util.List;
 
 public class AllChefMeals extends MainActivity{
-
+    String email;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chef_meals);
+
+        Intent intent = getIntent();
+        email=intent.getStringExtra("Email");
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -46,6 +49,7 @@ public class AllChefMeals extends MainActivity{
             @Override
             public void onClick(View v) {
                 Intent goToModifyOfferedMeals = new Intent(getApplicationContext(), ModifyOfferedMeals.class);
+                goToModifyOfferedMeals.putExtra("Email",email);
                 startActivity(goToModifyOfferedMeals);
             }
         });
@@ -68,7 +72,7 @@ public class AllChefMeals extends MainActivity{
     public void displayChefMeals(LinearLayout allChefMeals){
         DatabaseServices databaseServices = new DatabaseServices();
 
-        List<Meal> currentChefMeals = databaseServices.getCurrentChefMeals();
+        List<Meal> currentChefMeals = databaseServices.getCurrentChefMeals(email);
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
@@ -103,6 +107,7 @@ public class AllChefMeals extends MainActivity{
                     Intent goToEditChefMeal = new Intent(AllChefMeals.this, AddOrEditChefMeal.class);
                     goToEditChefMeal.putExtra("Meal", meal);
                     goToEditChefMeal.putExtra("Editing or Adding", "Editing");
+                    goToEditChefMeal.putExtra("Email",email);
                     startActivity(goToEditChefMeal);
                 }
             });
@@ -157,7 +162,7 @@ public class AllChefMeals extends MainActivity{
                     // This may not work since, in this code block, the methods only see one meal at a time, notice how all of this is in a for loop
                     // So they may not see the rest of the meal templates that are in the linear layout with the current meal template
                     // And this approach is also not efficient, but may work, so do with it as you wish
-                    databaseServices.removeMeal(meal);
+                    databaseServices.removeMeal(meal,email);
 
                     alertDialog.dismiss();
                 }

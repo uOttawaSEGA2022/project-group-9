@@ -15,6 +15,8 @@ public class E2ChefLoggedInScreen extends MainActivity {
         Button logOff = (Button) findViewById(R.id.logOffButton);
         Button goToMeals =(Button) findViewById(R.id.goToMeals);
 
+        Intent intent=getIntent();
+        String email=intent.getStringExtra("Email");
 
         logOff.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +28,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
            @Override
            public void onClick(View view) {
                Intent add = new Intent(getApplicationContext(), AllChefMeals.class);
+               add.putExtra("Email",email);
                startActivity(add);
            }
        });
