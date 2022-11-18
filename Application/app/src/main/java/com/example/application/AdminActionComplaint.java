@@ -34,7 +34,17 @@ public class AdminActionComplaint extends MainActivity {
         suspenseChefPermanentlyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Suspense Top Chef Permanentlys", Toast.LENGTH_SHORT).show();
+                if (DatabaseServices.tempListOfChefIDs != null && DatabaseServices.tempListOfReasons != null) {
+                    DatabaseServices.updateChefStatus(DatabaseServices.tempListOfChefIDs[0], "01/01/9999");
+                    Toast.makeText(getApplicationContext(), "Suspended Chef Forever!", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+                    Toast.makeText(getApplicationContext(), "Unable To Suspend!", Toast.LENGTH_SHORT).show();
+                }
+
+                Intent E3Admin = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
+                startActivity(E3Admin);
 
             }
         });
@@ -100,6 +110,18 @@ public class AdminActionComplaint extends MainActivity {
                     Toast.makeText(getApplicationContext(), "Suspense Chef until date provided", Toast.LENGTH_SHORT).show();
 
                     //IDK how to set the data in the data base
+                    if (DatabaseServices.tempListOfChefIDs != null && DatabaseServices.tempListOfReasons != null) {
+                        DatabaseServices.updateChefStatus(DatabaseServices.tempListOfChefIDs[0], datePickerEditText.getText().toString());
+                        Toast.makeText(getApplicationContext(), "Suspended Chef Until Specified Date!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else {
+                        Toast.makeText(getApplicationContext(), "Unable To Suspend!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    Intent E3Admin = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
+                    startActivity(E3Admin);
+
                 }
             }
 

@@ -80,6 +80,14 @@ public class DatabaseServices extends MainActivity {
         });
     }
 
+    public static void updateChefStatus(String chefID, String date) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Chef").child(chefID);
+
+        ref.child("isSuspensed").setValue("true");
+        ref.child("Suspended until").setValue(date);
+    }
+
+
 
 //    public static void updateReasonList(String[] newList) {
 //        System.out.println("AFTER UPDATE FOR REASONS");
