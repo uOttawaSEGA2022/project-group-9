@@ -1,7 +1,6 @@
 package com.example.application;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setTitle("1 Packed Meal");
             actionBar.setSubtitle("Welcome Screen");
             //Setting a Logo
-            actionBar.setLogo(R.drawable.customlogo);
+            actionBar.setLogo(R.drawable.mealerimage);
             //Use Logo instead of Icon
             actionBar.setDisplayUseLogoEnabled(true);
             //Set Display
