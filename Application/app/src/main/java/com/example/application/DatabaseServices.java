@@ -21,6 +21,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -33,8 +34,8 @@ public class DatabaseServices extends MainActivity {
     String[] customerRegisterInfo;
 
     //So Admin can view complaints
-    String[] tempListOfChefIDs;
-    String[] tempListOfReasons;
+    static String[] tempListOfChefIDs;
+    static String[] tempListOfReasons;
     ArrayList<Complaint> listOfComplaints;
     Integer numOfComplaints = 0;
 
@@ -49,7 +50,48 @@ public class DatabaseServices extends MainActivity {
 
         this.fAuth = FirebaseAuth.getInstance();
         this.database = FirebaseDatabase.getInstance("https://application-67368-default-rtdb.firebaseio.com/");
+
+//        //WORK IN PROGRESS BY YASH!
+//        //Allows admin to edit list
+//        Intent allowAdminEditList = new Intent(this, AdminActionComplaint.class);
+//        allowAdminEditList.putExtra("chefList", tempListOfChefIDs);
+//        allowAdminEditList.putExtra("reasonList", tempListOfReasons);
+//        this.startActivity(allowAdminEditList);
     }
+
+    public static void updateList(String removal) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        Query reasonQuery = ref.child("Complaints").orderByChild("reason").equalTo(removal);
+
+        reasonQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot reasonSnapshot : dataSnapshot.getChildren()) {
+                    reasonSnapshot.getRef().removeValue();
+                }
+
+                System.out.println("Removed correctly");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("Did not remove reason correctly");
+            }
+        });
+    }
+
+
+//    public static void updateReasonList(String[] newList) {
+//        System.out.println("AFTER UPDATE FOR REASONS");
+//        System.out.println(Arrays.toString(newList));
+//        tempListOfReasons = newList;
+//    }
+//
+//    public static void updateChefList(String[] newList) {
+//        System.out.println("AFTER UPDATE FOR CHEFS");
+//        System.out.println(Arrays.toString(newList));
+//        tempListOfChefIDs = newList;
+//    }
 
     public void createUser(MainActivity activity, String[] userInfo, String ROLE){
         String[] registerInfo;
@@ -147,10 +189,8 @@ public class DatabaseServices extends MainActivity {
                     Log.i("MSG", (String) postSnapshot.child("chefID").getValue());
 
                     Log.i("MSG", (String) postSnapshot.child("reason").getValue());
-
-
-
                 }
+
 
                 //uses non-Complaint Object Data from array to display //un comment this to get everything to work in an non-clean, working method
 

@@ -3,6 +3,7 @@ package com.example.application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -61,13 +62,13 @@ public class E3AdminLoggedInScreen extends MainActivity {
                 startActivity(mainActivity);            }
         });
 
-
-
+        //allows complaints to be clickable
+        listViewComplaints.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent clickComplaints = new Intent(getApplicationContext(), AdminActionComplaint.class);
+                startActivity(clickComplaints);
+            }
+        });
     }
-
-    public void actionComplaintInListView() {
-        Intent adminActionComplaintActivity = new Intent(getApplicationContext(), AdminActionComplaint.class);
-        startActivity(adminActionComplaintActivity);
-    }
-
 }

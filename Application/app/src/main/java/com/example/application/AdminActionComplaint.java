@@ -2,11 +2,15 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.*;
+import java.util.*;
 
 public class AdminActionComplaint extends MainActivity {
 
@@ -35,12 +39,50 @@ public class AdminActionComplaint extends MainActivity {
             }
         });
 
+        //WORK IN PROGRESS BY YASH!
         //This should remove the top action from the arraylist
         dismissComplaintButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Top Complaint Dismissed", Toast.LENGTH_SHORT).show();
+                if (DatabaseServices.tempListOfChefIDs != null && DatabaseServices.tempListOfReasons != null) {
+                    DatabaseServices.updateList(DatabaseServices.tempListOfReasons[0]);
+                    Toast.makeText(getApplicationContext(), "Successful Dismiss!", Toast.LENGTH_SHORT).show();
+                }
+//                if (DatabaseServices.tempListOfChefIDs != null && DatabaseServices.tempListOfReasons != null) {
+//                    System.out.println("BEFORE UPDATE FOR REASONS");
+//                    System.out.println(Arrays.toString(DatabaseServices.tempListOfChefIDs));
+//                    System.out.println(Arrays.toString(DatabaseServices.tempListOfReasons));
+//
+//                    DatabaseServices.updateChefList(Arrays.copyOfRange(DatabaseServices.tempListOfChefIDs, 1, DatabaseServices.tempListOfChefIDs.length));
+//                    DatabaseServices.updateReasonList(Arrays.copyOfRange(DatabaseServices.tempListOfReasons, 1, DatabaseServices.tempListOfReasons.length));
+//                    Toast.makeText(getApplicationContext(), "Successful Dismiss!", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                else {
+//                    Toast.makeText(getApplicationContext(), "Unsuccessful Dismiss!", Toast.LENGTH_SHORT).show();
+//                }
 
+                Intent E3Admin = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
+                startActivity(E3Admin);
+
+//                Toast.makeText(getApplicationContext(), "Top Complaint Dismissed", Toast.LENGTH_SHORT).show();
+
+//                Bundle extras = getIntent().getExtras();
+//                if (extras != null) {
+//                    String [] listOfChefs = extras.getStringArray("chefList");
+//                    String [] listOfReasons = extras.getStringArray("reasonList");
+//
+//                    listOfChefs = Arrays.copyOfRange(listOfChefs, 1, listOfChefs.length);
+//                    listOfReasons = Arrays.copyOfRange(listOfReasons, 1, listOfReasons.length);
+//                    Toast.makeText(getApplicationContext(), "correct.", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                else {
+//                    Toast.makeText(getApplicationContext(), "fail.", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                Intent E3Admin = new Intent(getApplicationContext(), E3AdminLoggedInScreen.class);
+//                startActivity(E3Admin);
             }
         });
 
