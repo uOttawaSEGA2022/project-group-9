@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setTitle("1 Packed Meal");
             actionBar.setSubtitle("Welcome Screen");
             //Setting a Logo
-            actionBar.setLogo(R.drawable.Logo);
+            actionBar.setLogo(R.drawable.customlogo);
             //Use Logo instead of Icon
             actionBar.setDisplayUseLogoEnabled(true);
             //Set Display
