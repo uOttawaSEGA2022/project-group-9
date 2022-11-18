@@ -105,11 +105,8 @@ public class AdminActionComplaint extends MainActivity {
                 //Makes sure the log in is good
 
                 if (authenticatorObject.validateSuspensionDateFormat(datePickerEditText,errorMessagesTextView)) {
-                    //Set Chef Suspensed Date from datePicker
-                    datePickerEditText.getText().toString();
-                    Toast.makeText(getApplicationContext(), "Suspense Chef until date provided", Toast.LENGTH_SHORT).show();
 
-                    //IDK how to set the data in the data base
+                    //setting the database
                     if (DatabaseServices.tempListOfChefIDs != null && DatabaseServices.tempListOfReasons != null) {
                         DatabaseServices.updateChefStatus(DatabaseServices.tempListOfChefIDs[0], datePickerEditText.getText().toString());
                         Toast.makeText(getApplicationContext(), "Suspended Chef Until Specified Date!", Toast.LENGTH_SHORT).show();

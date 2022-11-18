@@ -317,11 +317,11 @@ public class AuthenticatorServices extends AppCompatActivity {
                 return false;
             }
             if (currentExpiryNumber.length()>10 || currentExpiryNumber.length()<10){
-                errorMessages.setText("Expiration date must follow MM/YYYY format");
+                errorMessages.setText("Expiration date must follow DD/MM/YYYY format");
                 return false;
             }
-            if (currentExpiryNumber.indexOf("/")!=3){
-                errorMessages.setText("Expiration date must follow MM/YYYY format");
+            if (currentExpiryNumber.indexOf("/")!=2 && currentExpiryNumber.indexOf("/") != 5){
+                errorMessages.setText("Expiration date must follow DD/MM/YYYY format");
                 return false;
             }
         }
