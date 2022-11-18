@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             //Title and subtitle (subtitle is different for each screen)
-            actionBar.setTitle("Mealer");
-            actionBar.setSubtitle("Log in");
+            actionBar.setTitle("1 Packed Meal");
+            actionBar.setSubtitle("Welcome Screen");
             //Setting a Logo
-            actionBar.setLogo(R.drawable.logo);
+            actionBar.setLogo(R.drawable.Logo);
             //Use Logo instead of Icon
             actionBar.setDisplayUseLogoEnabled(true);
             //Set Display
@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
         Button customerButton = (Button) findViewById(R.id.customerButtonID);
         Button chefButton = (Button) findViewById(R.id.chefButtonID);
         Button adminButton  = (Button) findViewById(R.id.adminButtonID);
-
-        customerButton.setBackgroundColor(Color.DKGRAY);
 
         //On Click Listener
         customerButton.setOnClickListener(new View.OnClickListener() {
