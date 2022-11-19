@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class E2ChefLoggedInScreen extends MainActivity {
+    boolean isLoggedInChefSuspensed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,9 +15,22 @@ public class E2ChefLoggedInScreen extends MainActivity {
 
         Button logOff = (Button) findViewById(R.id.logOffButton);
         Button goToMeals =(Button) findViewById(R.id.goToMeals);
+        TextView chefIsSuspensedTextView = findViewById(R.id.chefIsSuspendedTextViewID);
 
         Intent intent=getIntent();
         String email=intent.getStringExtra("Email");
+
+        DatabaseServices databaseServicesObject = new DatabaseServices();
+        isLoggedInChefSuspensed = databaseServicesObject.isSuspendedChef(email);
+
+        if (isLoggedInChefSuspensed) {
+            goToMeals.setVisibility(View.INVISIBLE);
+        }
+
+        else {
+            chefIsSuspensedTextView.setVisibility(View.INVISIBLE);
+        }
+
 
         logOff.setOnClickListener(new View.OnClickListener() {
             @Override

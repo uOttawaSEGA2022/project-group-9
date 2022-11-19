@@ -42,7 +42,7 @@ public class DatabaseServices extends MainActivity {
     public DatabaseServices(){
         FirebaseApp.initializeApp(this);
 
-        this.chefRegisterInfo = new String[] {"role", "firstname", "lastname", "email", "password", "addressline1", "addressline2", "city", "province", "postalcode", "shortdesc", "voidcheque", "isSuspensed", "Suspended until"};
+        this.chefRegisterInfo = new String[] {"role", "firstname", "lastname", "email", "password", "addressline1", "addressline2", "city", "province", "postalcode", "shortdesc", "voidcheque", "isSuspended", "Suspended until"};
         this.customerRegisterInfo = new String[] {"role", "first_name", "last_name", "email", "password",
                 "addressline1", "addressline2", "city", "province", "postalcode",
                 "nameoncard", "creditcardnumber", "cvvnumber", "expirationdate",
@@ -140,11 +140,10 @@ public class DatabaseServices extends MainActivity {
                         //E1CustomerLoggedInScreen.putExtra("Email", emailText.getText().toString());
                         context.startActivity(E1CustomerLoggedInScreen);
                     } else if (ROLE.equals("Chef")) {
-                        if (!checkSuspendedChef(email,context)){
-                            Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
-                            //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
-                            context.startActivity(E2ChefLoggedInScreen);
-                        }
+
+                        Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
+                        context.startActivity(E2ChefLoggedInScreen);
+
                     } else {
                         Intent E3AdminLoggedInScreen = new Intent(context, E3AdminLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
                         //E3AdminLoggedInScreen.putExtra("Email", emailText.getText().toString());
@@ -157,6 +156,7 @@ public class DatabaseServices extends MainActivity {
             }
         });
     }
+
 
     public void displayComplaintsForAdmin(Context context, ListView listViewComplaints){
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference().child("Complaints");
@@ -220,75 +220,45 @@ public class DatabaseServices extends MainActivity {
     }
 
 
-    public boolean checkSuspendedChef(String email,Context context)
+    public boolean isSuspendedChef(String email)
     {
         // Implement this method which gets called whenever the chef signs in successfully
         // The method needs to check if the chef is suspended
         // If the chef is suspended, go to another activity that shows they are suspended and return true (Using the context variable)
         // If the chef isn't suspended, return false
 
-        final boolean[] isSuspended = {false};
+        Boolean[] returnValue = new Boolean[1];
 
-        ValueEventListener ve=new ValueEventListener() {
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference().child("Chef");
+
+        dataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
-                    if( snapshot.child("isSuspensed").getValue().toString().toLowerCase().equals("false"))
-                    {
-                        Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
-                        //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
-                        context.startActivity(E2ChefLoggedInScreen);
-                    }
-                    else
-                    {
-                        isSuspended[0] = true;
+                for (DataSnapshot chefID : dataSnapshot.getChildren()) {
+                    if (chefID.child("email").getValue().toString().equals(email)) {
+                        if (chefID.child("isSuspended").getValue().toString().equals("false")) {
+                            returnValue[0] = false;
+                        } else {
+                            returnValue[0] = true;
+                        }
+
                     }
                 }
-
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
 
-        Query q=FirebaseDatabase.getInstance().getReference("Chef").orderByChild("email").equalTo(email);
-        q.addListenerForSingleValueEvent(ve);
+        });
 
-        return isSuspended[0];
-        /*database.getReference().child("Chef").addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            for (DataSnapshot p:dataSnapshot.getChildren())
-            {
-                if(p.child("email").getValue().toString().equals(email)) {
-                    //p.child("firstname").setValue("Mahesh");
-                    System.out.println("my email is"+p.child("email").getValue().toString());
-                    if( p.child("isSuspensed").getValue().toString().equals("False"))
-                    {
-                        System.out.println("i am false");
-                        whetherSuspended=false;
-                    }
-                    else
-                    {
-                        whetherSuspended=true;
-                    }
-                    break;
-                }
-            }
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    });
-        //database.getReference().child("Chef").get().*/
-
+        return returnValue[0];
 
     }
+
     public List<Meal> getCurrentChefMeals(){
         // Implement this method which gets called when a chef goes to see their meals (menu, not offered)
         // This method fetches all the current chef's meals, which are in the database, under the current chef's section
