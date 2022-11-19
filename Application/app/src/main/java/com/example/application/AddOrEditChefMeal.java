@@ -23,14 +23,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddOrEditChefMeal extends MainActivity {
-    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_or_edit_chef_meal);
 
         Intent intent = getIntent();
-        email=intent.getStringExtra("Email");
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -146,7 +144,7 @@ public class AddOrEditChefMeal extends MainActivity {
                         // Note that the cook stays as it, change that if needed based on the database person wants to implement the way the code will recognize the current cook
 
 
-                        databaseServices.updateOrAddChefMeal(meal, editingOrAddingAMeal,email);
+                        databaseServices.updateOrAddChefMeal(meal, editingOrAddingAMeal);
                     }
 
                     else{
@@ -164,10 +162,9 @@ public class AddOrEditChefMeal extends MainActivity {
 
                         Meal finalMeal = new Meal(mealInfo);
 
-                        databaseServices.updateOrAddChefMeal(finalMeal, editingOrAddingAMeal,email);
+                        databaseServices.updateOrAddChefMeal(finalMeal, editingOrAddingAMeal);
                     }
                     Intent goToAllChefMeals = new Intent(getApplicationContext(), AllChefMeals.class);
-                    goToAllChefMeals.putExtra("Email",email);
                     startActivity(goToAllChefMeals);
                 }
             }

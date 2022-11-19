@@ -289,7 +289,7 @@ public class DatabaseServices extends MainActivity {
 
 
     }
-    public List<Meal> getCurrentChefMeals(String email){
+    public List<Meal> getCurrentChefMeals(){
         // Implement this method which gets called when a chef goes to see their meals (menu, not offered)
         // This method fetches all the current chef's meals, which are in the database, under the current chef's section
         // It will fetch all the values of every meal, pack them into a HashMap and create a meal and add that meal to the list
@@ -330,96 +330,34 @@ public class DatabaseServices extends MainActivity {
         return mealList;
     }
 
-    public void updateOrAddChefMeal(Meal meal, String editingOrAddingMeal, String email) {
+    public void updateOrAddChefMeal(Meal meal, String editingOrAddingMeal) {
         // Implement this which gets called after the cook finishes adding or updating one of his meals on the menu
         // It's very important to be able to differentiate between updating an existing meal or adding a new one, using the given argument
 
         // This method is also called when the chef changes the offered status of a meal, it's called as "Editing"
         // So if implemented correctly, it should support that as well
 
-        // The following code is for testing purposes, delete when implementing the database code
-        Log.d("HelloThereBro", editingOrAddingMeal);
-        Log.d("HelloThereBro", meal.toHashMap().toString());
-        if (editingOrAddingMeal.equals("Editing")) {
-            //removeMeal(meal);
-        } else {
-            Query q = FirebaseDatabase.getInstance().getReference("Chef");
-            ValueEventListener vl = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
 
-                    for (DataSnapshot p : dataSnapshot.getChildren()) {
-                        if (p.child("email").getValue().equals(email)) {
-                            DatabaseReference drr;
-                            drr = p.getRef();
-                            drr.child("meals").child(meal.name).child("name").setValue(meal.name);
-                            drr.child("meals").child(meal.name).child("type").setValue(meal.getType());
-                            drr.child("meals").child(meal.name).child("cuisine").setValue(meal.getCuisine());
-                            drr.child("meals").child(meal.name).child("ingredients").setValue(meal.ingredients);
-                            drr.child("meals").child(meal.name).child("allergens").setValue(meal.allergens);
-                            drr.child("meals").child(meal.name).child("price").setValue(meal.getPrice());
-                            drr.child("meals").child(meal.name).child("description").setValue(meal.getDescription());
-                            drr.child("meals").child(meal.name).child("cook").setValue(meal.getCook());
-                            drr.child("meals").child(meal.name).child("isoffered").setValue(meal.isOffered);
-                        }
-                    }
-                   /*StaticFirebaseDataSnapShot abs=new StaticFirebaseDataSnapShot();
-                   abs.setDataSnapShot(dataSnapshot);
-                   //p.child("firstname").setValue("Mahesh");
-               }
+        databaseReference.child(meal.name).child("name").setValue(meal.name);
+        databaseReference.child(meal.name).child("type").setValue(meal.getType());
+        databaseReference.child(meal.name).child("cuisine").setValue(meal.getCuisine());
+        databaseReference.child(meal.name).child("ingredients").setValue(meal.ingredients);
+        databaseReference.child(meal.name).child("allergens").setValue(meal.allergens);
+        databaseReference.child(meal.name).child("price").setValue(meal.getPrice());
+        databaseReference.child(meal.name).child("description").setValue(meal.getDescription());
+        databaseReference.child(meal.name).child("cook").setValue(meal.getCook());
+        databaseReference.child(meal.name).child("isOffered").setValue(meal.isOffered);
 
-
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
-
-               }
-           };
-           q.addListenerForSingleValueEvent(vl);
-
-           //drr.addValueEventListener(vl);
-
-           StaticFirebaseDataSnapShot sfds =new StaticFirebaseDataSnapShot();
-           DataSnapshot fire;
-           fire=sfds.getDataSnapshot();
-           System.out.println(fire);
-           System.out.println(fire==null);
-           for (DataSnapshot p:fire.getChildren()) {
-                    if (p.child("email").equals(email))
-                    {
-                        String id;
-                        id = p.toString();
-                        DatabaseReference drr;
-                        drr=database.getReference();
-                        drr.child("Chef").child(id).child("meals").child(meal.name).child("name").setValue(meal.name);
-                        drr.child("Chef").child(id).child("meals").child(meal.name).child("type").setValue(meal.getType());
-                        drr.child("Chef").child(id).child("meals").child(meal.name).child("cuisine").setValue(meal.getCuisine());
-                        drr.child("Chef").child(id).child("meals").child(meal.name).child("ingredients").setValue(meal.ingredients);
-                        drr.child("Chef").child(id).child("meals").child(meal.name).child("allergens").setValue(meal.allergens);
-                        drr.child("Chef").child(id).child("meals").child(meal.name).child("price").setValue(meal.getPrice());
-                        drr.child("Chef").child(id).child("meals").child(meal.name).child("description").setValue(meal.getDescription());
-                        drr.child("Chef").child(id).child("meals").child(meal.name).child("cook").setValue(meal.getCook());
-                        drr.child("Chef").child(id).child("meals").child(meal.name).child("isoffered").setValue(meal.isOffered);
-                    }
-               }*/
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            };
-            q.addListenerForSingleValueEvent(vl);
-        }
     }
 
     public String getCurrentChef(){
         // Implement this method which gets called when a cook finishes ADDING a new meal and its cook is yet unknown
 
-        Log.d("HelloThereBro", fAuth.getCurrentUser().getUid());
         return fAuth.getCurrentUser().getUid();
     }
 
-    public void removeMeal(Meal meal,String email){
+    public void removeMeal(Meal meal){
         // Implement this method which gets called when a cook deletes a meal from his menu
         // It needs to go to the current chef in the realtime database, then delete the meal that matches the meal deleted from the menu locally
     }

@@ -15,14 +15,12 @@ import androidx.appcompat.app.ActionBar;
 import java.util.List;
 
 public class ModifyOfferedMeals extends MainActivity {
-    String email;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modify_offered_meals);
 
         Intent intent = getIntent();
-        email=intent.getStringExtra("Email");
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
@@ -39,7 +37,6 @@ public class ModifyOfferedMeals extends MainActivity {
             @Override
             public void onClick(View v) {
                 Intent goToAllChefMeals = new Intent(getApplicationContext(), AllChefMeals.class);
-                goToAllChefMeals.putExtra("Email",email);
                 startActivity(goToAllChefMeals);
             }
         });
@@ -48,7 +45,7 @@ public class ModifyOfferedMeals extends MainActivity {
     public void displayChefMealsForModifyingOfferedMeals(LinearLayout allChefMeals){
         DatabaseServices databaseServices = new DatabaseServices();
 
-        List<Meal> currentChefMeals = databaseServices.getCurrentChefMeals(email);
+        List<Meal> currentChefMeals = databaseServices.getCurrentChefMeals();
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
@@ -100,7 +97,7 @@ public class ModifyOfferedMeals extends MainActivity {
                     // The only problem is that the meal object is not related in any way to the UI elements
                     // The UI elements have access to the meal object at creation only and the meal never has access to the UI elements
                     // So getting meals out of the UI elements will be a really challenging task which will require heavy modification to the whole system
-                    databaseServices.updateOrAddChefMeal(meal, "Editing",email);
+                    databaseServices.updateOrAddChefMeal(meal, "Editing");
                 }
             });
 
