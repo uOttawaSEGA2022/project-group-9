@@ -234,7 +234,7 @@ public class DatabaseServices extends MainActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
-                    if( snapshot.child("isSuspensed").getValue().toString().equals("False"))
+                    if( snapshot.child("isSuspensed").getValue().toString().equals("false"))
                     {
                         Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
                         //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
