@@ -220,26 +220,32 @@ public class DatabaseServices extends MainActivity {
     }
 
 
-    public Boolean isSuspendedChef(String email)
+    public boolean isSuspendedChef(String email)
     {
         // Implement this method which gets called whenever the chef signs in successfully
         // The method needs to check if the chef is suspended
         // If the chef is suspended, go to another activity that shows they are suspended and return true (Using the context variable)
         // If the chef isn't suspended, return false
 
-        Boolean[] returnValue = new Boolean[1];
+        boolean[] returnValue = new boolean[1];
 
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference().child("Chef");
+
+        Log.i("ErrorTesting",email);
 
         dataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot chefID : dataSnapshot.getChildren()) {
+                    Log.i("ErrorTesting", (String) chefID.getValue());
                     if (chefID.child("email").getValue().toString().equals(email)) {
+                        Log.i("ErrorTesting", "Same Email");
                         if (chefID.child("isSuspended").getValue().toString().equals("false")) {
+                            Log.i("ErrorTesting", "infalse");
                             returnValue[0] = false;
                         } else {
+                            Log.i("ErrorTesting", "intrue");
                             returnValue[0] = true;
                         }
 
@@ -254,6 +260,9 @@ public class DatabaseServices extends MainActivity {
             }
 
         });
+        Log.i("ErrorTesting", String.valueOf(returnValue[0]));
+
+
 
         return returnValue[0];
 
