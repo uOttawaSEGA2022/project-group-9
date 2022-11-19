@@ -220,7 +220,7 @@ public class DatabaseServices extends MainActivity {
     }
 
 
-    public boolean isSuspendedChef(String email)
+    public Boolean isSuspendedChef(String email)
     {
         // Implement this method which gets called whenever the chef signs in successfully
         // The method needs to check if the chef is suspended
