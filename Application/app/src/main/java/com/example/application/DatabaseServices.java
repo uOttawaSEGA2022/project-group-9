@@ -360,5 +360,7 @@ public class DatabaseServices extends MainActivity {
     public void removeMeal(Meal meal){
         // Implement this method which gets called when a cook deletes a meal from his menu
         // It needs to go to the current chef in the realtime database, then delete the meal that matches the meal deleted from the menu locally
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
+        databaseReference.child(meal.name).removeValue();
     }
 }
