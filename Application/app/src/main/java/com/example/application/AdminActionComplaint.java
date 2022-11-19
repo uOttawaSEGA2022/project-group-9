@@ -37,6 +37,7 @@ public class AdminActionComplaint extends MainActivity {
                 if (DatabaseServices.tempListOfChefIDs != null && DatabaseServices.tempListOfReasons != null) {
                     DatabaseServices.updateChefStatus(DatabaseServices.tempListOfChefIDs[0], "01/01/9999");
                     Toast.makeText(getApplicationContext(), "Suspended Chef Forever!", Toast.LENGTH_SHORT).show();
+                    DatabaseServices.updateList(DatabaseServices.tempListOfReasons[0]);
                 }
 
                 else {
@@ -64,7 +65,7 @@ public class AdminActionComplaint extends MainActivity {
 //                    System.out.println(Arrays.toString(DatabaseServices.tempListOfReasons));
 //
 //                    DatabaseServices.updateChefList(Arrays.copyOfRange(DatabaseServices.tempListOfChefIDs, 1, DatabaseServices.tempListOfChefIDs.length));
-//                    DatabaseServices.updateReasonList(Arrays.copyOfRange(DatabaseServices.tempListOfReasons, 1, DatabaseServices.tempListOfReasons.length));
+//                    DatabaseSerzvices.updateReasonList(Arrays.copyOfRange(DatabaseServices.tempListOfReasons, 1, DatabaseServices.tempListOfReasons.length));
 //                    Toast.makeText(getApplicationContext(), "Successful Dismiss!", Toast.LENGTH_SHORT).show();
 //                }
 //
@@ -110,6 +111,7 @@ public class AdminActionComplaint extends MainActivity {
                     if (DatabaseServices.tempListOfChefIDs != null && DatabaseServices.tempListOfReasons != null) {
                         DatabaseServices.updateChefStatus(DatabaseServices.tempListOfChefIDs[0], datePickerEditText.getText().toString());
                         Toast.makeText(getApplicationContext(), "Suspended Chef Until Specified Date!", Toast.LENGTH_SHORT).show();
+                        DatabaseServices.updateList(DatabaseServices.tempListOfReasons[0]);
                     }
 
                     else {
