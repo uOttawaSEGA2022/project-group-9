@@ -231,7 +231,7 @@ public class DatabaseServices extends MainActivity {
 
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference().child("Chef");
 
-        Log.i("ErrorTesting",email);
+        Log.i("ErrorTesting","method called");
 
         dataRef.addValueEventListener(new ValueEventListener() {
             @Override
