@@ -271,7 +271,7 @@ public class DatabaseServices extends MainActivity {
 
     }
 
-    public void displayChefMeals(LinearLayout allChefMeals, Context context){
+    public void displayChefMeals(LinearLayout allChefMeals, Context context, String allChefMealsOrModifying){
         // Implement this method which gets called when a chef goes to see their meals (menu, not offered)
         // This method fetches all the current chef's meals, which are in the database, under the current chef's section
         // It will fetch all the values of every meal, pack them into a HashMap and create a meal and add that meal to the list
@@ -325,49 +325,105 @@ public class DatabaseServices extends MainActivity {
 
                         mealList.add(meal);
 
-                        String mealName = meal.getName();
-                        String mealCuisine = meal.getCuisine();
-                        String mealType = meal.getType();
-                        boolean mealIsOffered = meal.getIsOffered();
+                        if (allChefMealsOrModifying.equals("allChefMeals")){
+                            String mealName = meal.getName();
+                            String mealCuisine = meal.getCuisine();
+                            String mealType = meal.getType();
+                            boolean mealIsOffered = meal.getIsOffered();
 
-                        View mealTemplate = inflater.inflate(R.layout.meal_template, null);
+                            View mealTemplate = inflater.inflate(R.layout.meal_template, null);
 
-                        TextView mealNameTextView = mealTemplate.findViewById(R.id.mealName);
-                        TextView mealCuisineTextView = mealTemplate.findViewById(R.id.mealCuisine);
-                        TextView mealTypeTextView = mealTemplate.findViewById(R.id.mealType);
+                            TextView mealNameTextView = mealTemplate.findViewById(R.id.mealName);
+                            TextView mealCuisineTextView = mealTemplate.findViewById(R.id.mealCuisine);
+                            TextView mealTypeTextView = mealTemplate.findViewById(R.id.mealType);
 
-                        mealNameTextView.setText(mealName);
-                        mealCuisineTextView.setText(mealCuisine);
-                        mealTypeTextView.setText(mealType);
+                            mealNameTextView.setText(mealName);
+                            mealCuisineTextView.setText(mealCuisine);
+                            mealTypeTextView.setText(mealType);
 
-                        if (!mealIsOffered){
-                            TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
-                            ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
+                            if (!mealIsOffered){
+                                TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
+                                ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
 
-                            mealIsOfferedTextView.setText("Not Offered");
-                            mealIsOfferedIcon.setImageResource(R.drawable.not_offered_unchecked_mark);
+                                mealIsOfferedTextView.setText("Not Offered");
+                                mealIsOfferedIcon.setImageResource(R.drawable.not_offered_unchecked_mark);
+                            }
+
+                            mealTemplate.setClickable(true);
+                            mealTemplate.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent goToEditChefMeal = new Intent(context, AddOrEditChefMeal.class);
+                                    goToEditChefMeal.putExtra("Meal", meal);
+                                    goToEditChefMeal.putExtra("Editing or Adding", "Editing");
+                                    context.startActivity(goToEditChefMeal);
+                                }
+                            });
+
+                            mealTemplate.setOnLongClickListener(new View.OnLongClickListener() {
+                                @Override
+                                public boolean onLongClick(View currentMealTemplateView) {
+                                    addDeleteDialog(currentMealTemplateView, databaseServices, meal, context);
+                                    return true;
+                                }
+                            });
+
+                            allChefMeals.addView(mealTemplate);
                         }
+                        else{
+                            String mealName = meal.getName();
+                            String mealCuisine = meal.getCuisine();
+                            String mealType = meal.getType();
+                            boolean mealIsOffered = meal.getIsOffered();
 
-                        mealTemplate.setClickable(true);
-                        mealTemplate.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent goToEditChefMeal = new Intent(context, AddOrEditChefMeal.class);
-                                goToEditChefMeal.putExtra("Meal", meal);
-                                goToEditChefMeal.putExtra("Editing or Adding", "Editing");
-                                context.startActivity(goToEditChefMeal);
+                            View mealTemplate = inflater.inflate(R.layout.meal_template, null);
+
+                            TextView mealNameTextView = mealTemplate.findViewById(R.id.mealName);
+                            TextView mealCuisineTextView = mealTemplate.findViewById(R.id.mealCuisine);
+                            TextView mealTypeTextView = mealTemplate.findViewById(R.id.mealType);
+
+                            mealNameTextView.setText(mealName);
+                            mealCuisineTextView.setText(mealCuisine);
+                            mealTypeTextView.setText(mealType);
+
+                            if (!mealIsOffered) {
+                                TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
+                                ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
+
+                                mealIsOfferedTextView.setText("Not Offered");
+                                mealIsOfferedIcon.setImageResource(R.drawable.not_offered_unchecked_mark);
                             }
-                        });
 
-                        mealTemplate.setOnLongClickListener(new View.OnLongClickListener() {
-                            @Override
-                            public boolean onLongClick(View currentMealTemplateView) {
-                                addDeleteDialog(currentMealTemplateView, databaseServices, meal, context);
-                                return true;
-                            }
-                        });
+                            mealTemplate.setClickable(true);
+                            mealTemplate.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
+                                    ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
+                                    boolean mealIsOffered = meal.getIsOffered();
+                                    if (mealIsOffered){
+                                        meal.setOffered(false);
+                                        mealIsOfferedTextView.setText("Not Offered");
+                                        mealIsOfferedIcon.setImageResource(R.drawable.not_offered_unchecked_mark);
+                                    }
+                                    else{
+                                        meal.setOffered(true);
+                                        mealIsOfferedTextView.setText("Offered");
+                                        mealIsOfferedIcon.setImageResource(R.drawable.offered_checkmark);
+                                    }
 
-                        allChefMeals.addView(mealTemplate);
+                                    // Editing the current meal in the database, but only changing the offered status
+                                    // There's an alternative solution to this since realtime database may crash if the cook spams clicking
+                                    // We can get the offered status of each meal when the finish button is clicked
+                                    // The only problem is that the meal object is not related in any way to the UI elements
+                                    // The UI elements have access to the meal object at creation only and the meal never has access to the UI elements
+                                    // So getting meals out of the UI elements will be a really challenging task which will require heavy modification to the whole system
+                                    databaseServices.updateOrAddChefMeal(meal, "Editing");
+                                }
+                            });
+
+                            allChefMeals.addView(mealTemplate);
+                        }
 
 
                     }

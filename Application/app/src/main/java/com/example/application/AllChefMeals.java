@@ -36,7 +36,7 @@ public class AllChefMeals extends MainActivity{
         Button modifyOfferedMealsBtn = findViewById(R.id.modifyOfferedMealsBtn);
         Button addMeal = findViewById(R.id.addMealBtn);
 
-        databaseServices.displayChefMeals(allChefMeals, AllChefMeals.this);
+        databaseServices.displayChefMeals(allChefMeals, AllChefMeals.this, "allChefMeals");
 
         addMeal.setOnClickListener(new View.OnClickListener() {
             @Override

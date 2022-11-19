@@ -42,9 +42,12 @@ public class ModifyOfferedMeals extends MainActivity {
     }
 
     public void displayChefMealsForModifyingOfferedMeals(LinearLayout allChefMeals) {
+
+        allChefMeals.removeAllViews();
+
         DatabaseServices databaseServices = new DatabaseServices();
 
-        databaseServices.displayChefMeals(allChefMeals, ModifyOfferedMeals.this);
+        databaseServices.displayChefMeals(allChefMeals, ModifyOfferedMeals.this, "modifying");
 
 //        LayoutInflater inflater = LayoutInflater.from(this);
 //
