@@ -279,7 +279,6 @@ public class DatabaseServices extends MainActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("HelloThereBro", dataSnapshot.toString());
                 for (DataSnapshot mealInDatabase : dataSnapshot.getChildren()){
                     HashMap<String, Object> mealInfo = new HashMap<>();
 
@@ -307,9 +306,13 @@ public class DatabaseServices extends MainActivity {
 
                     mealInfo.put("Allergens", allergensArrayList);
 
+
                     Meal currentMeal = new Meal(mealInfo);
 
                     mealList.add(currentMeal);
+
+
+
 
                 }
             }
@@ -322,34 +325,35 @@ public class DatabaseServices extends MainActivity {
 
         // The following is for testing purposes, delete when implementing the main functionality
 
-        HashMap<String, Object> mealInfo = new HashMap<>();
+//        HashMap<String, Object> mealInfo = new HashMap<>();
+//
+//        List<String> ingredients = new ArrayList<>();
+//        ingredients.add("Bun");
+//        ingredients.add("Beef Patty");
+//
+//        List<String> allergens = new ArrayList<>();
+//        allergens.add("Gluten");
+//
+//        mealInfo.put("Name", "burger");
+//        mealInfo.put("Type", "main dish");
+//        mealInfo.put("Cuisine", "american");
+//        mealInfo.put("Ingredients", ingredients);
+//        mealInfo.put("Allergens", allergens);
+//        mealInfo.put("Price", "6");
+//        mealInfo.put("Description", "This is a burger");
+//        mealInfo.put("Cook", "Masterchef");
+//        mealInfo.put("IsOffered", true);
+//
+//        Meal test = new Meal(mealInfo);
+//
+//        mealInfo.put("Name", "Pizza");
+//        mealInfo.put("IsOffered", false);
+//        Meal test2 = new Meal(mealInfo);
+//
+//        mealList.add(test);
+//        mealList.add(test2);
 
-        List<String> ingredients = new ArrayList<>();
-        ingredients.add("Bun");
-        ingredients.add("Beef Patty");
-
-        List<String> allergens = new ArrayList<>();
-        allergens.add("Gluten");
-
-        mealInfo.put("Name", "burger");
-        mealInfo.put("Type", "main dish");
-        mealInfo.put("Cuisine", "american");
-        mealInfo.put("Ingredients", ingredients);
-        mealInfo.put("Allergens", allergens);
-        mealInfo.put("Price", "6");
-        mealInfo.put("Description", "This is a burger");
-        mealInfo.put("Cook", "Masterchef");
-        mealInfo.put("IsOffered", true);
-
-        Meal test = new Meal(mealInfo);
-
-        mealInfo.put("Name", "Pizza");
-        mealInfo.put("IsOffered", false);
-        Meal test2 = new Meal(mealInfo);
-
-        mealList.add(test);
-        mealList.add(test2);
-
+        Log.d("HelloThereBro", mealList.toString());
         return mealList;
     }
 

@@ -3,6 +3,7 @@ package com.example.application;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -74,6 +75,8 @@ public class AllChefMeals extends MainActivity{
         DatabaseServices databaseServices = new DatabaseServices();
 
         List<Meal> currentChefMeals = databaseServices.getCurrentChefMeals();
+
+        Log.d("HelloThereBro", "In AllChefMeals.java " + currentChefMeals.toString());
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
