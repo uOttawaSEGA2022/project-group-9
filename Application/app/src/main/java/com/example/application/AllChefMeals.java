@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 
+import java.sql.DataTruncation;
 import java.util.List;
 
 public class AllChefMeals extends MainActivity{
@@ -21,6 +22,9 @@ public class AllChefMeals extends MainActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chef_meals);
+
+        DatabaseServices databaseServices = new DatabaseServices();
+        databaseServices.getCurrentChef();
 
         Intent intent = getIntent();
         email=intent.getStringExtra("Email");

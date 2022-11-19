@@ -140,12 +140,11 @@ public class DatabaseServices extends MainActivity {
                         //E1CustomerLoggedInScreen.putExtra("Email", emailText.getText().toString());
                         context.startActivity(E1CustomerLoggedInScreen);
                     } else if (ROLE.equals("Chef")) {
-                          checkSuspendedChef(email,context);
-                        /*if (!isSuspended){
+                        if (!checkSuspendedChef(email,context)){
                             Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
                             //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
                             context.startActivity(E2ChefLoggedInScreen);
-                        }*/
+                        }
                     } else {
                         Intent E3AdminLoggedInScreen = new Intent(context, E3AdminLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
                         //E3AdminLoggedInScreen.putExtra("Email", emailText.getText().toString());
@@ -221,34 +220,32 @@ public class DatabaseServices extends MainActivity {
     }
 
 
-    public void checkSuspendedChef(String email,Context context)
+    public boolean checkSuspendedChef(String email,Context context)
     {
         // Implement this method which gets called whenever the chef signs in successfully
         // The method needs to check if the chef is suspended
         // If the chef is suspended, go to another activity that shows they are suspended and return true (Using the context variable)
         // If the chef isn't suspended, return false
 
-
+        final boolean[] isSuspended = {false};
 
         ValueEventListener ve=new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot p:dataSnapshot.getChildren()) {
-                    System.out.println("email is"+p.child("email").getValue().toString());
-                    if( p.child("isSuspensed").getValue().toString().equals("False"))
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
+                    if( snapshot.child("isSuspensed").getValue().toString().equals("False"))
                     {
-                        System.out.println("i am false");
                         Intent E2ChefLoggedInScreen = new Intent(context, E2ChefLoggedInScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); ;
                         //E2ChefLoggedInScreen.putExtra("Email", emailText.getText().toString());
                         context.startActivity(E2ChefLoggedInScreen);
                     }
                     else
                     {
-                        //whetherSuspended.add(true);
+                        isSuspended[0] = true;
                     }
                 }
-                //System.out.println(dataSnapshot.child("email").toString());
+
             }
 
             @Override
@@ -259,6 +256,8 @@ public class DatabaseServices extends MainActivity {
 
         Query q=FirebaseDatabase.getInstance().getReference("Chef").orderByChild("email").equalTo(email);
         q.addListenerForSingleValueEvent(ve);
+
+        return isSuspended[0];
         /*database.getReference().child("Chef").addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -331,7 +330,7 @@ public class DatabaseServices extends MainActivity {
         return mealList;
     }
 
-    public void updateOrAddChefMeal(Meal meal, String editingOrAddingMeal,String email) {
+    public void updateOrAddChefMeal(Meal meal, String editingOrAddingMeal, String email) {
         // Implement this which gets called after the cook finishes adding or updating one of his meals on the menu
         // It's very important to be able to differentiate between updating an existing meal or adding a new one, using the given argument
 
@@ -415,7 +414,9 @@ public class DatabaseServices extends MainActivity {
 
     public String getCurrentChef(){
         // Implement this method which gets called when a cook finishes ADDING a new meal and its cook is yet unknown
-        return null;
+
+        Log.d("HelloThereBro", fAuth.getCurrentUser().getUid());
+        return fAuth.getCurrentUser().getUid();
     }
 
     public void removeMeal(Meal meal,String email){
