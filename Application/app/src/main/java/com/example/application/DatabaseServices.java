@@ -238,14 +238,11 @@ public class DatabaseServices extends MainActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot chefID : dataSnapshot.getChildren()) {
-                    Log.i("ErrorTesting", (String) chefID.getValue());
+
                     if (chefID.child("email").getValue().toString().equals(email)) {
-                        Log.i("ErrorTesting", "Same Email");
                         if (chefID.child("isSuspended").getValue().toString().equals("false")) {
-                            Log.i("ErrorTesting", "infalse");
                             returnValue[0] = false;
                         } else {
-                            Log.i("ErrorTesting", "intrue");
                             returnValue[0] = true;
                         }
 
@@ -275,8 +272,55 @@ public class DatabaseServices extends MainActivity {
         // For reference, check the chef "CaptianMK@gmail.com" in the database to see how the meals are supposed to be implemented and fetched
         // For more reference, check the Meal.java class to see what key value pairs should be in the HashMap
 
-        // The following is for testing purposes, delete when implementing the main functionality
         List<Meal> mealList = new ArrayList<>();
+
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("HelloThereBro", dataSnapshot.toString());
+                for (DataSnapshot mealInDatabase : dataSnapshot.getChildren()){
+                    HashMap<String, Object> mealInfo = new HashMap<>();
+
+                    mealInfo.put("Name", mealInDatabase.child("name").getValue());
+                    mealInfo.put("Type", mealInDatabase.child("type").getValue());
+                    mealInfo.put("Cuisine", mealInDatabase.child("cuisine").getValue());
+                    mealInfo.put("Price", mealInDatabase.child("price").getValue());
+                    mealInfo.put("Description", mealInDatabase.child("description").getValue());
+                    mealInfo.put("Cook", mealInDatabase.child("cook").getValue());
+                    mealInfo.put("IsOffered", mealInDatabase.child("isOffered").getValue());
+
+                    List<String> ingredientsArrayList = new ArrayList<>();
+
+                    for (DataSnapshot ingredientsDataSnapshot : mealInDatabase.child("ingredients").getChildren()){
+                        ingredientsArrayList.add((String) ingredientsDataSnapshot.getValue());
+                    }
+
+                    mealInfo.put("Ingredients", ingredientsArrayList);
+
+                    List<String> allergensArrayList = new ArrayList<>();
+
+                    for (DataSnapshot allergensDataSnapshot : mealInDatabase.child("allergens").getChildren()){
+                        ingredientsArrayList.add((String) allergensDataSnapshot.getValue());
+                    }
+
+                    mealInfo.put("Allergens", allergensArrayList);
+
+                    Meal currentMeal = new Meal(mealInfo);
+
+                    mealList.add(currentMeal);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // The following is for testing purposes, delete when implementing the main functionality
 
         HashMap<String, Object> mealInfo = new HashMap<>();
 
