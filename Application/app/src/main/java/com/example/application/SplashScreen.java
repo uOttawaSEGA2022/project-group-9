@@ -27,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
             actionBar.hide();
         }
 
-        
+
        mightyBites = findViewById(R.id.textView3);
        new Handler().postDelayed(new Runnable() {
            @Override

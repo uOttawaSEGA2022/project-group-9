@@ -21,7 +21,7 @@ public class ExampleUnitTest {
         password="";
         String email="xyz@gmail.com";
         String out;
-        out=authenticator.validatePassword(email,password);
+        out=AuthenticatorServices.validatePassword(email,password);
         boolean b;
         b=out.equals("Valid Password");
         assertEquals(false,b);
@@ -34,7 +34,7 @@ public class ExampleUnitTest {
         String email="xyz@gmail.com";
         String out;
 
-        out=authenticator.validatePassword(email,password);
+        out=AuthenticatorServices.validatePassword(email,password);
         boolean b;
         b=out.equals("Valid Password");
         assertEquals(false,b);
@@ -47,7 +47,7 @@ public class ExampleUnitTest {
         String email="xyAz123@gmail.com";
         String out;
 
-        out=authenticator.validatePassword(email,password);
+        out=AuthenticatorServices.validatePassword(email,password);
         boolean b;
         b=out.equals("Valid Password");
         assertEquals(false,b);
@@ -60,7 +60,7 @@ public class ExampleUnitTest {
         String email="xyAz123@gmail.com";
         String out;
 
-        out=authenticator.validatePassword(email,password);
+        out=AuthenticatorServices.validatePassword(email,password);
         boolean b;
         b=out.equals("Valid Password");
         assertEquals(false,b);
@@ -73,7 +73,7 @@ public class ExampleUnitTest {
         String email="xyAz123@gmail.com";
         String out;
 
-        out=authenticator.validatePassword(email,password);
+        out=AuthenticatorServices.validatePassword(email,password);
         boolean b;
         b=out.equals("Valid Password");
         assertEquals(false,b);
@@ -86,7 +86,7 @@ public class ExampleUnitTest {
         String email="xyAz123@gmail.com";
         String out;
 
-        out=authenticator.validatePassword(email,password);
+        out=AuthenticatorServices.validatePassword(email,password);
         boolean b;
         b=out.equals("Valid Password");
         assertEquals(false,b);
@@ -99,7 +99,7 @@ public class ExampleUnitTest {
         String email="xyAz123@gmail.com";
         String out;
 
-        out=authenticator.validatePassword(email,password);
+        out=AuthenticatorServices.validatePassword(email,password);
         boolean b;
         b=out.equals("Valid Password");
         assertEquals(false,b);
@@ -110,7 +110,7 @@ public class ExampleUnitTest {
         String email="xyAz123gmail.com";
         String out;
 
-        out=authenticator.validateEmail(email);
+        out=AuthenticatorServices.validateEmail(email);
         boolean b;
         b=out.equals("Valid Email");
         assertEquals(false,b);
@@ -123,7 +123,7 @@ public class ExampleUnitTest {
         String email="xyAz123@gmail.com";
         String out;
 
-        out=authenticator.validatePassword(email,password);
+        out=AuthenticatorServices.validatePassword(email,password);
         boolean b;
         b=out.equals("Valid Password");
         assertEquals(true,b);
@@ -134,7 +134,7 @@ public class ExampleUnitTest {
         String email="xyAz123@gmail.com";
         String out;
 
-        out=authenticator.validateEmail(email);
+        out=AuthenticatorServices.validateEmail(email);
         boolean b;
         b=out.equals("Valid Email");
         assertEquals(true,b);
