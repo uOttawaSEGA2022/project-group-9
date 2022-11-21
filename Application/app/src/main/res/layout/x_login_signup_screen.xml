@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".XLoginSignupScreen">
+    tools:context=".XLoginSignupScreen"
+    android:background="#023047">
 
     <TextView
         android:id="@+id/loginSignUpScreenTitle"
@@ -16,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintVertical_bias="0.058"
+        android:textColor="#CCCCCC"/>
 
     <TextView
         android:id="@+id/LoginSignUpText"
@@ -28,7 +30,8 @@
         app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.132" />
+        app:layout_constraintVertical_bias="0.132"
+        android:textColor="#CCCCCC"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="409dp"
@@ -50,7 +53,9 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintVertical_bias="0.387"
+        android:backgroundTint="#FB8500"
+        android:textColor="#FFFFFF"/>
 
     <Button
         android:id="@+id/signupButton"
@@ -62,6 +67,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.499"
+        android:backgroundTint="#FB8500"
+        android:textColor="#FFFFFF"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

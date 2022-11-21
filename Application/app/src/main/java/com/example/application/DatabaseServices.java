@@ -1,9 +1,16 @@
 package com.example.application;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,7 +28,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -265,63 +271,170 @@ public class DatabaseServices extends MainActivity {
 
     }
 
-    public List<Meal> getCurrentChefMeals(){
+    public void displayChefMeals(LinearLayout allChefMeals, Context context, String allChefMealsOrModifying){
         // Implement this method which gets called when a chef goes to see their meals (menu, not offered)
         // This method fetches all the current chef's meals, which are in the database, under the current chef's section
         // It will fetch all the values of every meal, pack them into a HashMap and create a meal and add that meal to the list
         // For reference, check the chef "CaptianMK@gmail.com" in the database to see how the meals are supposed to be implemented and fetched
         // For more reference, check the Meal.java class to see what key value pairs should be in the HashMap
 
+        DatabaseServices databaseServices = new DatabaseServices();
+
+        final boolean[] didOnDataChangeRun = {false};
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+
         List<Meal> mealList = new ArrayList<>();
 
         DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot mealInDatabase : dataSnapshot.getChildren()){
-                    HashMap<String, Object> mealInfo = new HashMap<>();
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    didOnDataChangeRun[0] = true;
+                    for (DataSnapshot mealInDatabase : dataSnapshot.getChildren()){
 
-                    mealInfo.put("Name", mealInDatabase.child("name").getValue());
-                    mealInfo.put("Type", mealInDatabase.child("type").getValue());
-                    mealInfo.put("Cuisine", mealInDatabase.child("cuisine").getValue());
-                    mealInfo.put("Price", mealInDatabase.child("price").getValue());
-                    mealInfo.put("Description", mealInDatabase.child("description").getValue());
-                    mealInfo.put("Cook", mealInDatabase.child("cook").getValue());
-                    mealInfo.put("IsOffered", mealInDatabase.child("isOffered").getValue());
+                        HashMap<String, Object> mealInfo = new HashMap<>();
 
-                    List<String> ingredientsArrayList = new ArrayList<>();
+                        mealInfo.put("Name", mealInDatabase.child("name").getValue());
+                        mealInfo.put("Type", mealInDatabase.child("type").getValue());
+                        mealInfo.put("Cuisine", mealInDatabase.child("cuisine").getValue());
+                        mealInfo.put("Price", mealInDatabase.child("price").getValue());
+                        mealInfo.put("Description", mealInDatabase.child("description").getValue());
+                        mealInfo.put("Cook", mealInDatabase.child("cook").getValue());
+                        mealInfo.put("IsOffered", mealInDatabase.child("isOffered").getValue());
 
-                    for (DataSnapshot ingredientsDataSnapshot : mealInDatabase.child("ingredients").getChildren()){
-                        ingredientsArrayList.add((String) ingredientsDataSnapshot.getValue());
+                        List<String> ingredientsArrayList = new ArrayList<>();
+
+                        for (DataSnapshot ingredientsDataSnapshot : mealInDatabase.child("ingredients").getChildren()){
+                            ingredientsArrayList.add((String) ingredientsDataSnapshot.getValue());
+                        }
+
+                        mealInfo.put("Ingredients", ingredientsArrayList);
+
+                        List<String> allergensArrayList = new ArrayList<>();
+
+                        for (DataSnapshot allergensDataSnapshot : mealInDatabase.child("allergens").getChildren()){
+                            ingredientsArrayList.add((String) allergensDataSnapshot.getValue());
+                        }
+
+                        mealInfo.put("Allergens", allergensArrayList);
+
+
+                        Meal meal = new Meal(mealInfo);
+
+                        mealList.add(meal);
+
+                        if (allChefMealsOrModifying.equals("allChefMeals")){
+                            String mealName = meal.getName();
+                            String mealCuisine = meal.getCuisine();
+                            String mealType = meal.getType();
+                            boolean mealIsOffered = meal.getIsOffered();
+
+                            View mealTemplate = inflater.inflate(R.layout.meal_template, null);
+
+                            TextView mealNameTextView = mealTemplate.findViewById(R.id.mealName);
+                            TextView mealCuisineTextView = mealTemplate.findViewById(R.id.mealCuisine);
+                            TextView mealTypeTextView = mealTemplate.findViewById(R.id.mealType);
+
+                            mealNameTextView.setText(mealName);
+                            mealCuisineTextView.setText(mealCuisine);
+                            mealTypeTextView.setText(mealType);
+
+                            if (!mealIsOffered){
+                                TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
+                                ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
+
+                                mealIsOfferedTextView.setText("Not Offered");
+                                mealIsOfferedIcon.setImageResource(R.drawable.not_offered_unchecked_mark);
+                            }
+
+                            mealTemplate.setClickable(true);
+                            mealTemplate.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent goToEditChefMeal = new Intent(context, AddOrEditChefMeal.class);
+                                    goToEditChefMeal.putExtra("Meal", meal);
+                                    goToEditChefMeal.putExtra("Editing or Adding", "Editing");
+                                    context.startActivity(goToEditChefMeal);
+                                }
+                            });
+
+                            mealTemplate.setOnLongClickListener(new View.OnLongClickListener() {
+                                @Override
+                                public boolean onLongClick(View currentMealTemplateView) {
+                                    addDeleteDialog(currentMealTemplateView, databaseServices, meal, context);
+                                    return true;
+                                }
+                            });
+
+                            allChefMeals.addView(mealTemplate);
+                        }
+                        else{
+                            String mealName = meal.getName();
+                            String mealCuisine = meal.getCuisine();
+                            String mealType = meal.getType();
+                            boolean mealIsOffered = meal.getIsOffered();
+
+                            View mealTemplate = inflater.inflate(R.layout.meal_template, null);
+
+                            TextView mealNameTextView = mealTemplate.findViewById(R.id.mealName);
+                            TextView mealCuisineTextView = mealTemplate.findViewById(R.id.mealCuisine);
+                            TextView mealTypeTextView = mealTemplate.findViewById(R.id.mealType);
+
+                            mealNameTextView.setText(mealName);
+                            mealCuisineTextView.setText(mealCuisine);
+                            mealTypeTextView.setText(mealType);
+
+                            if (!mealIsOffered) {
+                                TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
+                                ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
+
+                                mealIsOfferedTextView.setText("Not Offered");
+                                mealIsOfferedIcon.setImageResource(R.drawable.not_offered_unchecked_mark);
+                            }
+
+                            mealTemplate.setClickable(true);
+                            mealTemplate.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
+                                    ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
+                                    boolean mealIsOffered = meal.getIsOffered();
+                                    if (mealIsOffered){
+                                        meal.setOffered(false);
+                                        mealIsOfferedTextView.setText("Not Offered");
+                                        mealIsOfferedIcon.setImageResource(R.drawable.not_offered_unchecked_mark);
+                                    }
+                                    else{
+                                        meal.setOffered(true);
+                                        mealIsOfferedTextView.setText("Offered");
+                                        mealIsOfferedIcon.setImageResource(R.drawable.offered_checkmark);
+                                    }
+
+                                    // Editing the current meal in the database, but only changing the offered status
+                                    // There's an alternative solution to this since realtime database may crash if the cook spams clicking
+                                    // We can get the offered status of each meal when the finish button is clicked
+                                    // The only problem is that the meal object is not related in any way to the UI elements
+                                    // The UI elements have access to the meal object at creation only and the meal never has access to the UI elements
+                                    // So getting meals out of the UI elements will be a really challenging task which will require heavy modification to the whole system
+                                    databaseServices.updateOrAddChefMeal(meal, "Editing");
+                                }
+                            });
+
+                            allChefMeals.addView(mealTemplate);
+                        }
+
+
                     }
+                }
 
-                    mealInfo.put("Ingredients", ingredientsArrayList);
-
-                    List<String> allergensArrayList = new ArrayList<>();
-
-                    for (DataSnapshot allergensDataSnapshot : mealInDatabase.child("allergens").getChildren()){
-                        ingredientsArrayList.add((String) allergensDataSnapshot.getValue());
-                    }
-
-                    mealInfo.put("Allergens", allergensArrayList);
-
-
-                    Meal currentMeal = new Meal(mealInfo);
-
-                    mealList.add(currentMeal);
-
-
-
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
-            }
+            });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         // The following is for testing purposes, delete when implementing the main functionality
 
@@ -353,8 +466,58 @@ public class DatabaseServices extends MainActivity {
 //        mealList.add(test);
 //        mealList.add(test2);
 
-        Log.d("HelloThereBro", mealList.toString());
-        return mealList;
+    }
+
+    public void addDeleteDialog(View currentMealTemplateView, DatabaseServices databaseServices, Meal meal, Context context){
+        TextView isOfferedMealTextView = currentMealTemplateView.findViewById(R.id.mealIsOfferedTextView);
+        TextView mealNameTextView = currentMealTemplateView.findViewById(R.id.mealName);
+        if (!String.valueOf(isOfferedMealTextView.getText()).equals("Offered")){
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View popupView = inflater.inflate(R.layout.delete_meal_popup_window, null);
+
+            final AlertDialog alertDialog = new AlertDialog.Builder(context, com.google.android.material.R.style.Base_Theme_AppCompat_Dialog_Alert).create();
+            alertDialog.setView(popupView);
+
+            TextView dialogTitleTextView = popupView.findViewById(R.id.deleteMealPopupTitle);
+            dialogTitleTextView.setText("Are you sure you want to remove " + String.valueOf(mealNameTextView.getText()) + " from your menu?");
+
+            Button popupCancelButton = popupView.findViewById(R.id.deleteMealCancelBtn);
+            Button popupDeleteButton = popupView.findViewById(R.id.deleteMealDelteBtn);
+
+            popupCancelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            popupDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LinearLayout allChefMeals = (LinearLayout) currentMealTemplateView.getParent();
+                    allChefMeals.removeView(currentMealTemplateView);
+
+                    // This is where the meal gets deleted from the database
+                    // You can have different approaches to this problem:
+                    // 1: You can unpack the meal object into the different strings and lists it contains
+                    // Then you can search for the element in the database that matches that meal and delete that element from the db
+                    // 2: A different approach (I'm not sure it works, I'll explain why in a bit) is to get all the meals that are currently in the linear layout
+                    // Unpack them all and override the whole meal section of the database
+                    // This may not work since, in this code block, the methods only see one meal at a time, notice how all of this is in a for loop
+                    // So they may not see the rest of the meal templates that are in the linear layout with the current meal template
+                    // And this approach is also not efficient, but may work, so do with it as you wish
+                    databaseServices.removeMeal(meal);
+
+                    alertDialog.dismiss();
+                }
+            });
+
+            alertDialog.show();
+            alertDialog.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "This meal is currently offered, cannot remove from menu", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void updateOrAddChefMeal(Meal meal, String editingOrAddingMeal) {
