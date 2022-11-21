@@ -54,6 +54,7 @@ public class DatabaseServices extends MainActivity {
                 "nameoncard", "creditcardnumber", "cvvnumber", "expirationdate",
                 "addressline1", "addressline2", "city", "province", "postalcode"};
 
+
         this.fAuth = FirebaseAuth.getInstance();
         this.database = FirebaseDatabase.getInstance("https://application-67368-default-rtdb.firebaseio.com/");
 
@@ -553,4 +554,72 @@ public class DatabaseServices extends MainActivity {
         DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
         databaseReference.child(meal.name).removeValue();
     }
+
+    public void submitRatingToChef(String chefID, String chefRating) {
+        DatabaseReference databaseReference = database.getReference().child("Chef");
+
+    }
+
+    public void submitComplaint(String chefID, String complaint) {
+        DatabaseReference databaseReference = database.getReference().child("Complaint");
+
+    }
+
+    //Return type to TBH
+    public void customerViewOrderHistory(String customerID) {
+        DatabaseReference databaseReference = database.getReference().child("Customer");
+
+    }
+    //Return type to TBH
+    public void viewSpecifiedMeals(String stringInSearchBar) {
+        DatabaseReference databaseReference = database.getReference().child("Chef");
+
+    }
+
+    //Return type to TBH
+    public void viewAllMealInfo (String chefID, String mealName) {
+        DatabaseReference databaseReference = database.getReference().child("Chef");
+
+    }
+
+    //Return type to TBH
+    public void placeOrder(String chefEmail, Meal mealInfo, Integer quantity, Double Price) {
+        DatabaseReference databaseReference = database.getReference().child("Chef");
+
+    }
+
+    //Return type to TBH
+    public void viewChefOrders(String chefID) {
+        DatabaseReference databaseReference = database.getReference().child("Chef");
+
+    }
+
+    public void chefDeclinedOrder(String mealID) {
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders");
+
+
+
+    }
+
+    public void chefApprovedOrder() {
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders");
+
+    }
+
+    public double getStarRating(String chefID) {
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
+
+        return 0.0;
+    }
+
+    //Return type to TBH
+    public void getChefProfileInfo (String chefID) {
+
+    }
+
+
+
+
+
+
 }
