@@ -44,7 +44,7 @@
 
 
     <Button
-        android:id="@+id/logOffButton"
+        android:id="@+id/logOffButtonID"
         android:layout_width="172dp"
         android:layout_height="48dp"
         android:text="Log Off"
@@ -53,17 +53,29 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.500" />
 
     <Button
-        android:id="@+id/goToMeals"
+        android:id="@+id/goToMealsButtonID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to your meals"
+        android:text="View Orders"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.650" />
+
+    <Button
+        android:id="@+id/goToOrdersButtonID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Meals"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.800" />
 </androidx.constraintlayout.widget.ConstraintLayout>

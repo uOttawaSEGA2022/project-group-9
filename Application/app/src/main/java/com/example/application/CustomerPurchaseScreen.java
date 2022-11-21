@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class CustomerPurchaseScreen extends AppCompatActivity {
+public class CustomerPurchaseScreen extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

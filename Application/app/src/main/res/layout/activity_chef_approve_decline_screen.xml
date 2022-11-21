@@ -6,4 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".ChefApproveDeclineScreen">
 
+    <Button
+        android:id="@+id/approveOrderButtonID"
+        android:layout_width="172dp"
+        android:layout_height="48dp"
+        android:text="Approve Order"
+        android:fontFamily= "cursive"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:background="@drawable/roundstyle"
+        android:backgroundTint="@color/lime_green"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.550" />
+
+
+    <Button
+        android:id="@+id/declineOrderButtonID"
+        android:layout_width="172dp"
+        android:layout_height="48dp"
+        android:text="Approve Order"
+        android:fontFamily= "cursive"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:background="@drawable/roundstyle"
+        android:backgroundTint="@color/lime_green"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.550" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

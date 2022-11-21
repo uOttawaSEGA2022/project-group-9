@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class CustomerViewMealScreen extends AppCompatActivity {
+public class CustomerViewMealScreen extends MainActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,9 +13,10 @@ public class E2ChefLoggedInScreen extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.e2_chef_logged_in_screen);
 
-        Button logOff = (Button) findViewById(R.id.logOffButton);
-        Button goToMeals =(Button) findViewById(R.id.goToMeals);
-        TextView chefIsSuspensedTextView = findViewById(R.id.chefIsSuspendedTextViewID);
+        Button logOffButton = (Button) findViewById(R.id.logOffButtonID);
+        Button goToMealsButton =(Button) findViewById(R.id.goToMealsButtonID);
+        Button goToOrdersButton =(Button) findViewById(R.id.goToOrdersButtonID);
+        TextView chefIsSuspendedTextView = findViewById(R.id.chefIsSuspendedTextViewID);
 
         Intent intent=getIntent();
         String email=intent.getStringExtra("Email");
@@ -24,21 +25,23 @@ public class E2ChefLoggedInScreen extends MainActivity {
         isLoggedInChefSuspensed = databaseServicesObject.isSuspendedChef(email);
 
         if (isLoggedInChefSuspensed) {
-            goToMeals.setVisibility(View.INVISIBLE);
+            goToMealsButton.setVisibility(View.INVISIBLE);
+            goToOrdersButton.setVisibility(View.INVISIBLE);
+
         }
 
         else {
-            chefIsSuspensedTextView.setVisibility(View.INVISIBLE);
+            chefIsSuspendedTextView.setVisibility(View.INVISIBLE);
         }
 
 
-        logOff.setOnClickListener(new View.OnClickListener() {
+        logOffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(mainActivity);            }
         });
-       goToMeals.setOnClickListener(new View.OnClickListener() {
+        goToMealsButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                Intent add = new Intent(getApplicationContext(), AllChefMeals.class);
@@ -46,5 +49,14 @@ public class E2ChefLoggedInScreen extends MainActivity {
                startActivity(add);
            }
        });
+
+        goToOrdersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent add = new Intent(getApplicationContext(), ChefViewOrderScreen.class);
+                add.putExtra("Email",email);
+                startActivity(add);
+            }
+        });
     }
 }
