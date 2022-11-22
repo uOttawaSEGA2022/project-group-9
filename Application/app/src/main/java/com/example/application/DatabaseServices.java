@@ -583,8 +583,8 @@ public class DatabaseServices extends MainActivity {
     }
 
     //Return type to TBH
-    public void placeOrder(String chefEmail, Meal mealInfo, Integer quantity, Double Price) {
-        DatabaseReference databaseReference = database.getReference().child("Chef");
+    public void placeOrder(String chefEmail, Meal mealInfo, Integer quantity, Double price) {
+        DatabaseReference databaseReference = database.getReference().child("Chef").child("orders");
 
     }
 
@@ -595,17 +595,50 @@ public class DatabaseServices extends MainActivity {
     }
 
     public void chefDeclinedOrder(String mealID) {
-        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders");
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(mealID);
+        databaseReference.removeValue();
+
+    }
+
+    public void chefApprovedOrder(String mealID, Meal mealInfo, Integer quantity, Double price) {
+        DatabaseReference databaseReferenceToRemoveOrderFromChef = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(mealID);
+        databaseReferenceToRemoveOrderFromChef.removeValue();
+
+        /*
+        This code may/may not work dont copy unless u can improve it
+        DatabaseReference referenceToAddApprovedOrderToCustomerID = database.getReference().child("Customer");
+        var newKey = referenceToAddApprovedOrderToCustomerID.push().getKey();
+
+        var newData={
+                "mealID": mealID,
+                websiteName: this.webname.value,
+                username: this.username.value,
+                password : this.password.value,
+                websiteLink : this.weblink.value
+
+        }
+        firebase.database().ref().push(newData);
+         */
+
+
+
+
+
 
 
 
     }
 
-    public void chefApprovedOrder() {
-        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders");
+    /*
+    Create Database Reference and move to the chefID reference using the parameter
+    Do not Use the Query Thing
+    Then go to the child reference of ratings
+    Then check the numOfRatings child under ratings (create local variable Var Int chefNumOfRatings)
 
-    }
-
+    Then go the to child reference - listOfRatings
+    Then create a var which stores all the values from the ratings (5+4+3+2+3+4+5) = 26 as an Int (chefTotalPoints)
+    Then chefTotalPoints / chefNumOfRatings return the value
+     */
     public double getStarRating(String chefID) {
         DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
 
