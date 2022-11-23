@@ -28,5 +28,4 @@ lucifer15102002@gmail.com
 The above email will require 2 factor authentication, which will get sent to the following email address:  
 segengineers123@gmail.com  
 GROUP-nine123
-// testing
 
