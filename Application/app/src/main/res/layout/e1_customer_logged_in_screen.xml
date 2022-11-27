@@ -45,12 +45,31 @@
         android:id="@+id/logOffButton"
         android:layout_width="172dp"
         android:layout_height="48dp"
+        android:layout_marginBottom="100dp"
         android:text="Log Off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/searchForMealsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text="Search For Meals"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintTop_toBottomOf="@+id/LoginSignUpText" />
+
+    <Button
+        android:id="@+id/viewOrderHistoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Order History"
+        app:layout_constraintBottom_toTopOf="@+id/logOffButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchForMealsButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

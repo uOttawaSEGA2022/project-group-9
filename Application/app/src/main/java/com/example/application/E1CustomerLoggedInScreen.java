@@ -13,6 +13,8 @@ public class E1CustomerLoggedInScreen extends MainActivity {
         setContentView(R.layout.e1_customer_logged_in_screen);
 
         Button logOff = (Button) findViewById(R.id.logOffButton);
+        Button searchForMeals = findViewById(R.id.searchForMealsButton);
+        Button viewOrderHistory = findViewById(R.id.viewOrderHistoryButton);
 
         /*
         String userEmail = "";
@@ -26,6 +28,19 @@ public class E1CustomerLoggedInScreen extends MainActivity {
 
         */
 
+        searchForMeals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Mohamad's Part here
+            }
+        });
+
+        viewOrderHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Yash and Rudra's part here
+            }
+        });
 
         logOff.setOnClickListener(new View.OnClickListener() {
             @Override
