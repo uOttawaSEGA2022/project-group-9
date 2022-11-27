@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,7 +125,8 @@ public class DatabaseServices extends MainActivity {
                     DatabaseReference dataRef = database.getReference(ROLE).child(fAuth.getCurrentUser().getUid());
 
                     for (int i=0; i<userInfo.length; i++) {
-                        if(i == 0) continue;
+                        Log.d("HelloThereBro", Arrays.toString(userInfo));
+                        Log.d("HelloThereBro", Arrays.toString(registerInfo));
                         dataRef.child(registerInfo[i]).setValue(userInfo[i]);
                     }
 

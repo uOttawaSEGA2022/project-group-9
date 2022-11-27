@@ -95,7 +95,7 @@ public class D3SignUpCustomerCCInfo extends MainActivity{
                                 "addressline1", "addressline2", "city", "province", "postalcode"};
 
                         DatabaseServices databaseServices = new DatabaseServices();
-                        databaseServices.createUser(D3SignUpCustomerCCInfo.this, customerInfo, "Chef");
+                        databaseServices.createUser(D3SignUpCustomerCCInfo.this, customerInfo, "Customer");
 
 
                         Intent e1CustomerLoggedInScreen = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
