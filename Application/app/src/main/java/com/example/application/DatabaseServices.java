@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class DatabaseServices extends MainActivity {
@@ -90,7 +91,7 @@ public class DatabaseServices extends MainActivity {
     public static void updateChefStatus(String chefID, String date) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Chef").child(chefID);
 
-        ref.child("isSuspensed").setValue("true");
+        ref.child("isSuspended").setValue("true");
         ref.child("Suspended until").setValue(date);
     }
 
@@ -279,58 +280,56 @@ public class DatabaseServices extends MainActivity {
         // For reference, check the chef "CaptianMK@gmail.com" in the database to see how the meals are supposed to be implemented and fetched
         // For more reference, check the Meal.java class to see what key value pairs should be in the HashMap
 
+        allChefMeals.removeAllViews();
+
         DatabaseServices databaseServices = new DatabaseServices();
 
-        final boolean[] didOnDataChangeRun = {false};
-
         LayoutInflater inflater = LayoutInflater.from(context);
-
-        List<Meal> mealList = new ArrayList<>();
 
         DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
 
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    didOnDataChangeRun[0] = true;
+                    allChefMeals.removeAllViews();
                     for (DataSnapshot mealInDatabase : dataSnapshot.getChildren()){
 
                         HashMap<String, Object> mealInfo = new HashMap<>();
 
-                        mealInfo.put("Name", mealInDatabase.child("name").getValue());
-                        mealInfo.put("Type", mealInDatabase.child("type").getValue());
-                        mealInfo.put("Cuisine", mealInDatabase.child("cuisine").getValue());
-                        mealInfo.put("Price", mealInDatabase.child("price").getValue());
-                        mealInfo.put("Description", mealInDatabase.child("description").getValue());
-                        mealInfo.put("Cook", mealInDatabase.child("cook").getValue());
-                        mealInfo.put("IsOffered", mealInDatabase.child("isOffered").getValue());
+                        mealInfo.put("name", mealInDatabase.child("name").getValue());
+                        mealInfo.put("type", mealInDatabase.child("type").getValue());
+                        mealInfo.put("cuisine", mealInDatabase.child("cuisine").getValue());
+                        mealInfo.put("price", mealInDatabase.child("price").getValue());
+                        mealInfo.put("description", mealInDatabase.child("description").getValue());
+                        mealInfo.put("cook", mealInDatabase.child("cook").getValue());
+                        mealInfo.put("isOffered", mealInDatabase.child("isOffered").getValue());
 
-                        List<String> ingredientsArrayList = new ArrayList<>();
+                        Map<String, String> ingredientsHashMap= new HashMap<>();
 
                         for (DataSnapshot ingredientsDataSnapshot : mealInDatabase.child("ingredients").getChildren()){
-                            ingredientsArrayList.add((String) ingredientsDataSnapshot.getValue());
+                            ingredientsHashMap.put(String.valueOf(ingredientsHashMap.size()), (String) ingredientsDataSnapshot.getValue());
                         }
 
-                        mealInfo.put("Ingredients", ingredientsArrayList);
+                        mealInfo.put("ingredients", ingredientsHashMap);
 
-                        List<String> allergensArrayList = new ArrayList<>();
+                        Map<String, String> allergensHashMap = new HashMap<>();
 
                         for (DataSnapshot allergensDataSnapshot : mealInDatabase.child("allergens").getChildren()){
-                            ingredientsArrayList.add((String) allergensDataSnapshot.getValue());
+                            allergensHashMap.put(String.valueOf(allergensHashMap.size()), (String) allergensDataSnapshot.getValue());
                         }
 
-                        mealInfo.put("Allergens", allergensArrayList);
+                        mealInfo.put("allergens", allergensHashMap);
 
 
-                        Meal meal = new Meal(mealInfo);
+                        Meal meal = new Meal(mealInfo, mealInDatabase.getKey());
 
-                        mealList.add(meal);
+
 
                         if (allChefMealsOrModifying.equals("allChefMeals")){
                             String mealName = meal.getName();
                             String mealCuisine = meal.getCuisine();
                             String mealType = meal.getType();
-                            boolean mealIsOffered = meal.getIsOffered();
+                            String mealIsOffered = meal.getIsOffered();
 
                             View mealTemplate = inflater.inflate(R.layout.meal_template, null);
 
@@ -342,7 +341,7 @@ public class DatabaseServices extends MainActivity {
                             mealCuisineTextView.setText(mealCuisine);
                             mealTypeTextView.setText(mealType);
 
-                            if (!mealIsOffered){
+                            if (mealIsOffered.equals("false")){
                                 TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
                                 ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
 
@@ -375,7 +374,7 @@ public class DatabaseServices extends MainActivity {
                             String mealName = meal.getName();
                             String mealCuisine = meal.getCuisine();
                             String mealType = meal.getType();
-                            boolean mealIsOffered = meal.getIsOffered();
+                            String mealIsOffered = meal.getIsOffered();
 
                             View mealTemplate = inflater.inflate(R.layout.meal_template, null);
 
@@ -387,7 +386,7 @@ public class DatabaseServices extends MainActivity {
                             mealCuisineTextView.setText(mealCuisine);
                             mealTypeTextView.setText(mealType);
 
-                            if (!mealIsOffered) {
+                            if (mealIsOffered.equals("false")) {
                                 TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
                                 ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
 
@@ -399,16 +398,18 @@ public class DatabaseServices extends MainActivity {
                             mealTemplate.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    // TODO: Create a better fix than the one in the following line. This is a cheap barely working fix
+                                    allChefMeals.removeAllViews();
                                     TextView mealIsOfferedTextView = mealTemplate.findViewById(R.id.mealIsOfferedTextView);
                                     ImageView mealIsOfferedIcon = mealTemplate.findViewById(R.id.mealIsOffered);
-                                    boolean mealIsOffered = meal.getIsOffered();
-                                    if (mealIsOffered){
-                                        meal.setOffered(false);
+                                    String mealIsOffered = meal.getIsOffered();
+                                    if (mealIsOffered.equals("true")){
+                                        meal.setOffered("false");
                                         mealIsOfferedTextView.setText("Not Offered");
                                         mealIsOfferedIcon.setImageResource(R.drawable.not_offered_unchecked_mark);
                                     }
                                     else{
-                                        meal.setOffered(true);
+                                        meal.setOffered("true");
                                         mealIsOfferedTextView.setText("Offered");
                                         mealIsOfferedIcon.setImageResource(R.drawable.offered_checkmark);
                                     }
@@ -419,7 +420,7 @@ public class DatabaseServices extends MainActivity {
                                     // The only problem is that the meal object is not related in any way to the UI elements
                                     // The UI elements have access to the meal object at creation only and the meal never has access to the UI elements
                                     // So getting meals out of the UI elements will be a really challenging task which will require heavy modification to the whole system
-                                    databaseServices.updateOrAddChefMeal(meal, "Editing");
+                                    databaseServices.updateOrAddChefMeal(meal);
                                 }
                             });
 
@@ -435,38 +436,6 @@ public class DatabaseServices extends MainActivity {
 
                 }
             });
-
-
-        // The following is for testing purposes, delete when implementing the main functionality
-
-//        HashMap<String, Object> mealInfo = new HashMap<>();
-//
-//        List<String> ingredients = new ArrayList<>();
-//        ingredients.add("Bun");
-//        ingredients.add("Beef Patty");
-//
-//        List<String> allergens = new ArrayList<>();
-//        allergens.add("Gluten");
-//
-//        mealInfo.put("Name", "burger");
-//        mealInfo.put("Type", "main dish");
-//        mealInfo.put("Cuisine", "american");
-//        mealInfo.put("Ingredients", ingredients);
-//        mealInfo.put("Allergens", allergens);
-//        mealInfo.put("Price", "6");
-//        mealInfo.put("Description", "This is a burger");
-//        mealInfo.put("Cook", "Masterchef");
-//        mealInfo.put("IsOffered", true);
-//
-//        Meal test = new Meal(mealInfo);
-//
-//        mealInfo.put("Name", "Pizza");
-//        mealInfo.put("IsOffered", false);
-//        Meal test2 = new Meal(mealInfo);
-//
-//        mealList.add(test);
-//        mealList.add(test2);
-
     }
 
     public void addDeleteDialog(View currentMealTemplateView, DatabaseServices databaseServices, Meal meal, Context context){
@@ -496,7 +465,7 @@ public class DatabaseServices extends MainActivity {
                 @Override
                 public void onClick(View v) {
                     LinearLayout allChefMeals = (LinearLayout) currentMealTemplateView.getParent();
-                    allChefMeals.removeView(currentMealTemplateView);
+                    allChefMeals.removeAllViews();
 
                     // This is where the meal gets deleted from the database
                     // You can have different approaches to this problem:
@@ -517,28 +486,29 @@ public class DatabaseServices extends MainActivity {
             alertDialog.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         }
         else{
-            Toast.makeText(getApplicationContext(), "This meal is currently offered, cannot remove from menu", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "This meal is currently offered, cannot remove from menu", Toast.LENGTH_LONG).show();
         }
     }
 
-    public void updateOrAddChefMeal(Meal meal, String editingOrAddingMeal) {
+    public void updateOrAddChefMeal(Meal meal) {
         // Implement this which gets called after the cook finishes adding or updating one of his meals on the menu
-        // It's very important to be able to differentiate between updating an existing meal or adding a new one, using the given argument
 
         // This method is also called when the chef changes the offered status of a meal, it's called as "Editing"
         // So if implemented correctly, it should support that as well
 
+
         DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
 
-        databaseReference.child(meal.name).child("name").setValue(meal.name);
-        databaseReference.child(meal.name).child("type").setValue(meal.getType());
-        databaseReference.child(meal.name).child("cuisine").setValue(meal.getCuisine());
-        databaseReference.child(meal.name).child("ingredients").setValue(meal.ingredients);
-        databaseReference.child(meal.name).child("allergens").setValue(meal.allergens);
-        databaseReference.child(meal.name).child("price").setValue(meal.getPrice());
-        databaseReference.child(meal.name).child("description").setValue(meal.getDescription());
-        databaseReference.child(meal.name).child("cook").setValue(meal.getCook());
-        databaseReference.child(meal.name).child("isOffered").setValue(meal.isOffered);
+        databaseReference.child(meal.getID()).setValue(meal.toHashMap());
+//        databaseReference.child(meal.getID()).child("name").setValue(meal.getName());
+//        databaseReference.child(meal.getID()).child("type").setValue(meal.getType());
+//        databaseReference.child(meal.getID()).child("cuisine").setValue(meal.getCuisine());
+//        databaseReference.child(meal.getID()).child("ingredients").setValue(meal.getIngredients());
+//        databaseReference.child(meal.getID()).child("allergens").setValue(meal.getAllergens());
+//        databaseReference.child(meal.getID()).child("price").setValue(meal.getPrice());
+//        databaseReference.child(meal.getID()).child("description").setValue(meal.getDescription());
+//        databaseReference.child(meal.getID()).child("cook").setValue(meal.getCook());
+//        databaseReference.child(meal.getID()).child("isOffered").setValue(meal.getIsOffered());
 
     }
 
@@ -552,7 +522,7 @@ public class DatabaseServices extends MainActivity {
         // Implement this method which gets called when a cook deletes a meal from his menu
         // It needs to go to the current chef in the realtime database, then delete the meal that matches the meal deleted from the menu locally
         DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
-        databaseReference.child(meal.name).removeValue();
+        databaseReference.child(meal.getID()).removeValue();
     }
 
     public void submitRatingToChef(String chefID, String chefRating) {

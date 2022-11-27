@@ -1,7 +1,5 @@
 package com.example.application;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class ChefViewOrderScreen extends MainActivity {

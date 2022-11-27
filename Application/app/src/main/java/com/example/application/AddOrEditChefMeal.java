@@ -15,12 +15,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.gms.vision.text.Line;
-import com.google.android.gms.vision.text.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddOrEditChefMeal extends MainActivity {
     @Override
@@ -111,8 +109,8 @@ public class AddOrEditChefMeal extends MainActivity {
                 String finalMealName = String.valueOf(mealName.getText());
                 String finalMealType = String.valueOf(mealType.getText());
                 String finalMealCuisine = String.valueOf(mealCuisine.getText());
-                List<String> finalMealingredients = getAllIngredientsOrAllergens(mealIngredientsList);
-                List<String> finalMealallergens = getAllIngredientsOrAllergens(mealAllergensList);
+                Map<String, String> finalMealingredients = getAllIngredientsOrAllergens(mealIngredientsList);
+                Map<String, String> finalMealallergens = getAllIngredientsOrAllergens(mealAllergensList);
                 String finalMealPrice = String.valueOf(mealPrice.getText());
                 String finalMealDescription = String.valueOf(mealDescription.getText());
 
@@ -144,43 +142,42 @@ public class AddOrEditChefMeal extends MainActivity {
                         // Note that the cook stays as it, change that if needed based on the database person wants to implement the way the code will recognize the current cook
 
 
-                        databaseServices.updateOrAddChefMeal(meal, editingOrAddingAMeal);
+                        databaseServices.updateOrAddChefMeal(meal);
                     }
 
                     else{
                         String currentCook = databaseServices.getCurrentChef();
                         HashMap<String, Object> mealInfo = new HashMap<>();
-                        mealInfo.put("Name", finalMealName);
-                        mealInfo.put("Type", finalMealType);
-                        mealInfo.put("Cuisine", finalMealCuisine);
-                        mealInfo.put("Ingredients", finalMealingredients);
-                        mealInfo.put("Allergens", finalMealallergens);
-                        mealInfo.put("Price", finalMealPrice);
-                        mealInfo.put("Description", finalMealDescription);
-                        mealInfo.put("Cook", currentCook);
-                        mealInfo.put("IsOffered", false);
+                        mealInfo.put("name", finalMealName);
+                        mealInfo.put("type", finalMealType);
+                        mealInfo.put("cuisine", finalMealCuisine);
+                        mealInfo.put("ingredients", finalMealingredients);
+                        mealInfo.put("allergens", finalMealallergens);
+                        mealInfo.put("price", finalMealPrice);
+                        mealInfo.put("description", finalMealDescription);
+                        mealInfo.put("cook", currentCook);
+                        mealInfo.put("isOffered", "false");
 
                         Meal finalMeal = new Meal(mealInfo);
 
-                        databaseServices.updateOrAddChefMeal(finalMeal, editingOrAddingAMeal);
+                        databaseServices.updateOrAddChefMeal(finalMeal);
                     }
-                    Intent goToAllChefMeals = new Intent(getApplicationContext(), AllChefMeals.class);
-                    startActivity(goToAllChefMeals);
+                    finish();
                 }
             }
     });
     }
 
     public static void addIngredientAllergenToLinearLayout(Meal meal, LayoutInflater inflater, LinearLayout mealIngredientsOrAllergensList, String ingredientOrAllergenStringIndicator){
-        List<String> ingredientsOrAllergensList;
+        Map<String, String> ingredientsOrAllergensHashMap;
         if (ingredientOrAllergenStringIndicator.equals("Ingredient")){
-            ingredientsOrAllergensList = meal.getIngredients();
+            ingredientsOrAllergensHashMap = meal.getIngredients();
         }
         else{
-            ingredientsOrAllergensList = meal.getAllergens();
+            ingredientsOrAllergensHashMap = meal.getAllergens();
         }
-        for (String ingredientOrAllergenName: ingredientsOrAllergensList){
-            addSingleIngredientOrAllergenToLinearLayout(ingredientOrAllergenName, inflater, mealIngredientsOrAllergensList);
+        for (int i = 0; i<ingredientsOrAllergensHashMap.size(); i++){
+            addSingleIngredientOrAllergenToLinearLayout(ingredientsOrAllergensHashMap.get(String.valueOf(i)), inflater, mealIngredientsOrAllergensList);
         }
     }
 
@@ -200,14 +197,14 @@ public class AddOrEditChefMeal extends MainActivity {
 
     }
 
-    public static List<String> getAllIngredientsOrAllergens(LinearLayout mealIngredientsOrAllergensList){
-        List<String> ingredientsOrAllergensList = new ArrayList<String>();
+    public static Map<String, String> getAllIngredientsOrAllergens(LinearLayout mealIngredientsOrAllergensList){
+        Map<String, String> ingredientsOrAllergensList = new HashMap<>();
         for (int i = 0; i < mealIngredientsOrAllergensList.getChildCount(); i++){
             ConstraintLayout currentIngredientOrAllergenTemplate = (ConstraintLayout) mealIngredientsOrAllergensList.getChildAt(i);
             LinearLayout currentIngredientOrAllergenLinearLayout = (LinearLayout) currentIngredientOrAllergenTemplate.getChildAt(0);
             TextView currentIngredientOrAllergenTextView = (TextView) currentIngredientOrAllergenLinearLayout.getChildAt(1);
             String currentIngredientOrAllergenName = String.valueOf(currentIngredientOrAllergenTextView.getText());
-            ingredientsOrAllergensList.add(currentIngredientOrAllergenName);
+            ingredientsOrAllergensList.put(String.valueOf(i), currentIngredientOrAllergenName);
         }
         return ingredientsOrAllergensList;
     }

@@ -50,13 +50,13 @@ public class E2ChefLoggedInScreen extends MainActivity {
            }
        });
 
-        goToOrdersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent add = new Intent(getApplicationContext(), ChefViewOrderScreen.class);
-                add.putExtra("Email",email);
-                startActivity(add);
-            }
-        });
+//        goToOrdersButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent add = new Intent(getApplicationContext(), ChefViewOrderScreen.class);
+//                add.putExtra("Email",email);
+//                startActivity(add);
+//            }
+//        });
     }
 }
