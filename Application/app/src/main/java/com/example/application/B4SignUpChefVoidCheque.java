@@ -1,6 +1,7 @@
 package com.example.application;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -11,12 +12,19 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 public class B4SignUpChefVoidCheque extends MainActivity{
 
     private final int GALLERY_REQ_CODE = 1000;
     ImageView imgGallery;
 
     Button btnGallery;
+
+    StorageReference storageReference;   //to upload to firebase Storage, not realtime database
+
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +98,13 @@ public class B4SignUpChefVoidCheque extends MainActivity{
                 DatabaseServices databaseServices = new DatabaseServices();
                 databaseServices.createUser(B4SignUpChefVoidCheque.this, chefInfo, "Chef");
 
+
+                //uploading to firebase Storage
+                storageReference = FirebaseStorage.getInstance().getReference("Chef").child(Math.random()+"").child("Void Check");
+                storageReference.putFile(imageUri);
+                //plug in name instead of to be changed later
+
+
                 Intent e2ChefLoggedInScreen = new Intent(getApplicationContext(), E2ChefLoggedInScreen.class);
                 e2ChefLoggedInScreen.putExtra("Chef Info", chefInfo);
                 e2ChefLoggedInScreen.putExtra("Chef Info", chefInfo);
@@ -121,7 +136,8 @@ public class B4SignUpChefVoidCheque extends MainActivity{
             if(requestCode==GALLERY_REQ_CODE){
 
                 //for gallery
-                imgGallery.setImageURI(data.getData() );
+                imageUri = data.getData();
+                imgGallery.setImageURI(imageUri );
              }
         }
     }
