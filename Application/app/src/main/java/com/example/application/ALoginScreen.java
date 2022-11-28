@@ -41,9 +41,9 @@ public class ALoginScreen extends MainActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // THIS IS FOR CHEF DEVELOPMENT PURPOSES, REMOVE BEFORE SUBMITTING ######################
-//                Intent goToChefLoggedInScreen = new Intent(ALoginScreen.this, E2ChefLoggedInScreen.class);
-//                startActivity(goToChefLoggedInScreen);
+                // THIS IS FOR CUSTOMER DEVELOPMENT PURPOSES, REMOVE BEFORE SUBMITTING ######################
+//                Intent goToCustomerLoggedInScreen = new Intent(ALoginScreen.this, E1CustomerLoggedInScreen.class);
+//                startActivity(goToCustomerLoggedInScreen);
 //                Intent test = new Intent(ALoginScreen.this, testingClass.class);
 //                startActivity(test);
                 // ######################################################################################

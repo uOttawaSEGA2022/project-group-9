@@ -12,7 +12,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:background="@color/light_blue"
     tools:context=".MainActivity">
 
     <TextView
@@ -56,7 +56,7 @@
         android:textSize="20sp"
         android:gravity="center"
         android:background="@drawable/roundstyle"
-        android:backgroundTint="@color/lime_green"
+        android:backgroundTint="@color/light_orange"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +76,7 @@
         android:gravity="center"
         android:textColor="@android:color/white"
         android:background="@drawable/roundstyle"
-        android:backgroundTint="@color/lime_green"
+        android:backgroundTint="@color/light_orange"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

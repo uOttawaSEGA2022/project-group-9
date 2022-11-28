@@ -31,7 +31,8 @@ public class E1CustomerLoggedInScreen extends MainActivity {
         searchForMeals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Mohamad's Part here
+                Intent goToSearchMealsActivity = new Intent(E1CustomerLoggedInScreen.this, CustomerSearchForMealsScreen.class);
+                startActivity(goToSearchMealsActivity);
             }
         });
 

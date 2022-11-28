@@ -161,7 +161,6 @@
         <activity android:name=".D3SignUpCustomerCCInfo" />
         <activity android:name=".B2D2SignUpAddress" />
         <activity android:name=".AllChefMeals" />
-        <activity android:name=".testingClass" />
         <activity android:name=".ModifyOfferedMeals" />
     </application>
 

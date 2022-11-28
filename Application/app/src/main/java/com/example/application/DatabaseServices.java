@@ -333,7 +333,7 @@ public class DatabaseServices extends MainActivity {
                             String mealType = meal.getType();
                             String mealIsOffered = meal.getIsOffered();
 
-                            View mealTemplate = inflater.inflate(R.layout.meal_template, null);
+                            View mealTemplate = inflater.inflate(R.layout.chef_meal_template, null);
 
                             TextView mealNameTextView = mealTemplate.findViewById(R.id.mealName);
                             TextView mealCuisineTextView = mealTemplate.findViewById(R.id.mealCuisine);
@@ -378,7 +378,7 @@ public class DatabaseServices extends MainActivity {
                             String mealType = meal.getType();
                             String mealIsOffered = meal.getIsOffered();
 
-                            View mealTemplate = inflater.inflate(R.layout.meal_template, null);
+                            View mealTemplate = inflater.inflate(R.layout.chef_meal_template, null);
 
                             TextView mealNameTextView = mealTemplate.findViewById(R.id.mealName);
                             TextView mealCuisineTextView = mealTemplate.findViewById(R.id.mealCuisine);
@@ -502,15 +502,6 @@ public class DatabaseServices extends MainActivity {
         DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
 
         databaseReference.child(meal.getID()).setValue(meal.toHashMap());
-//        databaseReference.child(meal.getID()).child("name").setValue(meal.getName());
-//        databaseReference.child(meal.getID()).child("type").setValue(meal.getType());
-//        databaseReference.child(meal.getID()).child("cuisine").setValue(meal.getCuisine());
-//        databaseReference.child(meal.getID()).child("ingredients").setValue(meal.getIngredients());
-//        databaseReference.child(meal.getID()).child("allergens").setValue(meal.getAllergens());
-//        databaseReference.child(meal.getID()).child("price").setValue(meal.getPrice());
-//        databaseReference.child(meal.getID()).child("description").setValue(meal.getDescription());
-//        databaseReference.child(meal.getID()).child("cook").setValue(meal.getCook());
-//        databaseReference.child(meal.getID()).child("isOffered").setValue(meal.getIsOffered());
 
     }
 
@@ -527,6 +518,49 @@ public class DatabaseServices extends MainActivity {
         databaseReference.child(meal.getID()).removeValue();
     }
 
+
+    public List<Meal> viewSpecifiedMeals(String searchQuery){
+        // This method gets called when a customer presses the search icon
+        // We have access to the search text he inputted in the search bar, given as a parameter searchQuery
+        // This method should go through all chefs, look into their meals, check the meal name and see if it's close to the searchQuery by using the method startsWith()
+        // Perform String cleaning and handling such as forcing the searchQuery and the meal name we're checking to be lowercase and strip them from spaces on the side
+        // If a certain meal corresponds to the search query, add it to the list of meals, then return that list
+
+        DatabaseReference databaseReference = database.getReference().child("Chef");
+        // Continue logic here...
+
+
+        // The following code is for testing purposes, delete when the main code is implemented
+
+        List<Meal> mealList = new ArrayList<>();
+
+        HashMap<String, Object> mealInfo = new HashMap<>();
+
+        Map<String, String> ingredients = new HashMap<>();
+        ingredients.put("0", "Bun");
+        ingredients.put("1", "Beef Patty");
+
+        Map<String, String> allergens = new HashMap<>();
+        allergens.put("0", "Gluten");
+
+        mealInfo.put("name", "burger");
+        mealInfo.put("type", "main dish");
+        mealInfo.put("cuisine", "american");
+        mealInfo.put("ingredients", ingredients);
+        mealInfo.put("allergens", allergens);
+        mealInfo.put("price", "6");
+        mealInfo.put("description", "This is a burger");
+        mealInfo.put("cook", "Masterchef");
+        mealInfo.put("isOffered", "true");
+
+        Meal test = new Meal(mealInfo);
+
+        mealList.add(test);
+
+
+        return mealList;
+    }
+
     public void submitRatingToChef(String chefID, String chefRating) {
         DatabaseReference databaseReference = database.getReference().child("Chef");
 
@@ -540,11 +574,6 @@ public class DatabaseServices extends MainActivity {
     //Return type to TBH
     public void customerViewOrderHistory(String customerID) {
         DatabaseReference databaseReference = database.getReference().child("Customer");
-
-    }
-    //Return type to TBH
-    public void viewSpecifiedMeals(String stringInSearchBar) {
-        DatabaseReference databaseReference = database.getReference().child("Chef");
 
     }
 
