@@ -47,6 +47,9 @@ public class DatabaseServices extends MainActivity {
     ArrayList<Complaint> listOfComplaints;
     Integer numOfComplaints = 0;
 
+
+    // Hello
+
     public DatabaseServices(){
         FirebaseApp.initializeApp(this);
 
