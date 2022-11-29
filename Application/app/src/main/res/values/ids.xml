@@ -5,8 +5,8 @@
     <item name="mealTypeEditText" type="id" />
     <item name="mealCuisineEditText" type="id" />
     <item name="mealIngredientsEditText" type="id" />
-    <item name="mealIngredientsList" type="id" />
-    <item name="mealAllergensList" type="id" />
+    <item name="mealIngredientsLinearLayout" type="id" />
+    <item name="mealAllergensLinearLayout" type="id" />
     <item name="mealPriceEditText" type="id" />
     <item name="mealDescriptionEditText" type="id" />
 </resources>

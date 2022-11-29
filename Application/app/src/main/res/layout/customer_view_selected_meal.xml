@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/viewSelectedMealTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="View your meal's info:"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/viewSelectedMealScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/mealOrderQuantityEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSelectedMealTitleTextView">
+
+        <LinearLayout
+            android:id="@+id/viewSelectedMealLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mealNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:hint="Meal Name"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Name:"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/mealTypeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:hint="Type"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Type:"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/mealCuisineTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:hint="Cuisine"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Cuisine:"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/mealIngredientsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1"
+                android:hint="Ingredients"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Ingredients:"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:id="@+id/mealIngredientsLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/mealAllergensTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:hint="Allergens"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Allergens:"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:id="@+id/mealAllergensLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/mealPriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:hint="Price"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Price:"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/mealDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:hint="Description"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Description:"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+        >
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/mealOrderQuantityEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="Quantity (1 by default)"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/placeOrderButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/placeOrderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:text="Place Order"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -584,8 +584,12 @@ public class DatabaseServices extends MainActivity {
     }
 
     //Return type to TBH
-    public void placeOrder(String chefEmail, Meal mealInfo, Integer quantity, Double price) {
+    public void placeOrder(Meal meal, int quantity) {
         DatabaseReference databaseReference = database.getReference().child("Chef").child("orders");
+        // This method is called after the customer has chosen a meal and ordered it with a set quantity
+        // This method should place this order in the chef's section for him to approve or decline
+        // Check db hierarchy document to see how the order should be placed in the db under the chef's section
+        // Check the meal object to know how to generate the orderID
 
     }
 

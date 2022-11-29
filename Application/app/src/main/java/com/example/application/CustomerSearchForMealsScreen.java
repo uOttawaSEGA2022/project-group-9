@@ -1,5 +1,6 @@
 package com.example.application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
 
 import java.util.List;
 
@@ -16,6 +19,11 @@ public class CustomerSearchForMealsScreen extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_search_meal);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         DatabaseServices databaseServices = new DatabaseServices();
 
@@ -63,7 +71,9 @@ public class CustomerSearchForMealsScreen extends MainActivity {
                         mealTemplate.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                // Add logic to go to specific order here
+                                Intent goToViewSelectedMealActivity = new Intent(CustomerSearchForMealsScreen.this, CustomerViewMealScreen.class);
+                                goToViewSelectedMealActivity.putExtra("Meal", meal);
+                                startActivity(goToViewSelectedMealActivity);
                             }
                         });
 

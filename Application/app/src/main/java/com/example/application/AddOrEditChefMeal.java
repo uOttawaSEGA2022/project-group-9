@@ -2,7 +2,6 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AddOrEditChefMeal extends MainActivity {
@@ -40,9 +37,9 @@ public class AddOrEditChefMeal extends MainActivity {
         EditText mealType = findViewById(R.id.mealTypeEditText);
         EditText mealCuisine = findViewById(R.id.mealCuisineEditText);
         EditText mealIngredientsEditText = findViewById(R.id.mealIngredientsEditText);
-        LinearLayout mealIngredientsList = findViewById(R.id.mealIngredientsList);
+        LinearLayout mealIngredientsList = findViewById(R.id.mealIngredientsLinearLayout);
         EditText mealAllergensEditText = findViewById(R.id.mealAllergensEditText);
-        LinearLayout mealAllergensList = findViewById(R.id.mealAllergensList);
+        LinearLayout mealAllergensList = findViewById(R.id.mealAllergensLinearLayout);
         EditText mealPrice = findViewById(R.id.mealPriceEditText);
         EditText mealDescription = findViewById(R.id.mealDescriptionEditText);
         TextView errorMessages = findViewById(R.id.addOrEditMealErrorMessagesTextView);

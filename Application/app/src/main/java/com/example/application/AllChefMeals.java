@@ -16,7 +16,6 @@ public class AllChefMeals extends MainActivity{
         setContentView(R.layout.chef_meals);
 
         DatabaseServices databaseServices = new DatabaseServices();
-        databaseServices.getCurrentChef();
 
         Intent intent = getIntent();
 
