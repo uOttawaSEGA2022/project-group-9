@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.Semaphore;
 
 public class DatabaseServices extends MainActivity {
 
@@ -47,8 +48,6 @@ public class DatabaseServices extends MainActivity {
     ArrayList<Complaint> listOfComplaints;
     Integer numOfComplaints = 0;
 
-
-    // Hello
 
     public DatabaseServices(){
         FirebaseApp.initializeApp(this);
@@ -522,44 +521,70 @@ public class DatabaseServices extends MainActivity {
     }
 
 
-    public List<Meal> viewSpecifiedMeals(String searchQuery){
+    public List<Meal> viewSpecifiedMeals(String searchQuery) throws InterruptedException {
         // This method gets called when a customer presses the search icon
         // We have access to the search text he inputted in the search bar, given as a parameter searchQuery
         // This method should go through all chefs, look into their meals, check the meal name and see if it's close to the searchQuery by using the method startsWith()
         // Perform String cleaning and handling such as forcing the searchQuery and the meal name we're checking to be lowercase and strip them from spaces on the side
         // If a certain meal corresponds to the search query, add it to the list of meals, then return that list
 
-        DatabaseReference databaseReference = database.getReference().child("Chef");
-        // Continue logic here...
-
-
-        // The following code is for testing purposes, delete when the main code is implemented
-
         List<Meal> mealList = new ArrayList<>();
 
-        HashMap<String, Object> mealInfo = new HashMap<>();
+        DatabaseReference databaseReference = database.getReference().child("Chef");
 
-        Map<String, String> ingredients = new HashMap<>();
-        ingredients.put("0", "Bun");
-        ingredients.put("1", "Beef Patty");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot chefInDatabase: dataSnapshot.getChildren()){
+                    DataSnapshot chefMeals = chefInDatabase.child("meals");
+                    String mealCook = (String) chefInDatabase.getValue();
+                    for (DataSnapshot currentChefMeal: chefMeals.getChildren()){
+                        String mealName = (String) currentChefMeal.child("name").getValue();
+                        String mealType = (String) currentChefMeal.child("type").getValue();
+                        String mealCuisine = (String) currentChefMeal.child("cuisine").getValue();
 
-        Map<String, String> allergens = new HashMap<>();
-        allergens.put("0", "Gluten");
+                        if (mealName.startsWith(searchQuery) || mealType.startsWith(searchQuery) || mealCuisine.startsWith(searchQuery)){
+                            HashMap<String, Object> mealInfo = new HashMap<>();
+                            String mealID = (String) currentChefMeal.getValue();
+                            String mealPrice = (String) currentChefMeal.child("price").getValue();
+                            String mealDescription = (String) currentChefMeal.child("description").getValue();
 
-        mealInfo.put("name", "burger");
-        mealInfo.put("type", "main dish");
-        mealInfo.put("cuisine", "american");
-        mealInfo.put("ingredients", ingredients);
-        mealInfo.put("allergens", allergens);
-        mealInfo.put("price", "6");
-        mealInfo.put("description", "This is a burger");
-        mealInfo.put("cook", "Masterchef");
-        mealInfo.put("isOffered", "true");
+                            HashMap<String, String> ingredientsHashMap = new HashMap<>();
+                            int count = 0;
+                            for (DataSnapshot currentIngredient: currentChefMeal.child("ingredients").getChildren()){
+                                ingredientsHashMap.put(String.valueOf(count), (String) currentIngredient.getValue());
+                                count++;
+                            }
 
-        Meal test = new Meal(mealInfo);
+                            HashMap<String, String> allergensHashMap = new HashMap<>();
+                            count = 0;
+                            for (DataSnapshot currentAllergen: currentChefMeal.child("allergens").getChildren()){
+                                allergensHashMap.put(String.valueOf(count), (String) currentAllergen.getValue());
+                                count++;
+                            }
 
-        mealList.add(test);
+                            mealInfo.put("name", mealName);
+                            mealInfo.put("type", mealType);
+                            mealInfo.put("cuisine", mealCuisine);
+                            mealInfo.put("price", mealPrice);
+                            mealInfo.put("description", mealDescription);
+                            mealInfo.put("ingredients", ingredientsHashMap);
+                            mealInfo.put("allergens", allergensHashMap);
+                            mealInfo.put("isOffered", "true");
+                            mealInfo.put("cook", mealCook);
 
+                            Meal currentMeal = new Meal(mealInfo, mealID);
+
+                            mealList.add(currentMeal);
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
 
         return mealList;
     }

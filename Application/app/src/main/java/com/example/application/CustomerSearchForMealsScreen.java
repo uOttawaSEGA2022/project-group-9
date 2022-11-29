@@ -42,7 +42,12 @@ public class CustomerSearchForMealsScreen extends MainActivity {
                 searchResultsTextView.setText("Here are the results:");
                 mealSearchResultsLinearLayout.removeAllViews();
                 String searchQuery = String.valueOf(searchBarEditText.getText());
-                List<Meal> mealSearchResults = databaseServices.viewSpecifiedMeals(searchQuery);
+                List<Meal> mealSearchResults = null;
+                try {
+                    mealSearchResults = databaseServices.viewSpecifiedMeals(searchQuery);
+                } catch (InterruptedException e) {
+                    return;
+                }
 
                 if (mealSearchResults.size() == 0){
                     searchResultsTextView.setText("No results available");
