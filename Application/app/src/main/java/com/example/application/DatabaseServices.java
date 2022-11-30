@@ -672,19 +672,19 @@ public class DatabaseServices extends MainActivity {
 
     }
 
-    public void chefDeclinedOrder(String mealID) {
-        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(mealID);
+    public void chefDeclinedOrder(String orderID) {
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID);
         databaseReference.removeValue();
 
     }
 
-    public void chefApprovedOrder(String mealID, Meal mealInfo, Integer quantity, Double price) {
-        DatabaseReference databaseReferenceToRemoveOrderFromChef = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(mealID);
+    public void chefApprovedOrder(String orderID) {
+        DatabaseReference databaseReferenceToRemoveOrderFromChef = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID);
         databaseReferenceToRemoveOrderFromChef.removeValue();
 
         /*
         This code may/may not work dont copy unless u can improve it
-        DatabaseReference referenceToAddApprovedOrderToCustomerID = database.getReference().child("Customer");
+        DatabaseReference referenceToAddApprovedOrderToCustomerID = database.getReference().child("Customer").child("orderHistory");
         var newKey = referenceToAddApprovedOrderToCustomerID.push().getKey();
 
         var newData={
