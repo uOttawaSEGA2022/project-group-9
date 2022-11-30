@@ -7,6 +7,7 @@
     tools:context=".E2ChefLoggedInScreen">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chef Logged In"
@@ -45,37 +46,51 @@
 
     <Button
         android:id="@+id/logOffButtonID"
-        android:layout_width="172dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="Log Off"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.500" />
+        app:layout_constraintTop_toBottomOf="@+id/chefIsSuspendedTextViewID" />
 
     <Button
         android:id="@+id/goToMealsButtonID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Meals"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="30dp"
+        android:text="View Menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.650" />
+        app:layout_constraintTop_toBottomOf="@+id/logOffButtonID" />
 
     <Button
         android:id="@+id/goToOrdersButtonID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Orders"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="30dp"
+        android:text="Receive Orders"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.800" />
+        app:layout_constraintTop_toBottomOf="@+id/goToMealsButtonID" />
+
+    <Button
+        android:id="@+id/viewAcceptedOrdersButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="View Accepted Orders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goToOrdersButtonID" />
+
+    <Button
+        android:id="@+id/viewProfileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="View Profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewAcceptedOrdersButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

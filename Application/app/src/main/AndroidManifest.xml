@@ -162,6 +162,7 @@
         <activity android:name=".B2D2SignUpAddress" />
         <activity android:name=".AllChefMeals" />
         <activity android:name=".ModifyOfferedMeals" />
+        <activity android:name=".AcceptedChefOrders"/>
     </application>
 
 </manifest>

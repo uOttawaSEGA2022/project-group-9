@@ -18,6 +18,9 @@ public class E2ChefLoggedInScreen extends MainActivity {
         Button goToOrdersButton =(Button) findViewById(R.id.goToOrdersButtonID);
         TextView chefIsSuspendedTextView = findViewById(R.id.chefIsSuspendedTextViewID);
 
+        Button goToAcceptedOrdersButton = findViewById(R.id.viewAcceptedOrdersButton);
+        Button goToProfileButton = findViewById(R.id.viewProfileButton);
+
         Intent intent=getIntent();
         String email=intent.getStringExtra("Email");
 
@@ -49,6 +52,14 @@ public class E2ChefLoggedInScreen extends MainActivity {
                startActivity(add);
            }
        });
+
+        goToAcceptedOrdersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToAcceptedOrderScreen = new Intent(E2ChefLoggedInScreen.this, AcceptedChefOrders.class);
+                startActivity(goToAcceptedOrderScreen);
+            }
+        });
 
 //        goToOrdersButton.setOnClickListener(new View.OnClickListener() {
 //            @Override

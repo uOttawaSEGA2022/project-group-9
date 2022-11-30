@@ -3,14 +3,13 @@ package com.example.application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Arrays;
+import androidx.appcompat.app.ActionBar;
+
 import java.util.List;
 
 public class CustomerOrderHistoryScreen extends MainActivity {
@@ -20,6 +19,11 @@ public class CustomerOrderHistoryScreen extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_order_history_screen);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         DatabaseServices databaseServices = new DatabaseServices();
 
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -28,8 +32,8 @@ public class CustomerOrderHistoryScreen extends MainActivity {
         databaseServices.viewCustomerOrders(inflater, allCustomerOrdersLinearLayout, CustomerOrderHistoryScreen.this);
     }
 
-    public void displayOrders(List<Order> orders, LayoutInflater inflater, LinearLayout layout, Context context) {
-        for (Order order : orders) {
+    public void displayOrders(List<customerOrder> orders, LayoutInflater inflater, LinearLayout layout, Context context) {
+        for (customerOrder order : orders) {
             String mealName = order.getMealName();
             String quantity = order.getQuantity();
             String hasRated = order.getHasRated();

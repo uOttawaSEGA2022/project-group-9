@@ -1,6 +1,5 @@
 package com.example.application;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,8 +18,6 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,13 +29,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Semaphore;
 
 public class DatabaseServices extends MainActivity {
 
@@ -617,7 +611,7 @@ public class DatabaseServices extends MainActivity {
         DatabaseServices dbServices = new DatabaseServices();
         DatabaseReference databaseReference = database.getReference().child("Customer").child(getCurrentCustomer()).child("orderHistory");
 
-        List<Order> allOrders = new ArrayList<>();
+        List<customerOrder> allOrders = new ArrayList<>();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -626,13 +620,14 @@ public class DatabaseServices extends MainActivity {
                 for (DataSnapshot orderInDatabase : dataSnapshot.getChildren()) {
                     HashMap<String, Object> orderInfo = new HashMap<>();
 
-                    orderInfo.put("emailOfChef", orderInDatabase.child("emailOfChef").getValue());
+                    orderInfo.put("chefID", orderInDatabase.child("chefID").getValue());
                     orderInfo.put("mealName",  orderInDatabase.child("mealName").getValue());
                     orderInfo.put("quantity", orderInDatabase.child("quantity").getValue());
                     orderInfo.put("hasRated",  orderInDatabase.child("hasRated").getValue());
                     orderInfo.put("hasComplaint", orderInDatabase.child("hasComplaint").getValue());
+                    orderInfo.put("status", orderInDatabase.child("status").getValue());
 
-                    Order orders = new Order(orderInfo, orderInDatabase.getKey());
+                    customerOrder orders = new customerOrder(orderInfo, orderInDatabase.getKey());
 
                     allOrders.add(orders);
                 }
@@ -672,13 +667,12 @@ public class DatabaseServices extends MainActivity {
 
     public void chefDeclinedOrder(String mealID) {
         DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(mealID);
-        databaseReference.removeValue();
+
 
     }
 
     public void chefApprovedOrder(String mealID, Meal mealInfo, Integer quantity, Double price) {
         DatabaseReference databaseReferenceToRemoveOrderFromChef = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(mealID);
-        databaseReferenceToRemoveOrderFromChef.removeValue();
 
         /*
         This code may/may not work dont copy unless u can improve it
@@ -726,6 +720,80 @@ public class DatabaseServices extends MainActivity {
 
     }
 
+
+
+    public void getAcceptedChefOrders(LayoutInflater inflater, LinearLayout acceptedChefOrdersLinearLayout){
+        DatabaseReference chefDatabaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders");
+        List<ChefOrder> orderList = new ArrayList<>();
+        chefDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot orderIDInDatabase: dataSnapshot.getChildren()){
+                    if (orderIDInDatabase.child("status").getValue().equals("accepted")){
+                        HashMap<String, Object> orderInfo = new HashMap<>();
+                        orderInfo.put("orderID", orderIDInDatabase.getKey());
+                        orderInfo.put("priceOfOrder", orderIDInDatabase.child("priceOfOrder").getValue());
+                        orderInfo.put("status", orderIDInDatabase.child("status").getValue());
+                        orderInfo.put("customerID", orderIDInDatabase.child("customerID").getValue());
+                        orderInfo.put("quantity", orderIDInDatabase.child("quantity").getValue());
+
+                        DataSnapshot mealInDatabase = orderIDInDatabase.child("mealID");
+
+                        HashMap<String, Object> mealInfo = new HashMap<>();
+                        mealInfo.put("name", mealInDatabase.child("name").getValue());
+                        mealInfo.put("type", mealInDatabase.child("type").getValue());
+                        mealInfo.put("cuisine", mealInDatabase.child("cuisine").getValue());
+                        mealInfo.put("price", mealInDatabase.child("price").getValue());
+                        mealInfo.put("description", mealInDatabase.child("description").getValue());
+
+                        HashMap<String, String> ingredientsHashMap= new HashMap<>();
+
+                        for (DataSnapshot ingredientsDataSnapshot : mealInDatabase.child("ingredients").getChildren()){
+                            ingredientsHashMap.put(String.valueOf(ingredientsHashMap.size()), (String) ingredientsDataSnapshot.getValue());
+                        }
+
+                        mealInfo.put("ingredients", ingredientsHashMap);
+
+                        Map<String, String> allergensHashMap = new HashMap<>();
+
+                        for (DataSnapshot allergenDataSnapshot : mealInDatabase.child("allergens").getChildren()){
+                            allergensHashMap.put(String.valueOf(allergensHashMap.size()), (String) allergenDataSnapshot.getValue());
+                        }
+
+                        mealInfo.put("allergens", allergensHashMap);
+
+                        ChefOrder chefOrder = new ChefOrder(orderInfo, new Meal(mealInfo));
+
+                        DatabaseReference customerDatabaseReference = database.getReference().child("Customer").child(chefOrder.getCustomerID());
+
+                        customerDatabaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String fullName = "";
+                                if (dataSnapshot.getKey().equals("first_name") || dataSnapshot.getKey().equals("last_name")){
+                                    fullName += dataSnapshot.getValue();
+                                }
+                                orderList.add(chefOrder);
+
+                                AcceptedChefOrders acceptedChefOrders = new AcceptedChefOrders();
+                                acceptedChefOrders.displayAcceptedMeals(orderList, inflater, acceptedChefOrdersLinearLayout, fullName);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
 
