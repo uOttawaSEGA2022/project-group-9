@@ -44,8 +44,6 @@ public class ALoginScreen extends MainActivity {
                 // THIS IS FOR CUSTOMER DEVELOPMENT PURPOSES, REMOVE BEFORE SUBMITTING ######################
 //                Intent goToCustomerLoggedInScreen = new Intent(ALoginScreen.this, E1CustomerLoggedInScreen.class);
 //                startActivity(goToCustomerLoggedInScreen);
-//                Intent test = new Intent(ALoginScreen.this, testingClass.class);
-//                startActivity(test);
                 // ######################################################################################
                 TextView errorMessagesTextView = findViewById(R.id.ErrorMessagesTextViewID);
                 EditText emailEditText = findViewById(R.id.EmailEditTextID);

@@ -1,8 +1,10 @@
 package com.example.application;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,8 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Semaphore;
 
 public class DatabaseServices extends MainActivity {
@@ -127,8 +132,6 @@ public class DatabaseServices extends MainActivity {
                     DatabaseReference dataRef = database.getReference(ROLE).child(fAuth.getCurrentUser().getUid());
 
                     for (int i=0; i<userInfo.length; i++) {
-                        Log.d("HelloThereBro", Arrays.toString(userInfo));
-                        Log.d("HelloThereBro", Arrays.toString(registerInfo));
                         dataRef.child(registerInfo[i]).setValue(userInfo[i]);
                     }
 
@@ -242,8 +245,6 @@ public class DatabaseServices extends MainActivity {
         boolean[] returnValue = new boolean[1];
 
         DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference().child("Chef");
-
-        Log.i("ErrorTesting","method called");
 
         dataRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -521,7 +522,7 @@ public class DatabaseServices extends MainActivity {
     }
 
 
-    public List<Meal> viewSpecifiedMeals(String searchQuery) throws InterruptedException {
+    public void viewSpecifiedMeals(String searchQuery, TextView searchResultsTextView, LayoutInflater inflater, LinearLayout mealSearchResultsLinearLayout, Context context){
         // This method gets called when a customer presses the search icon
         // We have access to the search text he inputted in the search bar, given as a parameter searchQuery
         // This method should go through all chefs, look into their meals, check the meal name and see if it's close to the searchQuery by using the method startsWith()
@@ -537,56 +538,65 @@ public class DatabaseServices extends MainActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot chefInDatabase: dataSnapshot.getChildren()){
                     DataSnapshot chefMeals = chefInDatabase.child("meals");
-                    String mealCook = (String) chefInDatabase.getValue();
-                    for (DataSnapshot currentChefMeal: chefMeals.getChildren()){
-                        String mealName = (String) currentChefMeal.child("name").getValue();
-                        String mealType = (String) currentChefMeal.child("type").getValue();
-                        String mealCuisine = (String) currentChefMeal.child("cuisine").getValue();
+                    if (chefMeals != null){
+                        String mealCook = (String) chefInDatabase.getKey();
+                        for (DataSnapshot currentChefMeal: chefMeals.getChildren()){
+                            String mealName = (String) currentChefMeal.child("name").getValue();
+                            String mealType = (String) currentChefMeal.child("type").getValue();
+                            String mealCuisine = (String) currentChefMeal.child("cuisine").getValue();
+                            String mealIsOffered = (String) currentChefMeal.child("isOffered").getValue();
 
-                        if (mealName.startsWith(searchQuery) || mealType.startsWith(searchQuery) || mealCuisine.startsWith(searchQuery)){
-                            HashMap<String, Object> mealInfo = new HashMap<>();
-                            String mealID = (String) currentChefMeal.getValue();
-                            String mealPrice = (String) currentChefMeal.child("price").getValue();
-                            String mealDescription = (String) currentChefMeal.child("description").getValue();
+                            if ((mealName.strip().toLowerCase().startsWith(searchQuery) ||
+                                    mealType.strip().toLowerCase().startsWith(searchQuery) ||
+                                    mealCuisine.strip().toLowerCase().startsWith(searchQuery)) &&
+                                    mealIsOffered.strip().equalsIgnoreCase("true")){
+                                HashMap<String, Object> mealInfo = new HashMap<>();
+                                String mealID = currentChefMeal.getKey();
+                                String mealPrice = (String) currentChefMeal.child("price").getValue();
+                                String mealDescription = (String) currentChefMeal.child("description").getValue();
 
-                            HashMap<String, String> ingredientsHashMap = new HashMap<>();
-                            int count = 0;
-                            for (DataSnapshot currentIngredient: currentChefMeal.child("ingredients").getChildren()){
-                                ingredientsHashMap.put(String.valueOf(count), (String) currentIngredient.getValue());
-                                count++;
+                                HashMap<String, String> ingredientsHashMap = new HashMap<>();
+                                int count = 0;
+                                for (DataSnapshot currentIngredient: currentChefMeal.child("ingredients").getChildren()){
+                                    ingredientsHashMap.put(String.valueOf(count), (String) currentIngredient.getValue());
+                                    count++;
+                                }
+
+                                HashMap<String, String> allergensHashMap = new HashMap<>();
+                                count = 0;
+                                for (DataSnapshot currentAllergen: currentChefMeal.child("allergens").getChildren()){
+                                    allergensHashMap.put(String.valueOf(count), (String) currentAllergen.getValue());
+                                    count++;
+                                }
+
+                                mealInfo.put("name", mealName);
+                                mealInfo.put("type", mealType);
+                                mealInfo.put("cuisine", mealCuisine);
+                                mealInfo.put("price", mealPrice);
+                                mealInfo.put("description", mealDescription);
+                                mealInfo.put("ingredients", ingredientsHashMap);
+                                mealInfo.put("allergens", allergensHashMap);
+                                mealInfo.put("isOffered", mealIsOffered);
+                                mealInfo.put("cook", mealCook);
+
+                                Log.d("HelloThereBro", mealInfo.toString());
+
+                                Meal currentMeal = new Meal(mealInfo, mealID);
+
+                                mealList.add(currentMeal);
                             }
-
-                            HashMap<String, String> allergensHashMap = new HashMap<>();
-                            count = 0;
-                            for (DataSnapshot currentAllergen: currentChefMeal.child("allergens").getChildren()){
-                                allergensHashMap.put(String.valueOf(count), (String) currentAllergen.getValue());
-                                count++;
-                            }
-
-                            mealInfo.put("name", mealName);
-                            mealInfo.put("type", mealType);
-                            mealInfo.put("cuisine", mealCuisine);
-                            mealInfo.put("price", mealPrice);
-                            mealInfo.put("description", mealDescription);
-                            mealInfo.put("ingredients", ingredientsHashMap);
-                            mealInfo.put("allergens", allergensHashMap);
-                            mealInfo.put("isOffered", "true");
-                            mealInfo.put("cook", mealCook);
-
-                            Meal currentMeal = new Meal(mealInfo, mealID);
-
-                            mealList.add(currentMeal);
                         }
                     }
                 }
 
+                CustomerSearchForMealsScreen customerSearchForMealsScreen = new CustomerSearchForMealsScreen();
+                customerSearchForMealsScreen.displaySearchResults(mealList, searchResultsTextView, inflater, mealSearchResultsLinearLayout, context);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
-
-        return mealList;
     }
 
     public void submitRatingToChef(String chefID, String chefRating) {

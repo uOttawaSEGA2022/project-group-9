@@ -81,6 +81,7 @@ public class AddOrEditChefMeal extends MainActivity {
                     if (!ingredientName.strip().equals("")){
                         addSingleIngredientOrAllergenToLinearLayout(ingredientName, inflater, mealIngredientsList);
                     }
+                    mealIngredientsEditText.setText("");
                 }
                 return true;
             }
@@ -94,6 +95,7 @@ public class AddOrEditChefMeal extends MainActivity {
                     if (!allergenName.strip().equals("")){
                         addSingleIngredientOrAllergenToLinearLayout(allergenName, inflater, mealAllergensList);
                     }
+                    mealIngredientsEditText.setText("");
                 }
                 return true;
             }
