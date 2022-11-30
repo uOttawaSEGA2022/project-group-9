@@ -514,6 +514,10 @@ public class DatabaseServices extends MainActivity {
         return fAuth.getCurrentUser().getUid();
     }
 
+    public String getCurrentCustomer(){
+        return fAuth.getCurrentUser().getUid();
+    }
+
     public void removeMeal(Meal meal){
         // Implement this method which gets called when a cook deletes a meal from his menu
         // It needs to go to the current chef in the realtime database, then delete the meal that matches the meal deleted from the menu locally
@@ -609,10 +613,39 @@ public class DatabaseServices extends MainActivity {
 
     }
 
-    //Return type to TBH
-    public void customerViewOrderHistory(String customerID) {
-        DatabaseReference databaseReference = database.getReference().child("Customer");
+    public void viewCustomerOrders(LayoutInflater inflater, LinearLayout mealSearchResultsLinearLayout, Context context) {
+        DatabaseServices dbServices = new DatabaseServices();
+        DatabaseReference databaseReference = database.getReference().child("Customer").child(getCurrentCustomer()).child("orderHistory");
 
+        List<Order> allOrders = new ArrayList<>();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot orderInDatabase : dataSnapshot.getChildren()) {
+                    HashMap<String, Object> orderInfo = new HashMap<>();
+
+                    orderInfo.put("emailOfChef", orderInDatabase.child("emailOfChef").getValue());
+                    orderInfo.put("mealName",  orderInDatabase.child("mealName").getValue());
+                    orderInfo.put("quantity", orderInDatabase.child("quantity").getValue());
+                    orderInfo.put("hasRated",  orderInDatabase.child("hasRated").getValue());
+                    orderInfo.put("hasComplaint", orderInDatabase.child("hasComplaint").getValue());
+
+                    Order orders = new Order(orderInfo, orderInDatabase.getKey());
+
+                    allOrders.add(orders);
+                }
+
+                CustomerOrderHistoryScreen customerOrderHistoryScreen = new CustomerOrderHistoryScreen();
+                customerOrderHistoryScreen.displayOrders(allOrders, inflater, mealSearchResultsLinearLayout, context);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("Failure in Viewing Orders.");
+            }
+        });
     }
 
     //Return type to TBH

@@ -40,6 +40,8 @@ public class E1CustomerLoggedInScreen extends MainActivity {
             @Override
             public void onClick(View v) {
                 // Yash and Rudra's part here
+                Intent orderHistoryScreen = new Intent(getApplicationContext(), CustomerOrderHistoryScreen.class);
+                startActivity(orderHistoryScreen);
             }
         });
 
