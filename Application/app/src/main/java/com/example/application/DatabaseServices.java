@@ -46,7 +46,9 @@ public class DatabaseServices extends MainActivity {
     static String[] tempListOfReasons;
     ArrayList<Complaint> listOfComplaints;
     Integer numOfComplaints = 0;
-
+    int totalNumOfStars;
+    int numOfRatings;
+    double rating;
 
     public DatabaseServices(){
         FirebaseApp.initializeApp(this);
@@ -665,18 +667,21 @@ public class DatabaseServices extends MainActivity {
 
     }
 
-    public void chefDeclinedOrder(String mealID) {
-        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(mealID);
 
+    public void chefDeclinedOrder(String orderID) {
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID);
+        databaseReference.removeValue();
 
     }
 
-    public void chefApprovedOrder(String mealID, Meal mealInfo, Integer quantity, Double price) {
-        DatabaseReference databaseReferenceToRemoveOrderFromChef = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(mealID);
+    public void chefApprovedOrder(String orderID) {
+        DatabaseReference databaseReferenceToRemoveOrderFromChef = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID);
+        databaseReferenceToRemoveOrderFromChef.removeValue();
+
 
         /*
         This code may/may not work dont copy unless u can improve it
-        DatabaseReference referenceToAddApprovedOrderToCustomerID = database.getReference().child("Customer");
+        DatabaseReference referenceToAddApprovedOrderToCustomerID = database.getReference().child("Customer").child("orderHistory");
         var newKey = referenceToAddApprovedOrderToCustomerID.push().getKey();
 
         var newData={
@@ -710,9 +715,37 @@ public class DatabaseServices extends MainActivity {
     Then chefTotalPoints / chefNumOfRatings return the value
      */
     public double getStarRating(String chefID) {
-        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals");
+        //untested code
+        rating=0.0;
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid());
+        databaseReference.child("ratings").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 1;
+                for (DataSnapshot p : dataSnapshot.getChildren()) {
+                    if (i == 1) {
+                        numOfRatings = Integer.parseInt(dataSnapshot.getValue().toString());
+                    } else if (i == 2) {
+                        totalNumOfStars = Integer.parseInt(dataSnapshot.getValue().toString());
+                    }
+                    i++;
+                }
+                if (numOfRatings!=0)
+                {
+                    rating = (double)totalNumOfStars/numOfRatings;
+                }
+            }
 
-        return 0.0;
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        return rating;
     }
 
     //Return type to TBH
