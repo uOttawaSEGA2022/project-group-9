@@ -18,7 +18,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         Button goToOrdersButton =(Button) findViewById(R.id.goToOrdersButtonID);
         TextView chefIsSuspendedTextView = findViewById(R.id.chefIsSuspendedTextViewID);
 
-        Button goToAcceptedOrdersButton = findViewById(R.id.viewAcceptedOrdersButton);
+        Button goToAcceptedOrdersButton = findViewById(R.id.goToAcceptedOrdersButton);
         Button goToProfileButton = findViewById(R.id.viewProfileButton);
 
         Intent intent=getIntent();
@@ -56,8 +56,17 @@ public class E2ChefLoggedInScreen extends MainActivity {
         goToAcceptedOrdersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToAcceptedOrderScreen = new Intent(E2ChefLoggedInScreen.this, AcceptedChefOrders.class);
+                Intent goToAcceptedOrderScreen = new Intent(getApplicationContext(), AcceptedChefOrders.class);
                 startActivity(goToAcceptedOrderScreen);
+            }
+        });
+
+        goToOrdersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToOrdersScreen = new Intent(getApplicationContext(), ChefViewOrderScreen.class);
+                goToOrdersScreen.putExtra("Email",email);
+                startActivity(goToOrdersScreen);
             }
         });
 
@@ -69,13 +78,6 @@ public class E2ChefLoggedInScreen extends MainActivity {
             }
         });
 
-//        goToOrdersButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent add = new Intent(getApplicationContext(), ChefViewOrderScreen.class);
-//                add.putExtra("Email",email);
-//                startActivity(add);
-//            }
-//        });
+
     }
 }
