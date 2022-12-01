@@ -162,7 +162,12 @@
         <activity android:name=".B2D2SignUpAddress" />
         <activity android:name=".AllChefMeals" />
         <activity android:name=".ModifyOfferedMeals" />
+<<<<<<< Updated upstream
         <activity android:name=".AcceptedChefOrders"/>
+=======
+        <activity android:name=".CustomerCanComplainScreen" />
+        <activity android:name=".CustomerCanRateScreen" />
+>>>>>>> Stashed changes
     </application>
 
 </manifest>
