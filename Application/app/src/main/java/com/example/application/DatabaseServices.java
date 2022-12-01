@@ -666,54 +666,39 @@ public class DatabaseServices extends MainActivity {
     //Return type to TBH
     public void placeOrder(Meal meal, int quantity) {
         //untested code
-        /*IMP NOTE
-        THE PARAMETER OF PLACE ORDER ARE DIIFERENT IN DOC
-        ON CHANGING THE PARAMETER HERE WOULD NEED OTHER CODE TO BE ADJUSTED OTERWISE ENTIRE CODE WILL NOT WORK
-        HERE I AM JUST DECLARING EXTRA PARAMETER TO BE ADDED
-         */
-        String chefEmail;
+        String chefId;
         Double price;
-        price=0.0;
-        chefEmail="";
+        chefId=meal.getCook();
+        price=Double.parseDouble(meal.getPrice());
         String orderId;
         orderId= UUID.randomUUID().toString();
-        DatabaseReference databaseReference = database.getReference().child("Chef");
+        DatabaseReference chefReference = database.getReference().child("Chef").child(chefId);
         // This method is called after the customer has chosen a meal and ordered it with a set quantity
         // This method should place this order in the chef's section for him to approve or decline
         // Check db hierarchy document to see how the order should be placed in the db under the chef's section
         // Check the meal object to know how to generate the orderID
-        DatabaseReference customerReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid());
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot p:dataSnapshot.getChildren())
-                {
-                    if (p.child("email").equals(chefEmail))
-                    {
-                        DatabaseReference chefReference=p.getRef();
-                        chefReference.child("orders").child(orderId).child("customerID").setValue(customerReference.getKey());
-                        chefReference.child("orders").child(orderId).child("price").setValue(price);
-                        chefReference.child("orders").child(orderId).child("meal").setValue(meal);
-                        chefReference.child("orders").child(orderId).child("quantity").setValue(quantity);
-                        chefReference.child("orders").child(orderId).child("status").setValue("pending");
-                        customerReference.child("orderHistory").child(orderId).child("chefID").setValue(p.getKey());
-                        customerReference.child("orderHistory").child(orderId).child("mealName").setValue(meal.getName());
-                        customerReference.child("orderHistory").child(orderId).child("quantity").setValue(quantity);
-                        customerReference.child("orderHistory").child(orderId).child("status").setValue("pending");
-                        customerReference.child("orderHistory").child(orderId).child("hasRated").setValue("false");
-                        customerReference.child("orderHistory").child(orderId).child("hasComplaint").setValue("false");
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        DatabaseReference customerReference = database.getReference().child("Customer").child(fAuth.getCurrentUser().getUid());
+        chefReference.child("orders").child(orderId).child("customerID").setValue(customerReference.getKey());
+        chefReference.child("orders").child(orderId).child("price").setValue(price);
+        chefReference.child("orders").child(orderId).child("meal").setValue(meal);
+        chefReference.child("orders").child(orderId).child("quantity").setValue(quantity);
+        chefReference.child("orders").child(orderId).child("status").setValue("pending");
+        customerReference.child("orderHistory").child(orderId).child("chefID").setValue(chefId);
+        customerReference.child("orderHistory").child(orderId).child("mealName").setValue(meal.getName());
+        customerReference.child("orderHistory").child(orderId).child("quantity").setValue(quantity);
+        customerReference.child("orderHistory").child(orderId).child("status").setValue("pending");
+        customerReference.child("orderHistory").child(orderId).child("hasRated").setValue("false");
+        customerReference.child("orderHistory").child(orderId).child("hasComplaint").setValue("false");
     }
+
+
+
+
+
+
+
+
+
 
     //Return type to TBH
     public void viewChefOrders(String chefID) {
