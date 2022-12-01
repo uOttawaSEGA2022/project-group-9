@@ -34,12 +34,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-<<<<<<< Updated upstream
-=======
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Semaphore;
 import java.util.UUID;
->>>>>>> Stashed changes
+
 
 public class DatabaseServices extends MainActivity {
 
