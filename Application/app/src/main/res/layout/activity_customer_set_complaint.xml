@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CustomerOrderInfoScreen">
+    android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/complain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/complaintButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="COMPLAIN"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="601dp" />
+        android:layout_marginBottom="108dp"
+        android:text="SUBMIT COMPLAINT"
+/>
 
-    <Button
-        android:id="@+id/ratingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RATE"
+    <EditText
+        android:id="@+id/textComplaint"
+        android:layout_width="257dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="251dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Type Here..."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.application;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Semaphore;
+import java.util.UUID;
+
 
 public class DatabaseServices extends MainActivity {
 
@@ -600,13 +606,19 @@ public class DatabaseServices extends MainActivity {
     }
 
     public void submitRatingToChef(String chefID, String chefRating) {
+        DatabaseServices dbServices = new DatabaseServices();
         DatabaseReference databaseReference = database.getReference().child("Chef");
 
     }
 
     public void submitComplaint(String chefID, String complaint) {
-        DatabaseReference databaseReference = database.getReference().child("Complaint");
+        DatabaseServices dbServices = new DatabaseServices();
+        String complaintID = UUID.randomUUID().toString();
 
+        DatabaseReference databaseReference = database.getReference().child("Complaints");
+
+        databaseReference.child(complaintID).child("chefID").setValue(chefID);
+        databaseReference.child(complaintID).child("reason").setValue(complaint);
     }
 
     public void viewCustomerOrders(LayoutInflater inflater, LinearLayout mealSearchResultsLinearLayout, Context context) {
@@ -653,13 +665,40 @@ public class DatabaseServices extends MainActivity {
 
     //Return type to TBH
     public void placeOrder(Meal meal, int quantity) {
-        DatabaseReference databaseReference = database.getReference().child("Chef").child("orders");
+        //untested code
+        String chefId;
+        Double price;
+        chefId=meal.getCook();
+        price=Double.parseDouble(meal.getPrice());
+        String orderId;
+        orderId= UUID.randomUUID().toString();
+        DatabaseReference chefReference = database.getReference().child("Chef").child(chefId);
         // This method is called after the customer has chosen a meal and ordered it with a set quantity
         // This method should place this order in the chef's section for him to approve or decline
         // Check db hierarchy document to see how the order should be placed in the db under the chef's section
         // Check the meal object to know how to generate the orderID
-
+        DatabaseReference customerReference = database.getReference().child("Customer").child(fAuth.getCurrentUser().getUid());
+        chefReference.child("orders").child(orderId).child("customerID").setValue(customerReference.getKey());
+        chefReference.child("orders").child(orderId).child("priceOfOrder").setValue(Double.toString(price));
+        chefReference.child("orders").child(orderId).child("mealID").setValue(meal);
+        chefReference.child("orders").child(orderId).child("quantity").setValue(Integer.toString(quantity));
+        chefReference.child("orders").child(orderId).child("status").setValue("pending");
+        customerReference.child("orderHistory").child(orderId).child("chefID").setValue(chefId);
+        customerReference.child("orderHistory").child(orderId).child("mealName").setValue(meal.getName());
+        customerReference.child("orderHistory").child(orderId).child("quantity").setValue(Integer.toString(quantity));
+        customerReference.child("orderHistory").child(orderId).child("status").setValue("pending");
+        customerReference.child("orderHistory").child(orderId).child("hasRated").setValue("false");
+        customerReference.child("orderHistory").child(orderId).child("hasComplaint").setValue("false");
     }
+
+
+
+
+
+
+
+
+
 
     //Return type to TBH
     public void viewChefOrders(String chefID) {

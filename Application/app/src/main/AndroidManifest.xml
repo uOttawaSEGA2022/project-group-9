@@ -164,6 +164,8 @@
         <activity android:name=".ModifyOfferedMeals" />
         <activity android:name=".AcceptedChefOrders"/>
         <activity android:name=".ChefProfile"/>
+        <activity android:name=".CustomerCanComplainScreen" />
+        <activity android:name=".CustomerCanRateScreen" />
     </application>
 
 </manifest>
