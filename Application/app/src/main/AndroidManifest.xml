@@ -163,6 +163,7 @@
         <activity android:name=".AllChefMeals" />
         <activity android:name=".ModifyOfferedMeals" />
         <activity android:name=".AcceptedChefOrders"/>
+        <activity android:name=".ChefProfile"/>
     </application>
 
 </manifest>

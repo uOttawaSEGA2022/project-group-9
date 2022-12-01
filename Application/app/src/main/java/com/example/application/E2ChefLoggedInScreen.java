@@ -61,6 +61,14 @@ public class E2ChefLoggedInScreen extends MainActivity {
             }
         });
 
+        goToProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToChefProfileScreen = new Intent(E2ChefLoggedInScreen.this, ChefProfile.class);
+                startActivity(goToChefProfileScreen);
+            }
+        });
+
 //        goToOrdersButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

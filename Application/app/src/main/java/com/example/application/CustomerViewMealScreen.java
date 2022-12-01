@@ -1,5 +1,6 @@
 package com.example.application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,6 +80,9 @@ public class CustomerViewMealScreen extends MainActivity {
 
                 databaseServices.placeOrder(meal, quantity);
                 Toast.makeText(CustomerViewMealScreen.this, "Placed order with quantity " + quantity, Toast.LENGTH_SHORT).show();
+
+                Intent goToLoggedInScreen = new Intent(CustomerViewMealScreen.this, E1CustomerLoggedInScreen.class);
+                startActivity(goToLoggedInScreen);
 
             }
         });

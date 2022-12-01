@@ -743,14 +743,43 @@ public class DatabaseServices extends MainActivity {
             }
         });
 
-
-
         return rating;
     }
 
-    //Return type to TBH
-    public void getChefProfileInfo (String chefID) {
+    public void getChefProfileInfo (TextView chefNameTextView,
+                                    TextView chefEmailTextView, TextView chefRatingTextView,
+                                    TextView chefDescriptionTextView) {
 
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot chefInfo) {
+                String chefFirstName = (String) chefInfo.child("firstname").getValue();
+                String chefLastName = (String) chefInfo.child("lastname").getValue();
+                String chefName = chefFirstName + " " +chefLastName;
+
+                String chefEmail = (String) chefInfo.child("email").getValue();
+
+                String chefDescription = (String) chefInfo.child("shortdesc").getValue();
+
+                double chefNumberOfRatings = Double.parseDouble(String.valueOf(chefInfo.child("ratings").child("numOfRatings").getValue()));
+                double chefTotalNumberOfStars = Double.parseDouble(String.valueOf(chefInfo.child("ratings").child("totalNumOfStars").getValue()));
+
+                double doubleChefRating = (double) chefTotalNumberOfStars / chefNumberOfRatings;
+
+                String chefRating = String.valueOf(doubleChefRating);
+
+                ChefProfile chefProfile = new ChefProfile();
+                chefProfile.displayChefInfo(chefNameTextView, chefEmailTextView,
+                        chefRatingTextView, chefDescriptionTextView,
+                        chefName, chefEmail, chefRating, chefDescription);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
