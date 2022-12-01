@@ -770,38 +770,20 @@ public class DatabaseServices extends MainActivity {
 
 
     public void chefDeclinedOrder(String orderID) {
+        //Finished
         DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID);
-        databaseReference.removeValue();
+        databaseReference.child("status").setValue("rejected");
 
     }
 
     public void chefApprovedOrder(String orderID) {
-        DatabaseReference databaseReferenceToRemoveOrderFromChef = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID);
-        databaseReferenceToRemoveOrderFromChef.removeValue();
+        //Finished
+        DatabaseReference databaseReferenceToUpdateChefSideOrder = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID).child("status");
+        databaseReferenceToUpdateChefSideOrder.setValue("accepted");
 
 
-        /*
-        This code may/may not work dont copy unless u can improve it
-        DatabaseReference referenceToAddApprovedOrderToCustomerID = database.getReference().child("Customer").child("orderHistory");
-        var newKey = referenceToAddApprovedOrderToCustomerID.push().getKey();
-
-        var newData={
-                "mealID": mealID,
-                websiteName: this.webname.value,
-                username: this.username.value,
-                password : this.password.value,
-                websiteLink : this.weblink.value
-
-        }
-        firebase.database().ref().push(newData);
-         */
-
-
-
-
-
-
-
+        DatabaseReference databaseReferenceToUpdateCustomerSideOrder = database.getReference().child("Customer").child("orderHistory").child("orderHistory").child("orders").child(orderID).child("status");
+        databaseReferenceToUpdateCustomerSideOrder.setValue("accepted");
 
     }
 
