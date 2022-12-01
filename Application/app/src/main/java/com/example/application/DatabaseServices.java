@@ -605,10 +605,52 @@ public class DatabaseServices extends MainActivity {
         });
     }
 
-    public void submitRatingToChef(String chefID, String chefRating) {
+    public void submitRatingToChef(String chefID, String chefRating, String orderID) {
         DatabaseServices dbServices = new DatabaseServices();
-        DatabaseReference databaseReference = database.getReference().child("Chef");
+        DatabaseReference databaseReference = database.getReference().child("Customer").child(getCurrentCustomer()).child("orderHistory").child(orderID).child("hasRated");
+        databaseReference.setValue("true");
 
+        databaseReference = database.getReference().child("Chef").child(chefID).child("ratings");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String currentNumOfRatings = dataSnapshot.child("numOfRatings").getValue(String.class);
+                String currentNumOfStars = dataSnapshot.child("totalNumOfStars").getValue(String.class);
+
+                if (currentNumOfRatings == null) {
+                    setRatingsNew(chefRating, chefID);
+                }
+                else {
+                    setRatingsOld(currentNumOfRatings, currentNumOfStars, chefRating, chefID);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("Unable to submit a rating!");
+            }
+        });
+
+    }
+
+    public void setRatingsNew(String chefRating, String chefID) {
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(chefID).child("ratings");
+        databaseReference.child("numOfRatings").setValue("1");
+        databaseReference.child("totalNumOfStars").setValue(chefRating);
+    }
+
+    public void setRatingsOld(String currentNumOfRatings, String currentNumOfStars, String chefRating, String chefID) {
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(chefID).child("ratings");
+
+        double arthRatings = Double.parseDouble(currentNumOfRatings) + 1;
+        double arthStars = Double.parseDouble(currentNumOfStars) + Double.parseDouble(chefRating);
+
+        String ratingToAdd = String.valueOf(arthRatings);
+        String starsToAdd = String.valueOf(arthStars);
+
+        databaseReference.child("numOfRatings").setValue(ratingToAdd);
+        databaseReference.child("totalNumOfStars").setValue(starsToAdd);
     }
 
     public void submitComplaint(String chefID, String complaint, String orderID) {

@@ -38,6 +38,8 @@ public class CustomerOrderInfoScreen extends MainActivity {
             @Override
             public void onClick(View v) {
                 Intent intent2 = new Intent(getApplicationContext(), CustomerCanRateScreen.class);
+                intent2.putExtra("chefID", chefID);
+                intent2.putExtra("orderID", orderID);
                 startActivity(intent2);
             }
         });
