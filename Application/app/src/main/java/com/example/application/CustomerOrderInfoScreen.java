@@ -7,6 +7,8 @@ import android.widget.Button;
 
 public class CustomerOrderInfoScreen extends MainActivity {
 
+    public String chefID = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,10 +17,16 @@ public class CustomerOrderInfoScreen extends MainActivity {
         Button submitComplaint = (Button) findViewById(R.id.complaintButton);
         Button submitRating = (Button) findViewById(R.id.ratingButton);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            chefID = extras.getString("chefID");
+        }
+
         submitComplaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent1  = new Intent(getApplicationContext(), CustomerCanComplainScreen.class);
+                intent1.putExtra("chefID", chefID);
                 startActivity(intent1);
             }
         });

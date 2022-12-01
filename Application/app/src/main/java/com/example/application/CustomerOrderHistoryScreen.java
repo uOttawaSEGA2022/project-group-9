@@ -56,6 +56,7 @@ public class CustomerOrderHistoryScreen extends MainActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, CustomerOrderInfoScreen.class);
+                    intent.putExtra("chefID", order.getChefID());
                     context.startActivity(intent);
                 }
             });

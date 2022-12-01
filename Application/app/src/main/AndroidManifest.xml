@@ -163,7 +163,10 @@
         <activity android:name=".AllChefMeals" />
         <activity android:name=".ModifyOfferedMeals" />
         <activity android:name=".AcceptedChefOrders"/>
+<<<<<<< Updated upstream
         <activity android:name=".ChefProfile"/>
+=======
+>>>>>>> Stashed changes
         <activity android:name=".CustomerCanComplainScreen" />
         <activity android:name=".CustomerCanRateScreen" />
     </application>
