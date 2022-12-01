@@ -704,8 +704,25 @@ public class DatabaseServices extends MainActivity {
 
 
     //Return type to TBH
-    public void viewChefOrders(String chefID) {
-        DatabaseReference databaseReference = database.getReference().child("Chef");
+    public HashMap<String, Meal> viewChefOrders(String chefID) {
+        //untested code
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(chefID);
+        HashMap<String,Meal> chefOrdersHashMap = new HashMap<String, Meal>();
+        databaseReference.child("orders").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot p: dataSnapshot.getChildren())
+                {
+                    chefOrdersHashMap.put(p.getKey(),(Meal)(p.child("mealID").getValue()));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return chefOrdersHashMap;
 
     }
 
