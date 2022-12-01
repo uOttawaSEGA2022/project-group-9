@@ -611,7 +611,7 @@ public class DatabaseServices extends MainActivity {
 
     }
 
-    public void submitComplaint(String chefID, String complaint) {
+    public void submitComplaint(String chefID, String complaint, String orderID) {
         DatabaseServices dbServices = new DatabaseServices();
         String complaintID = UUID.randomUUID().toString();
 
@@ -619,6 +619,9 @@ public class DatabaseServices extends MainActivity {
 
         databaseReference.child(complaintID).child("chefID").setValue(chefID);
         databaseReference.child(complaintID).child("reason").setValue(complaint);
+
+        databaseReference = database.getReference().child("Customer").child(getCurrentCustomer()).child("orderHistory").child(orderID).child("hasComplaint");
+        databaseReference.setValue("true");
     }
 
     public void viewCustomerOrders(LayoutInflater inflater, LinearLayout mealSearchResultsLinearLayout, Context context) {

@@ -38,6 +38,7 @@ public class CustomerOrderHistoryScreen extends MainActivity {
             String quantity = order.getQuantity();
             String hasRated = order.getHasRated();
             String hasComplaint = order.getHasComplaint();
+            String pending = order.getStatus();
 
             View orderTemplate = inflater.inflate(R.layout.order_template, null);
 
@@ -45,21 +46,26 @@ public class CustomerOrderHistoryScreen extends MainActivity {
             TextView quantityStatus = orderTemplate.findViewById(R.id.quantityOfMeal);
             TextView hasRatedStatus = orderTemplate.findViewById(R.id.ratedStatus);
             TextView hasComplaintStatus = orderTemplate.findViewById(R.id.complaintStatus);
+            TextView statusOfPending = orderTemplate.findViewById(R.id.pendingStatus);
 
             mealOrdered.setText(mealName);
             quantityStatus.setText(quantity);
             hasRatedStatus.setText(hasRated);
             hasComplaintStatus.setText(hasComplaint);
+            statusOfPending.setText(pending);
 
-            orderTemplate.setClickable(true);
-            orderTemplate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, CustomerOrderInfoScreen.class);
-                    intent.putExtra("chefID", order.getChefID());
-                    context.startActivity(intent);
-                }
-            });
+            if (pending.equalsIgnoreCase("accepted")) {
+                orderTemplate.setClickable(true);
+                orderTemplate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, CustomerOrderInfoScreen.class);
+                        intent.putExtra("chefID", order.getChefID());
+                        intent.putExtra("orderID", order.getOrderID());
+                        context.startActivity(intent);
+                    }
+                });
+            }
 
             layout.addView(orderTemplate);
         }

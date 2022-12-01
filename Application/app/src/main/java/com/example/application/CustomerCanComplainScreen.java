@@ -11,6 +11,7 @@ import android.widget.Toast;
 public class CustomerCanComplainScreen extends MainActivity {
 
     public String chefID = "";
+    public String orderID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +26,13 @@ public class CustomerCanComplainScreen extends MainActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             chefID = extras.getString("chefID");
+            orderID = extras.getString("orderID");
         }
 
         submitComplaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseServices.submitComplaint(chefID, complaintReason.getText().toString());
+                databaseServices.submitComplaint(chefID, complaintReason.getText().toString(), orderID);
                 Toast.makeText(getApplicationContext(), "You have filed a complaint against the chef.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), E1CustomerLoggedInScreen.class);
                 startActivity(intent);
