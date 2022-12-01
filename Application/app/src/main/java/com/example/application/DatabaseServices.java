@@ -679,9 +679,9 @@ public class DatabaseServices extends MainActivity {
         // Check the meal object to know how to generate the orderID
         DatabaseReference customerReference = database.getReference().child("Customer").child(fAuth.getCurrentUser().getUid());
         chefReference.child("orders").child(orderId).child("customerID").setValue(customerReference.getKey());
-        chefReference.child("orders").child(orderId).child("price").setValue(price);
+        chefReference.child("orders").child(orderId).child("priceOfOrder").setValue(Double.toString(price));
         chefReference.child("orders").child(orderId).child("meal").setValue(meal);
-        chefReference.child("orders").child(orderId).child("quantity").setValue(quantity);
+        chefReference.child("orders").child(orderId).child("quantity").setValue(Integer.toString(quantity));
         chefReference.child("orders").child(orderId).child("status").setValue("pending");
         customerReference.child("orderHistory").child(orderId).child("chefID").setValue(chefId);
         customerReference.child("orderHistory").child(orderId).child("mealName").setValue(meal.getName());
