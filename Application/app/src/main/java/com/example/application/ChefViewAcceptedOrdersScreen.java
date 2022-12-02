@@ -27,7 +27,7 @@ public class ChefViewAcceptedOrdersScreen extends MainActivity {
 
         DatabaseServices databaseServices = new DatabaseServices();
 
-        databaseServices.getChefOrders(inflater, acceptedChefOrdersLinearLayout, "accepted");
+        databaseServices.getChefOrders(inflater, acceptedChefOrdersLinearLayout, "accepted", ChefViewAcceptedOrdersScreen.this);
     }
 
     public void displayAcceptedOrders(List<ChefOrder> orderList, LayoutInflater inflater, LinearLayout acceptedChefOrdersLinearLayout, String fullName){

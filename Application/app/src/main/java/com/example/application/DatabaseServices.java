@@ -781,20 +781,22 @@ public class DatabaseServices extends MainActivity {
     }
 
 
-    public void chefDeclinedOrder(String orderID) {
+    public void chefDeclinedOrder(String orderID, String customerID) {
         //Finished
-        DatabaseReference databaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID);
-        databaseReference.child("status").setValue("rejected");
+        DatabaseReference chefDatabaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID);
+        chefDatabaseReference.child("status").setValue("rejected");
+        DatabaseReference customerDatabaseReference = database.getReference().child("Customer").child(customerID).child("orderHistory").child(orderID);
+        customerDatabaseReference.child("status").setValue("rejected");
 
     }
 
-    public void chefApprovedOrder(String orderID) {
+    public void chefApprovedOrder(String orderID, String customerID) {
         //Finished
         DatabaseReference databaseReferenceToUpdateChefSideOrder = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders").child(orderID).child("status");
         databaseReferenceToUpdateChefSideOrder.setValue("accepted");
 
 
-        DatabaseReference databaseReferenceToUpdateCustomerSideOrder = database.getReference().child("Customer").child("orderHistory").child("orderHistory").child("orders").child(orderID).child("status");
+        DatabaseReference databaseReferenceToUpdateCustomerSideOrder = database.getReference().child("Customer").child(customerID).child("orderHistory").child(orderID).child("status");
         databaseReferenceToUpdateCustomerSideOrder.setValue("accepted");
 
     }
@@ -914,12 +916,13 @@ public class DatabaseServices extends MainActivity {
 
 
 
-    public void getChefOrders(LayoutInflater inflater, LinearLayout ordersLinearLayout, String acceptedOrAllIndicator){
+    public void getChefOrders(LayoutInflater inflater, LinearLayout ordersLinearLayout, String acceptedOrAllIndicator, Context context){
         DatabaseReference chefDatabaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders");
-        List<ChefOrder> orderList = new ArrayList<>();
+
         chefDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                List<ChefOrder> orderList = new ArrayList<>();
                 for (DataSnapshot orderIDInDatabase: dataSnapshot.getChildren()){
                     HashMap<String, Object> orderInfo = new HashMap<>();
                     orderInfo.put("orderID", orderIDInDatabase.getKey());
@@ -978,7 +981,7 @@ public class DatabaseServices extends MainActivity {
                                     }
                                     else{
                                         ChefViewOrdersScreen chefViewOrderScreen = new ChefViewOrdersScreen();
-                                        chefViewOrderScreen.displayChefOrders(orderList, inflater, ordersLinearLayout, fullName);
+                                        chefViewOrderScreen.displayChefOrders(orderList, inflater, ordersLinearLayout, fullName, context);
                                     }
                                 }
 

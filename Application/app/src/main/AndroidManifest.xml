@@ -167,6 +167,7 @@
 
         <activity android:name=".CustomerCanComplainScreen" />
         <activity android:name=".CustomerCanRateScreen" />
+        <activity android:name=".ChefAcceptOrRejectSpecificOrderScreen"/>
     </application>
 
 </manifest>

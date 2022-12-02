@@ -1,5 +1,7 @@
 package com.example.application;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,14 +31,13 @@ public class ChefViewOrdersScreen extends MainActivity {
 
         DatabaseServices databaseServices = new DatabaseServices();
 
-        databaseServices.getChefOrders(inflater, chefOrdersLinearLayout, "all");
+        databaseServices.getChefOrders(inflater, chefOrdersLinearLayout, "all", ChefViewOrdersScreen.this);
     }
 
-    public void displayChefOrders(List<ChefOrder> orderList, LayoutInflater inflater, LinearLayout chefOrdersLinearLayout, String fullName){
+    public void displayChefOrders(List<ChefOrder> orderList, LayoutInflater inflater, LinearLayout chefOrdersLinearLayout, String fullName, Context context){
         chefOrdersLinearLayout.removeAllViews();
 
         for (ChefOrder order : orderList){
-            Log.d("HelloThereBro", order.toString());
             Meal meal = order.getMeal();
 
             View orderTemplate = inflater.inflate(R.layout.order_template, null);
@@ -54,6 +55,16 @@ public class ChefViewOrdersScreen extends MainActivity {
             quantityTextView.setText("Quantity: " + order.getQuantity());
             complainStatusTextView.setVisibility(View.INVISIBLE);
             mealDescriptionTextView.setVisibility(View.INVISIBLE);
+
+            orderTemplate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent goToChefAcceptOrRejectSpecificOrderScreen = new Intent(context, ChefAcceptOrRejectSpecificOrderScreen.class);
+                    goToChefAcceptOrRejectSpecificOrderScreen.putExtra("order", order);
+                    goToChefAcceptOrRejectSpecificOrderScreen.putExtra("fullName", fullName);
+                    context.startActivity(goToChefAcceptOrRejectSpecificOrderScreen);
+                }
+            });
 
             chefOrdersLinearLayout.addView(orderTemplate);
 
