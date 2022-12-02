@@ -40,4 +40,8 @@ public class ChefOrder implements Serializable {
     public String getQuantity() {
         return quantity;
     }
+
+    public String getStatus() {
+        return status;
+    }
 }

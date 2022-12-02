@@ -161,6 +161,66 @@
                 android:text="Description:"
                 android:textSize="22sp" />
 
+            <TextView
+                android:id="@+id/chefSectionTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Chef Info:"
+                android:textColor="#050303"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/chefNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:hint="Chef Name"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Chef Name:"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/chefRatingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:hint="Chef Rating"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Chef Rating:"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/chefDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:hint="Chef Description"
+                android:inputType="textPersonName"
+                android:minWidth="200dp"
+                android:minHeight="30dp"
+                android:text="Chef Description:"
+                android:textSize="22sp" />
+
         </LinearLayout>
         >
     </ScrollView>

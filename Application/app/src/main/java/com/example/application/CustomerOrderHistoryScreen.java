@@ -33,6 +33,7 @@ public class CustomerOrderHistoryScreen extends MainActivity {
     }
 
     public void displayOrders(List<customerOrder> orders, LayoutInflater inflater, LinearLayout layout, Context context) {
+        layout.removeAllViews();
         for (customerOrder order : orders) {
             String mealName = order.getMealName();
             String quantity = order.getQuantity();
@@ -48,11 +49,11 @@ public class CustomerOrderHistoryScreen extends MainActivity {
             TextView hasComplaintStatus = orderTemplate.findViewById(R.id.complaintStatus);
             TextView statusOfPending = orderTemplate.findViewById(R.id.pendingStatus);
 
-            mealOrdered.setText(mealName);
-            quantityStatus.setText(quantity);
-            hasRatedStatus.setText(hasRated);
-            hasComplaintStatus.setText(hasComplaint);
-            statusOfPending.setText(pending);
+            mealOrdered.setText("Name: " + mealName);
+            quantityStatus.setText("Quantity: " + quantity);
+            hasRatedStatus.setText("Has Rated: " + hasRated);
+            hasComplaintStatus.setText("Has Complained: " + hasComplaint);
+            statusOfPending.setText("Status: " + pending);
 
             if (pending.equalsIgnoreCase("accepted")) {
                 orderTemplate.setClickable(true);

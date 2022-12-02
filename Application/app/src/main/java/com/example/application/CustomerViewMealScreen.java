@@ -46,6 +46,10 @@ public class CustomerViewMealScreen extends MainActivity {
         TextView mealPriceTextView = findViewById(R.id.mealPriceTextView);
         TextView mealDescriptionTextView = findViewById(R.id.mealDescriptionTextView);
 
+        TextView chefNameTextView = findViewById(R.id.chefNameTextView);
+        TextView chefRatingTextView = findViewById(R.id.chefRatingTextView);
+        TextView chefDescriptionTextView = findViewById(R.id.chefDescriptionTextView);
+
         LinearLayout mealIngredientsLinearLayout = findViewById(R.id.mealIngredientsLinearLayout);
         LinearLayout mealAllergensLinearLayout = findViewById(R.id.mealAllergensLinearLayout);
 
@@ -61,6 +65,8 @@ public class CustomerViewMealScreen extends MainActivity {
 
         addIngredientAllergenToLinearLayout(meal, inflater, mealIngredientsLinearLayout, "Ingredient");
         addIngredientAllergenToLinearLayout(meal, inflater, mealAllergensLinearLayout, "Allergen");
+
+        databaseServices.getChefInfoForSelectedMeal(meal.getCook(), chefNameTextView, chefRatingTextView, chefDescriptionTextView);
 
 
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
@@ -114,5 +120,12 @@ public class CustomerViewMealScreen extends MainActivity {
         ingredientOrAllergenRemoveIcon.setVisibility(View.INVISIBLE);
         mealIngredientsOrAllergensLinearLayout.addView(ingredientAllergenTemplate);
 
+    }
+
+    public void displayChefInfoForSelectedMeal(TextView chefNameTextView, TextView chefRatingTextView,
+                                               TextView chefDescriptionTextView, String chefName, String chefRating, String chefDescription){
+        chefNameTextView.setText("Chef Name: " + chefName);
+        chefRatingTextView.setText("Chef Rating: " + chefRating + "/5");
+        chefDescriptionTextView.setText("Chef Description: " + chefDescription);
     }
 }

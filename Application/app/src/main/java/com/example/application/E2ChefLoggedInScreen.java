@@ -56,7 +56,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         goToAcceptedOrdersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToAcceptedOrderScreen = new Intent(getApplicationContext(), AcceptedChefOrders.class);
+                Intent goToAcceptedOrderScreen = new Intent(getApplicationContext(), ChefViewAcceptedOrdersScreen.class);
                 startActivity(goToAcceptedOrderScreen);
             }
         });
@@ -64,7 +64,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         goToOrdersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToOrdersScreen = new Intent(getApplicationContext(), ChefViewOrderScreen.class);
+                Intent goToOrdersScreen = new Intent(getApplicationContext(), ChefViewOrdersScreen.class);
                 goToOrdersScreen.putExtra("Email",email);
                 startActivity(goToOrdersScreen);
             }
@@ -73,7 +73,7 @@ public class E2ChefLoggedInScreen extends MainActivity {
         goToProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToChefProfileScreen = new Intent(E2ChefLoggedInScreen.this, ChefProfile.class);
+                Intent goToChefProfileScreen = new Intent(E2ChefLoggedInScreen.this, ChefProfileScreen.class);
                 startActivity(goToChefProfileScreen);
             }
         });

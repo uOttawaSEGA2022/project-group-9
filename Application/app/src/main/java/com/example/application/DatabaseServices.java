@@ -3,8 +3,6 @@ package com.example.application;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Semaphore;
 import java.util.UUID;
 
 
@@ -544,7 +540,8 @@ public class DatabaseServices extends MainActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot chefInDatabase: dataSnapshot.getChildren()){
                     DataSnapshot chefMeals = chefInDatabase.child("meals");
-                    if (chefMeals != null){
+                    String suspendedStatus = String.valueOf(chefInDatabase.child("isSuspended").getValue());
+                    if (chefMeals != null && suspendedStatus.equals("false")){
                         String mealCook = (String) chefInDatabase.getKey();
                         for (DataSnapshot currentChefMeal: chefMeals.getChildren()){
                             String mealName = (String) currentChefMeal.child("name").getValue();
@@ -584,8 +581,6 @@ public class DatabaseServices extends MainActivity {
                                 mealInfo.put("allergens", allergensHashMap);
                                 mealInfo.put("isOffered", mealIsOffered);
                                 mealInfo.put("cook", mealCook);
-
-                                Log.d("HelloThereBro", mealInfo.toString());
 
                                 Meal currentMeal = new Meal(mealInfo, mealID);
 
@@ -672,27 +667,44 @@ public class DatabaseServices extends MainActivity {
 
         List<customerOrder> allOrders = new ArrayList<>();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot orderInDatabase : dataSnapshot.getChildren()) {
                     HashMap<String, Object> orderInfo = new HashMap<>();
 
-                    orderInfo.put("chefID", orderInDatabase.child("chefID").getValue());
-                    orderInfo.put("mealName",  orderInDatabase.child("mealName").getValue());
-                    orderInfo.put("quantity", orderInDatabase.child("quantity").getValue());
-                    orderInfo.put("hasRated",  orderInDatabase.child("hasRated").getValue());
-                    orderInfo.put("hasComplaint", orderInDatabase.child("hasComplaint").getValue());
-                    orderInfo.put("status", orderInDatabase.child("status").getValue());
+                    String mealID = (String) orderInDatabase.child("mealID").getValue();
+                    String chefID = (String) orderInDatabase.child("chefID").getValue();
 
-                    customerOrder orders = new customerOrder(orderInfo, orderInDatabase.getKey());
+                    if (mealID != null && chefID != null){
+                        database.getReference().child("Chef").child(chefID).child("meals").child(mealID).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String mealName = (String) dataSnapshot.getValue();
 
-                    allOrders.add(orders);
+                                orderInfo.put("chefID", orderInDatabase.child("chefID").getValue());
+                                orderInfo.put("mealName",  mealName);
+                                orderInfo.put("quantity", orderInDatabase.child("quantity").getValue());
+                                orderInfo.put("hasRated",  orderInDatabase.child("hasRated").getValue());
+                                orderInfo.put("hasComplaint", orderInDatabase.child("hasComplaint").getValue());
+                                orderInfo.put("status", orderInDatabase.child("status").getValue());
+
+                                customerOrder orders = new customerOrder(orderInfo, orderInDatabase.getKey());
+
+                                allOrders.add(orders);
+
+                                CustomerOrderHistoryScreen customerOrderHistoryScreen = new CustomerOrderHistoryScreen();
+                                customerOrderHistoryScreen.displayOrders(allOrders, inflater, mealSearchResultsLinearLayout, context);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                 }
-
-                CustomerOrderHistoryScreen customerOrderHistoryScreen = new CustomerOrderHistoryScreen();
-                customerOrderHistoryScreen.displayOrders(allOrders, inflater, mealSearchResultsLinearLayout, context);
             }
 
             @Override
@@ -712,7 +724,7 @@ public class DatabaseServices extends MainActivity {
     public void placeOrder(Meal meal, int quantity) {
         //untested code
         String chefId;
-        Double price;
+        double price;
         chefId=meal.getCook();
         price=Double.parseDouble(meal.getPrice());
         String orderId;
@@ -724,12 +736,12 @@ public class DatabaseServices extends MainActivity {
         // Check the meal object to know how to generate the orderID
         DatabaseReference customerReference = database.getReference().child("Customer").child(fAuth.getCurrentUser().getUid());
         chefReference.child("orders").child(orderId).child("customerID").setValue(customerReference.getKey());
-        chefReference.child("orders").child(orderId).child("priceOfOrder").setValue(Double.toString(price));
-        chefReference.child("orders").child(orderId).child("mealID").setValue(meal);
+        chefReference.child("orders").child(orderId).child("priceOfOrder").setValue(Double.toString(price * quantity));
+        chefReference.child("orders").child(orderId).child("mealID").setValue(meal.getID());
         chefReference.child("orders").child(orderId).child("quantity").setValue(Integer.toString(quantity));
         chefReference.child("orders").child(orderId).child("status").setValue("pending");
         customerReference.child("orderHistory").child(orderId).child("chefID").setValue(chefId);
-        customerReference.child("orderHistory").child(orderId).child("mealName").setValue(meal.getName());
+        customerReference.child("orderHistory").child(orderId).child("mealID").setValue(meal.getID());
         customerReference.child("orderHistory").child(orderId).child("quantity").setValue(Integer.toString(quantity));
         customerReference.child("orderHistory").child(orderId).child("status").setValue("pending");
         customerReference.child("orderHistory").child(orderId).child("hasRated").setValue("false");
@@ -852,7 +864,7 @@ public class DatabaseServices extends MainActivity {
 
                 String chefRating = String.valueOf(doubleChefRating);
 
-                ChefProfile chefProfile = new ChefProfile();
+                ChefProfileScreen chefProfile = new ChefProfileScreen();
                 chefProfile.displayChefInfo(chefNameTextView, chefEmailTextView,
                         chefRatingTextView, chefDescriptionTextView,
                         chefName, chefEmail, chefRating, chefDescription);
@@ -866,70 +878,124 @@ public class DatabaseServices extends MainActivity {
     }
 
 
+    public void getChefInfoForSelectedMeal(String chefID, TextView chefNameTextView, TextView chefRatingTextView,
+                                           TextView chefDescriptionTextView){
 
-    public void getAcceptedChefOrders(LayoutInflater inflater, LinearLayout acceptedChefOrdersLinearLayout){
+        DatabaseReference databaseReference = database.getReference().child("Chef").child(chefID);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot chefInfo) {
+                String chefFirstName = (String) chefInfo.child("firstname").getValue();
+                String chefLastName = (String) chefInfo.child("lastname").getValue();
+                String chefName = chefFirstName + " " + chefLastName;
+
+
+                String chefDescription = (String) chefInfo.child("shortdesc").getValue();
+
+                double chefNumberOfRatings = Double.parseDouble(String.valueOf(chefInfo.child("ratings").child("numOfRatings").getValue()));
+                double chefTotalNumberOfStars = Double.parseDouble(String.valueOf(chefInfo.child("ratings").child("totalNumOfStars").getValue()));
+
+                double doubleChefRating = (double) chefTotalNumberOfStars / chefNumberOfRatings;
+
+                String chefRating = String.valueOf(doubleChefRating);
+
+                CustomerViewMealScreen customerViewMealScreen = new CustomerViewMealScreen();
+                customerViewMealScreen.displayChefInfoForSelectedMeal(chefNameTextView,
+                        chefRatingTextView, chefDescriptionTextView,
+                        chefName, chefRating, chefDescription);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
+    public void getChefOrders(LayoutInflater inflater, LinearLayout ordersLinearLayout, String acceptedOrAllIndicator){
         DatabaseReference chefDatabaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders");
         List<ChefOrder> orderList = new ArrayList<>();
         chefDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot orderIDInDatabase: dataSnapshot.getChildren()){
-                    if (orderIDInDatabase.child("status").getValue().equals("accepted")){
-                        HashMap<String, Object> orderInfo = new HashMap<>();
-                        orderInfo.put("orderID", orderIDInDatabase.getKey());
-                        orderInfo.put("priceOfOrder", orderIDInDatabase.child("priceOfOrder").getValue());
-                        orderInfo.put("status", orderIDInDatabase.child("status").getValue());
-                        orderInfo.put("customerID", orderIDInDatabase.child("customerID").getValue());
-                        orderInfo.put("quantity", orderIDInDatabase.child("quantity").getValue());
+                    HashMap<String, Object> orderInfo = new HashMap<>();
+                    orderInfo.put("orderID", orderIDInDatabase.getKey());
+                    orderInfo.put("priceOfOrder", orderIDInDatabase.child("priceOfOrder").getValue());
+                    orderInfo.put("status", orderIDInDatabase.child("status").getValue());
+                    orderInfo.put("customerID", orderIDInDatabase.child("customerID").getValue());
+                    orderInfo.put("quantity", orderIDInDatabase.child("quantity").getValue());
 
-                        DataSnapshot mealInDatabase = orderIDInDatabase.child("mealID");
+                    String mealID = (String) orderIDInDatabase.child("mealID").getValue();
 
-                        HashMap<String, Object> mealInfo = new HashMap<>();
-                        mealInfo.put("name", mealInDatabase.child("name").getValue());
-                        mealInfo.put("type", mealInDatabase.child("type").getValue());
-                        mealInfo.put("cuisine", mealInDatabase.child("cuisine").getValue());
-                        mealInfo.put("price", mealInDatabase.child("price").getValue());
-                        mealInfo.put("description", mealInDatabase.child("description").getValue());
+                    DatabaseReference mealReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("meals").child(mealID);
+                    mealReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot mealInDatabase) {
+                            HashMap<String, Object> mealInfo = new HashMap<>();
+                            mealInfo.put("name", mealInDatabase.child("name").getValue());
+                            mealInfo.put("type", mealInDatabase.child("type").getValue());
+                            mealInfo.put("cuisine", mealInDatabase.child("cuisine").getValue());
+                            mealInfo.put("price", mealInDatabase.child("price").getValue());
+                            mealInfo.put("description", mealInDatabase.child("description").getValue());
 
-                        HashMap<String, String> ingredientsHashMap= new HashMap<>();
+                            HashMap<String, String> ingredientsHashMap= new HashMap<>();
 
-                        for (DataSnapshot ingredientsDataSnapshot : mealInDatabase.child("ingredients").getChildren()){
-                            ingredientsHashMap.put(String.valueOf(ingredientsHashMap.size()), (String) ingredientsDataSnapshot.getValue());
-                        }
+                            for (DataSnapshot ingredientsDataSnapshot : mealInDatabase.child("ingredients").getChildren()){
+                                ingredientsHashMap.put(String.valueOf(ingredientsHashMap.size()), (String) ingredientsDataSnapshot.getValue());
+                            }
 
-                        mealInfo.put("ingredients", ingredientsHashMap);
+                            mealInfo.put("ingredients", ingredientsHashMap);
 
-                        Map<String, String> allergensHashMap = new HashMap<>();
+                            Map<String, String> allergensHashMap = new HashMap<>();
 
-                        for (DataSnapshot allergenDataSnapshot : mealInDatabase.child("allergens").getChildren()){
-                            allergensHashMap.put(String.valueOf(allergensHashMap.size()), (String) allergenDataSnapshot.getValue());
-                        }
+                            for (DataSnapshot allergenDataSnapshot : mealInDatabase.child("allergens").getChildren()){
+                                allergensHashMap.put(String.valueOf(allergensHashMap.size()), (String) allergenDataSnapshot.getValue());
+                            }
 
-                        mealInfo.put("allergens", allergensHashMap);
+                            mealInfo.put("allergens", allergensHashMap);
 
-                        ChefOrder chefOrder = new ChefOrder(orderInfo, new Meal(mealInfo));
+                            Log.d("HelloThereBro", orderInfo.toString());
+                            Log.d("HelloThereBro", mealInfo.toString());
 
-                        DatabaseReference customerDatabaseReference = database.getReference().child("Customer").child(chefOrder.getCustomerID());
+                            ChefOrder chefOrder = new ChefOrder(orderInfo, new Meal(mealInfo));
 
-                        customerDatabaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                String fullName = "";
-                                if (dataSnapshot.getKey().equals("first_name") || dataSnapshot.getKey().equals("last_name")){
-                                    fullName += dataSnapshot.getValue();
+                            DatabaseReference customerDatabaseReference = database.getReference().child("Customer").child(chefOrder.getCustomerID());
+
+                            customerDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    String firstName = (String) dataSnapshot.child("first_name").getValue();
+                                    String lastName = (String) dataSnapshot.child("last_name").getValue();
+                                    String fullName = firstName + " " + lastName;
+                                    orderList.add(chefOrder);
+
+                                    if (acceptedOrAllIndicator.equals("accepted")){
+                                        ChefViewAcceptedOrdersScreen acceptedChefOrders = new ChefViewAcceptedOrdersScreen();
+                                        acceptedChefOrders.displayAcceptedOrders(orderList, inflater, ordersLinearLayout, fullName);
+                                    }
+                                    else{
+                                        ChefViewOrdersScreen chefViewOrderScreen = new ChefViewOrdersScreen();
+                                        chefViewOrderScreen.displayChefOrders(orderList, inflater, ordersLinearLayout, fullName);
+                                    }
                                 }
-                                orderList.add(chefOrder);
 
-                                AcceptedChefOrders acceptedChefOrders = new AcceptedChefOrders();
-                                acceptedChefOrders.displayAcceptedMeals(orderList, inflater, acceptedChefOrdersLinearLayout, fullName);
-                            }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+                        }
 
-                            }
-                        });
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
                 }
             }
 

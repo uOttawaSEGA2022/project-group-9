@@ -3,11 +3,18 @@ package com.example.application;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class ChefProfile extends MainActivity {
+import androidx.appcompat.app.ActionBar;
+
+public class ChefProfileScreen extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chef_profile);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         TextView chefNameTextView = findViewById(R.id.chefName);
         TextView chefEmailTextView = findViewById(R.id.chefEmail);

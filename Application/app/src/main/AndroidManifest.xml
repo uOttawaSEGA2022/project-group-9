@@ -34,7 +34,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ChefViewOrderScreen"
+            android:name=".ChefViewOrdersScreen"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -162,8 +162,8 @@
         <activity android:name=".B2D2SignUpAddress" />
         <activity android:name=".AllChefMeals" />
         <activity android:name=".ModifyOfferedMeals" />
-        <activity android:name=".AcceptedChefOrders"/>
-        <activity android:name=".ChefProfile"/>
+        <activity android:name=".ChefViewAcceptedOrdersScreen"/>
+        <activity android:name=".ChefProfileScreen"/>
 
         <activity android:name=".CustomerCanComplainScreen" />
         <activity android:name=".CustomerCanRateScreen" />
