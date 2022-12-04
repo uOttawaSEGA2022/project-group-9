@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class E2ChefLoggedInScreen extends MainActivity {
-    boolean isLoggedInChefSuspensed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,24 +17,13 @@ public class E2ChefLoggedInScreen extends MainActivity {
         Button goToOrdersButton =(Button) findViewById(R.id.goToOrdersButtonID);
         TextView chefIsSuspendedTextView = findViewById(R.id.chefIsSuspendedTextViewID);
 
+        chefIsSuspendedTextView.setVisibility(View.INVISIBLE);
+
         Button goToAcceptedOrdersButton = findViewById(R.id.goToAcceptedOrdersButton);
         Button goToProfileButton = findViewById(R.id.viewProfileButton);
 
-        Intent intent=getIntent();
-        String email=intent.getStringExtra("Email");
-
         DatabaseServices databaseServicesObject = new DatabaseServices();
-        isLoggedInChefSuspensed = databaseServicesObject.isSuspendedChef(email);
-
-        if (isLoggedInChefSuspensed) {
-            goToMealsButton.setVisibility(View.INVISIBLE);
-            goToOrdersButton.setVisibility(View.INVISIBLE);
-
-        }
-
-        else {
-            chefIsSuspendedTextView.setVisibility(View.INVISIBLE);
-        }
+        databaseServicesObject.isSuspendedChef(goToMealsButton, goToOrdersButton, goToAcceptedOrdersButton, goToProfileButton, chefIsSuspendedTextView);
 
 
         logOffButton.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +36,6 @@ public class E2ChefLoggedInScreen extends MainActivity {
            @Override
            public void onClick(View view) {
                Intent add = new Intent(getApplicationContext(), AllChefMeals.class);
-               add.putExtra("Email",email);
                startActivity(add);
            }
        });
@@ -65,7 +52,6 @@ public class E2ChefLoggedInScreen extends MainActivity {
             @Override
             public void onClick(View view) {
                 Intent goToOrdersScreen = new Intent(getApplicationContext(), ChefViewOrdersScreen.class);
-                goToOrdersScreen.putExtra("Email",email);
                 startActivity(goToOrdersScreen);
             }
         });
@@ -77,7 +63,17 @@ public class E2ChefLoggedInScreen extends MainActivity {
                 startActivity(goToChefProfileScreen);
             }
         });
+    }
 
+    public void checkIfSuspended(boolean isLoggedInChefSuspended, Button goToMealsButton, Button goToOrdersButton, Button goToAcceptedOrdersButton, Button goToProfileButton,  TextView chefIsSuspendedTextView){
+        if (isLoggedInChefSuspended) {
+            goToMealsButton.setVisibility(View.INVISIBLE);
+            goToOrdersButton.setVisibility(View.INVISIBLE);
+            goToAcceptedOrdersButton.setVisibility(View.INVISIBLE);
+            goToProfileButton.setVisibility(View.INVISIBLE);
+            chefIsSuspendedTextView.setVisibility(View.VISIBLE);
+
+        }
 
     }
 }

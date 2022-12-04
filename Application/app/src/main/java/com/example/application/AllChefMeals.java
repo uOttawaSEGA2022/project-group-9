@@ -17,8 +17,6 @@ public class AllChefMeals extends MainActivity{
 
         DatabaseServices databaseServices = new DatabaseServices();
 
-        Intent intent = getIntent();
-
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);

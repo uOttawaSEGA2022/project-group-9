@@ -63,6 +63,8 @@ public class CustomerOrderHistoryScreen extends MainActivity {
                         Intent intent = new Intent(context, CustomerOrderInfoScreen.class);
                         intent.putExtra("chefID", order.getChefID());
                         intent.putExtra("orderID", order.getOrderID());
+                        intent.putExtra("hasRated", order.getHasRated());
+                        intent.putExtra("hasComplaint", order.getHasComplaint());
                         context.startActivity(intent);
                     }
                 });

@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+
 public class CustomerCanRateScreen extends MainActivity {
 
     public String chefID = "";
@@ -16,6 +18,11 @@ public class CustomerCanRateScreen extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_set_rating);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         DatabaseServices databaseServices = new DatabaseServices();
 

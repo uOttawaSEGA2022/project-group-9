@@ -56,9 +56,9 @@ public class CustomerSearchForMealsScreen extends MainActivity {
                     mealSearchResultsLinearLayout.removeAllViews();
                     String searchQuery = String.valueOf(searchBarEditText.getText());
                     databaseServices.viewSpecifiedMeals(searchQuery, searchResultsTextView, inflater, mealSearchResultsLinearLayout, CustomerSearchForMealsScreen.this);
+                    return true;
                 }
-
-                return true;
+                return false;
             }
         });
     }

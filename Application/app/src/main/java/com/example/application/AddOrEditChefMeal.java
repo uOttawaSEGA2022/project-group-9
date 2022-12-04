@@ -2,6 +2,7 @@ package com.example.application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,13 +78,15 @@ public class AddOrEditChefMeal extends MainActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    Log.d("HelloThereBro", "onKey: ");
                     String ingredientName = String.valueOf(mealIngredientsEditText.getText());
                     if (!ingredientName.strip().equals("")){
                         addSingleIngredientOrAllergenToLinearLayout(ingredientName, inflater, mealIngredientsList);
                     }
                     mealIngredientsEditText.setText("");
+                    return true;
                 }
-                return true;
+                return false;
             }
         });
 
@@ -95,9 +98,10 @@ public class AddOrEditChefMeal extends MainActivity {
                     if (!allergenName.strip().equals("")){
                         addSingleIngredientOrAllergenToLinearLayout(allergenName, inflater, mealAllergensList);
                     }
-                    mealIngredientsEditText.setText("");
+                    mealAllergensEditText.setText("");
+                    return true;
                 }
-                return true;
+                return false;
             }
         });
 

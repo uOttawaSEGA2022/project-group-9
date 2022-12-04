@@ -132,6 +132,10 @@ public class DatabaseServices extends MainActivity {
                     for (int i=0; i<userInfo.length; i++) {
                         dataRef.child(registerInfo[i]).setValue(userInfo[i]);
                     }
+                    if (ROLE.equals("Chef")){
+                        dataRef.child("ratings").child("numOfRatings").setValue("0");
+                        dataRef.child("ratings").child("totalNumOfStars").setValue("0");
+                    }
 
                     Toast.makeText(activity, "sign up successfull!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -205,10 +209,6 @@ public class DatabaseServices extends MainActivity {
                     tempListOfChefIDs[numOfComplaints] = (String) postSnapshot.child("chefID").getValue();
                     tempListOfReasons[numOfComplaints] =(String) postSnapshot.child("reason").getValue();
                     numOfComplaints++;
-
-                    Log.i("MSG", (String) postSnapshot.child("chefID").getValue());
-
-                    Log.i("MSG", (String) postSnapshot.child("reason").getValue());
                 }
 
 
@@ -233,7 +233,7 @@ public class DatabaseServices extends MainActivity {
     }
 
 
-    public boolean isSuspendedChef(String email)
+    public void isSuspendedChef(Button goToMealsButton, Button goToOrdersButton, Button goToAcceptedOrdersButton, Button goToProfileButton,  TextView chefIsSuspendedTextView)
     {
         // Implement this method which gets called whenever the chef signs in successfully
         // The method needs to check if the chef is suspended
@@ -242,22 +242,21 @@ public class DatabaseServices extends MainActivity {
 
         boolean[] returnValue = new boolean[1];
 
-        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference().child("Chef");
+        DatabaseReference dataRef = FirebaseDatabase.getInstance().getReference().child("Chef").child(fAuth.getCurrentUser().getUid());
 
-        dataRef.addValueEventListener(new ValueEventListener() {
+        dataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot chefID : dataSnapshot.getChildren()) {
-
-                    if (chefID.child("email").getValue().toString().equals(email)) {
-                        if (chefID.child("isSuspended").getValue().toString().equals("false")) {
-                            returnValue[0] = false;
-                        } else {
-                            returnValue[0] = true;
-                        }
-
+                if (dataSnapshot.child("isSuspended").getValue() != null){
+                    if (dataSnapshot.child("isSuspended").getValue().toString().equals("false")) {
+                        returnValue[0] = false;
+                    } else {
+                        returnValue[0] = true;
                     }
+
+                    E2ChefLoggedInScreen e2ChefLoggedInScreen = new E2ChefLoggedInScreen();
+                    e2ChefLoggedInScreen.checkIfSuspended(returnValue[0], goToMealsButton, goToOrdersButton, goToAcceptedOrdersButton, goToProfileButton, chefIsSuspendedTextView);
                 }
             }
 
@@ -268,12 +267,6 @@ public class DatabaseServices extends MainActivity {
             }
 
         });
-        Log.i("ErrorTesting", String.valueOf(returnValue[0]));
-
-
-
-        return returnValue[0];
-
     }
 
     public void displayChefMeals(LinearLayout allChefMeals, Context context, String allChefMealsOrModifying){
@@ -862,7 +855,11 @@ public class DatabaseServices extends MainActivity {
                 double chefNumberOfRatings = Double.parseDouble(String.valueOf(chefInfo.child("ratings").child("numOfRatings").getValue()));
                 double chefTotalNumberOfStars = Double.parseDouble(String.valueOf(chefInfo.child("ratings").child("totalNumOfStars").getValue()));
 
-                double doubleChefRating = (double) chefTotalNumberOfStars / chefNumberOfRatings;
+                double doubleChefRating = 0;
+                if (chefNumberOfRatings != 0){
+                    doubleChefRating = (double) chefTotalNumberOfStars / chefNumberOfRatings;
+                }
+
 
                 String chefRating = String.valueOf(doubleChefRating);
 
@@ -897,7 +894,11 @@ public class DatabaseServices extends MainActivity {
                 double chefNumberOfRatings = Double.parseDouble(String.valueOf(chefInfo.child("ratings").child("numOfRatings").getValue()));
                 double chefTotalNumberOfStars = Double.parseDouble(String.valueOf(chefInfo.child("ratings").child("totalNumOfStars").getValue()));
 
-                double doubleChefRating = (double) chefTotalNumberOfStars / chefNumberOfRatings;
+                double doubleChefRating = 0;
+                if (chefNumberOfRatings != 0){
+                    doubleChefRating = (double) chefTotalNumberOfStars / chefNumberOfRatings;
+
+                }
 
                 String chefRating = String.valueOf(doubleChefRating);
 
@@ -919,7 +920,7 @@ public class DatabaseServices extends MainActivity {
     public void getChefOrders(LayoutInflater inflater, LinearLayout ordersLinearLayout, String acceptedOrAllIndicator, Context context){
         DatabaseReference chefDatabaseReference = database.getReference().child("Chef").child(fAuth.getCurrentUser().getUid()).child("orders");
 
-        chefDatabaseReference.addValueEventListener(new ValueEventListener() {
+        chefDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<ChefOrder> orderList = new ArrayList<>();
